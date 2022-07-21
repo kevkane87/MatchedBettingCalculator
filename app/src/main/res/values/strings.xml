@@ -82,8 +82,9 @@
 
 
     <string name="test">Normal Matched Bet\nStake = £35.33, Back Odds = 5, Back Commission = 5%\nLay Odds = 5.5, Lay Commission = 5%\nLay Stake = £30, Lay Liability = £4000\nUnderlay: Profit = £400 (back wins) £0 (Lay Wins),</string>
-
-
+    <string name="add_second_part_lay">Add Second Part Lay +</string>
+    <string name="part_lay_1">Part Lay 1</string>
+    <string name="part_lay_2">Part Lay 2</string>
 
 
 </resources>

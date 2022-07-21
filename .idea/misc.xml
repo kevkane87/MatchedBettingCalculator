@@ -6,6 +6,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.111" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable-v24/icon_heading.xml" value="0.111" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable/button_background.xml" value="0.111" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable/edit_text_border.xml" value="0.111" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable/heading.xml" value="0.111" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.111" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable/ic_baseline_content_copy_24.xml" value="0.111" />
@@ -17,8 +18,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/drawable/icon.xml" value="0.12" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/activity_main.xml" value="0.359375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/content_main.xml" value="0.359375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/fragment_each_way_calculator.xml" value="0.359375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/fragment_first.xml" value="0.33" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/fragment_normal_calculator.xml" value="0.536547433903577" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/fragment_normal_calculator.xml" value="0.5215419501133787" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/fragment_saved_bets.xml" value="0.359375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/fragment_second.xml" value="0.359375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/MatchedBettingCalculator/app/src/main/res/layout/item_saved_bet.xml" value="0.5" />
