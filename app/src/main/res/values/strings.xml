@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name">Matched Betting Calculator</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="back_bet_stake">Back Bet Stake</string>
+    <string name="back_bet_odds">Back Bet Odds</string>
+    <string name="exchange_lay_odds">Lay Odds</string>
+    <string name="exchange_commission">Lay Commission</string>
+    <string name="lay_stake">Lay Stake</string>
+    <string name="copy_clipboard">Copy</string>
+    <string name="bet_info">Bet Info</string>
+    <string name="calculate">Calculate</string>
+
+    <string name="profit_back_wins">If Back Bet Wins</string>
+    <string name="profit_lay_wins">If Lay Bet Wins</string>
+
+    <string name="event">Event</string>
+    <string name="matched_bet_input_details">Matched Bet Input Details</string>
+    <string name="exchange">Exchange</string>
+    <string name="date_time">Date/Time</string>
+    <string name="bet_outcome">Bet Outcome</string>
+    <string name="bookmaker">Bookmaker</string>
+    <string name="results">Results</string>
+    <string name="lay_liability">Lay Liability</string>
+
+    <string name="qualifier">Qualifier</string>
+    <string name="snr">SNR (Free Bet)</string>
+    <string name="sr">SR (Free Bet)</string>
+
+    <string name="normal">Normal</string>
+    <string name="underlay">Underlay</string>
+    <string name="overlay">Overlay</string>
+
+
+    <string name="please_enter_bet_input_details">Please enter bet input details</string>
+    <string name="bet_deleted_from_database">Bet deleted from database</string>
+    <string name="lay_stake_copied_to_clipboard">Lay stake copied to clipboard</string>
+    <string name="calculator">Calculator</string>
+    <string name="saved_bets">Saved Bets</string>
+    <string name="find_bets">Find Bets</string>
+    <string name="bet_type">Bet Type:</string>
+    <string name="bet_stake">Bet Stake:</string>
+    <string name="outcome">Outcome:</string>
+    <string name="event_">Event:</string>
+
+    <string name="set_reminder_for_bet">Set reminder for bet?</string>
+    <string name="set_reminder">Set reminder</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="percent"> %</string>
+    <string name="pounds">£</string>
+
+
+    <string name="bet_reminder_channel_id" translatable="false">bet_reminder_channel</string>
+    <string name="bet_reminder_channel_name" translatable="true">Bet Reminders</string>
+    <string name="help">Help</string>
+
+    <string name="about_heading">About</string>
+
+    <string name="about_description">Matched Bet App is a tool designed to assist with matched betting on mobile devices. The application includes a calculator for matched bet calculations and a bet finding tool to quickly find real-time matched bets for UK bookmakers.</string>
+
+    <string name="calculator_description">Select the type of bet to calculate: \n\u25CF Qualifier\n\u25CF Stake Not Returned (SNR) \n\u25CF Stake Returned (SR) \n\nEnter bookmaker stake, bookmaker odds, exchange lay odds and exchange commission (if applicable). Press the calculate button to calculate the lay stake for placing the lay bet on the exchange. Bet details can be entered for saving bet.\nBet reminder notifications can be set by pressing the reminder button and selecting date and time for reminder.\nSaved bets can be deleted using the delete button, which is visible only when showing a saved bet.
+</string>
+
+    <string name="find_bets_description">Searches real time odds for various UK bookmakers for upcoming English Premier League football games. The bets are shown based on the best rating for matched bet (100% rating = 100% of bookmaker stake retained after playing qualifying matched bet). Click on the bet to open in calculator.</string>
+
+    <string name="save_bets_description">Shows a list of the saved bets on the device. Click on the bet to open in calculator.</string>
+    <string name="bet_reminder">Bet Reminder</string>
+    <string name="rating">Rating:</string>
+    <string name="back_bet_commission">Back Bet Commission</string>
+    <string name="percent2">%</string>
+    <string name="partial_lay">Partial lay</string>
+    <string name="profit">Profit</string>
+
+
+    <string name="test">Normal Matched Bet\nStake = £35.33, Back Odds = 5, Back Commission = 5%\nLay Odds = 5.5, Lay Commission = 5%\nLay Stake = £30, Lay Liability = £4000\nUnderlay: Profit = £400 (back wins) £0 (Lay Wins),</string>
+
+
+
+
+</resources>

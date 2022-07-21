@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="bet"
+            type="com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/reminderCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:layout_margin="@dimen/padding_medium">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/back_tint">
+
+            <TextView
+                android:id="@+id/bet_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/heading"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="0dp"
+                android:text="@{bet.betName}"
+                android:textAppearance="@style/text_heading"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/bet_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bet_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/heading"
+                android:paddingStart="0dp"
+                android:paddingEnd="@dimen/padding_medium"
+                android:text="@{bet.betDate}"
+                android:textAppearance="@style/text_heading"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/bet_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:lineSpacingExtra="4sp"
+                android:singleLine="false"
+                android:text="@{bet.betDetails}"
+                android:textAppearance="@style/text_normal"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bet_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

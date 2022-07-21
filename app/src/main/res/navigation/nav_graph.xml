@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/normalCalculatorFragment">
+
+    <fragment
+        android:id="@+id/normalCalculatorFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculator"
+        tools:layout="@layout/fragment_normal_calculator" >
+        <action
+            android:id="@+id/action_normalCalculatorFragment_to_savedBetsFragment"
+            app:destination="@id/savedBetsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedBetsFragment"
+        android:name="com.example.android.kevkane87.matchedbetapp.savedbets.SavedBetsFragment"
+        android:label="SavedBetsFragment" >
+        <action
+            android:id="@+id/action_savedBetsFragment_to_normalCalculatorFragment"
+            app:destination="@id/normalCalculatorFragment" />
+    </fragment>
+</navigation>
