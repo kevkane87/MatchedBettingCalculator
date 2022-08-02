@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" />
 
         <!-- The main content view where fragments are loaded -->
-        <androidx.fragment.app.FragmentContainerView
+        <fragment
             android:id="@+id/myNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
@@ -30,14 +30,13 @@
 
     </LinearLayout>
 
-
-    <!-- The navigation drawer that comes from the left -->
-    <!-- Note that `android:layout_gravity` needs to be set to 'start' -->
-   <!-- <com.google.android.material.navigation.NavigationView
+    <com.google.android.material.navigation.NavigationView
         android:id="@+id/nvView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@android:color/white"
-        app:menu="@menu/drawer_view" />-->
+        android:theme="@style/NavTheme"
+        app:headerLayout="@layout/nav_header"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/drawer_view" />
 </androidx.drawerlayout.widget.DrawerLayout>

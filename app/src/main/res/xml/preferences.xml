@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:theme="@style/PrefsTheme">
+
+    <ListPreference
+        app:key="key_default_lay_commission"
+        app:summary="%s"
+        app:defaultValue="0"
+        app:entries="@array/pref_lay_commission_labels"
+        app:entryValues="@array/pref_lay_commission_values"
+        app:iconSpaceReserved="false"
+        app:title="Default Lay Commission" />
+
+    <ListPreference
+        app:key="key_currency"
+        app:summary="%s"
+        app:defaultValue="0"
+        app:entries="@array/pref_currency"
+        app:entryValues="@array/pref_currency"
+        app:iconSpaceReserved="false"
+        app:title="Currency" />
+
+</PreferenceScreen>

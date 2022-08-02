@@ -85,6 +85,47 @@
     <string name="add_second_part_lay">Add Second Part Lay +</string>
     <string name="part_lay_1">Part Lay 1</string>
     <string name="part_lay_2">Part Lay 2</string>
+    <string name="place_market">Place Market</string>
+    <string name="win_market">Win Market</string>
+    <string name="if_extra_place">If Extra Place</string>
+    <string name="extra_place_offer">Extra Place Offer</string>
+    <string name="back_e_w_place_odds">Back E/W Place Odds</string>
+    <string name="_1">1 /</string>
+    <string name="total_back_stake">Total Back Stake</string>
+    <string name="place_payout">Place Payout</string>
+    <string name="place_lay_commission">Place Lay Commission</string>
+    <string name="place_lay_odds">Place Lay Odds</string>
+    <string name="back_e_w_stake">Back E/W Stake</string>
+    <string name="win_lay_commission">Win Lay Commission</string>
+    <string name="win_lay_odds">Win Lay Odds</string>
+    <string name="each_way_calculator">Each Way Calculator</string>
 
+    <string name="key_default_lay_commission">key_default_lay_commission</string>
+    <string name="key_currency">key_currency"</string>
+
+
+    <string-array name="pref_lay_commission_labels">
+        <item>0%</item>
+        <item>1%</item>
+        <item>2%</item>
+        <item>3%</item>
+        <item>4%</item>
+        <item>5%</item>
+    </string-array>
+
+    <string-array name="pref_lay_commission_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="pref_currency">
+        <item>£</item>
+        <item>$</item>
+        <item>€</item>
+    </string-array>
 
 </resources>

@@ -7,11 +7,14 @@
 
     <fragment
         android:id="@+id/normalCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculator"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculatorFragment"
         tools:layout="@layout/fragment_normal_calculator" >
         <action
             android:id="@+id/action_normalCalculatorFragment_to_savedBetsFragment"
             app:destination="@id/savedBetsFragment" />
+        <action
+            android:id="@+id/action_normalCalculatorFragment_to_eachWayCalculatorFragment"
+            app:destination="@id/eachWayCalculatorFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedBetsFragment"
@@ -19,6 +22,17 @@
         android:label="SavedBetsFragment" >
         <action
             android:id="@+id/action_savedBetsFragment_to_normalCalculatorFragment"
+            app:destination="@id/normalCalculatorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eachWayCalculatorFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.eachwaycalculator.EachWayCalculatorFragment"
+        android:label="EachWayCalculatorFragment" >
+        <action
+            android:id="@+id/action_eachWayCalculatorFragment_to_savedBetsFragment"
+            app:destination="@id/savedBetsFragment" />
+        <action
+            android:id="@+id/action_eachWayCalculatorFragment_to_normalCalculatorFragment"
             app:destination="@id/normalCalculatorFragment" />
     </fragment>
 </navigation>

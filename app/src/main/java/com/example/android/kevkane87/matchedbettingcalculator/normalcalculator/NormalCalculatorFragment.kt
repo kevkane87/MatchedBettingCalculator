@@ -1,10 +1,9 @@
-package com.example.android.kevkane87.matchedbettingcalculator.eachwaycalculator
+package com.example.android.kevkane87.matchedbettingcalculator.normalcalculator
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.DialogInterface
+import android.content.*
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.service.controls.ControlsProviderService.TAG
 import android.text.Editable
 import android.text.InputType
 import android.view.*
@@ -23,15 +22,21 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
+import com.airbnb.lottie.L
 import com.example.android.kevkane87.matchedbettingcalculator.R
+import com.example.android.kevkane87.matchedbettingcalculator.SettingsActivity
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentNormalCalculatorBinding
+import java.lang.Double
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class EachWayCalculator : Fragment() {
+class NormalCalculatorFragment : Fragment() {
 
     private var betName = "Normal Matched Bet"
+    private lateinit var layCommissionDefault: String
+    private lateinit var currency: String
 
     private val viewModel: NormalCalculatorViewModel by lazy {
         val activity = requireNotNull(this.activity)
@@ -47,46 +52,40 @@ class EachWayCalculator : Fragment() {
             R.layout.fragment_normal_calculator, container, false
         )
 
-/*
-
-        // The usage of an interface lets you inject your own implementation
-        val menuHost: MenuHost = requireActivity()
-
-        // Add menu items without using the Fragment Menu APIs
-        // Note how we can tie the MenuProvider to the viewLifecycleOwner
-        // and an optional Lifecycle.State (here, RESUMED) to indicate when
-        // the menu should be visible
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
-                menuInflater.inflate(R.menu.menu_main, menu)
-            }
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                    R.id.saved_bets -> {
-                        findNavController().navigate(R.id.action_normalCalculatorFragment_to_savedBetsFragment)
-                        true
-                    }
-                    R.id.settings -> {
-                        // loadTasks(true)
-                        findNavController().navigate(R.id.action_normalCalculatorFragment_to_savedBetsFragment)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-*/
-
-        //(activity as AppCompatActivity).supportActionBar?.title = "Matched Betting Calculator - Normal"
-
         binding.normalCalculatorViewModel = viewModel
+
+        setDefaults(binding)
 
         viewModel.clear()
         viewModel.setRadioButton()
 
         binding.lifecycleOwner = this
+
+        when(viewModel.radioResultChecked.value) {
+
+            R.id.normal ->{
+                binding.groupProfit2.isGone = true
+            }
+            R.id.underlay ->{
+                binding.groupProfit2.isVisible = true
+            }
+            R.id.overlay ->{
+                binding.groupProfit2.isVisible = true
+            }
+        }
+
+        binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
+        binding.partialLayout.isVisible = viewModel.parLaySwitchState.value!!
+
+        if(viewModel.parLay2Visibility.value!!) {
+            binding.groupPartLay2.isVisible = true
+            binding.addPartLay2.isGone = true
+        }
+        else{
+            binding.groupPartLay2.isGone = true
+            binding.addPartLay2.isVisible = true
+        }
+
 
         viewModel.radioResultChecked.observeForever{
 
@@ -106,21 +105,27 @@ class EachWayCalculator : Fragment() {
 
         binding.switchPartialLay.setOnClickListener {
             binding.partialLayout.isVisible = binding.switchPartialLay.isChecked
+
             if (!binding.switchPartialLay.isChecked){
+                viewModel.parLaySwitchState.value = false
+                viewModel.parLay2Visibility.value = false
                 binding.exLayBetStakePar1.text = Editable.Factory.getInstance().newEditable("")
                 binding.exLayBetStakePar2.text = Editable.Factory.getInstance().newEditable("")
                 binding.exLayBetOddsPar1.text = Editable.Factory.getInstance().newEditable("")
                 binding.exLayBetOddsPar2.text = Editable.Factory.getInstance().newEditable("")
-                binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable("")
-                binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable("")
+                binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+                binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
             }
             else{
+                viewModel.parLaySwitchState.value = true
+                viewModel.parLay2Visibility.value = false
                 binding.addPartLay2.isVisible = true
                 binding.groupPartLay2.isGone = true
             }
         }
 
         binding.addPartLay2.setOnClickListener {
+            viewModel.parLay2Visibility.value = true
             binding.groupPartLay2.isVisible = true
             binding.addPartLay2.isGone = true
 
@@ -137,12 +142,15 @@ class EachWayCalculator : Fragment() {
                 .show()
         }
 
+
         binding.checkBoxBackComm.setOnClickListener{
             if (binding.checkBoxBackComm.isChecked){
+                viewModel.backCommCheckboxSate.value = true
                 binding.groupBackBetCommission.isVisible = true
             }
             else{
-                binding.groupBackBetCommission.isGone = true
+                viewModel.backCommCheckboxSate.value = false
+                binding.groupBackBetCommission.isVisible = false
                 binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
                 viewModel.backCommission.value = 0.0
             }
@@ -230,7 +238,7 @@ class EachWayCalculator : Fragment() {
             calculate(binding)
         }
 
-        setHasOptionsMenu(true)
+        //setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -289,18 +297,21 @@ class EachWayCalculator : Fragment() {
 
     private fun clear(binding: FragmentNormalCalculatorBinding){
         //clear button
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        layCommissionDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_lay_commission), "").toString()
+
             viewModel.clear()
             binding.backBetStake.text = Editable.Factory.getInstance().newEditable("")
             binding.backBetOdds.text = Editable.Factory.getInstance().newEditable("")
-            binding.exCommission.text = Editable.Factory.getInstance().newEditable("")
+            binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
             binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
             binding.exLayBetOdds.text = Editable.Factory.getInstance().newEditable("")
             binding.exLayBetStakePar1.text = Editable.Factory.getInstance().newEditable("")
             binding.exLayBetStakePar2.text = Editable.Factory.getInstance().newEditable("")
             binding.exLayBetOddsPar1.text = Editable.Factory.getInstance().newEditable("")
             binding.exLayBetOddsPar2.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable("")
+            binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+            binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
     }
 
 
@@ -329,12 +340,27 @@ class EachWayCalculator : Fragment() {
         builder.show()
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.saved_bets ->  findNavController().navigate(R.id.action_normalCalculatorFragment_to_savedBetsFragment)
-            R.id.settings ->  findNavController().navigate(R.id.action_normalCalculatorFragment_to_savedBetsFragment)
-        }
-        return true
+
+    private fun setDefaults(binding: FragmentNormalCalculatorBinding){
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        layCommissionDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_lay_commission), "").toString()
+        viewModel.defaultLayCommission = layCommissionDefault.toDouble()
+
+        currency = sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
+        viewModel.currencySymbol.value = currency
+
+        binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        currency = sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
+        viewModel.currencySymbol.value = currency
+        viewModel.calculate()
     }
 }

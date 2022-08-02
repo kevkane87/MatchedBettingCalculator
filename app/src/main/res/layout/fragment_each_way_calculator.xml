@@ -27,11 +27,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_medium"
                 android:paddingBottom="@dimen/margin_normal"
-                app:cardBackgroundColor="@color/back_tint"
+                app:cardBackgroundColor="@color/black_tint"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="gone">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_input"
@@ -46,91 +47,91 @@
                     tools:visibility="visible">
 
                     <CheckBox
-                        android:id="@+id/checkBox_back_comm2"
+                        android:id="@+id/checkBox_extra_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:buttonTint="@color/green_primary"
                         android:checked="false"
-                        android:text="Extra Place Offer"
+                        android:text="@string/extra_place_offer"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@+id/ex_commission4"
+                        app:layout_constraintStart_toStartOf="@+id/ex_commission_place"
                         app:layout_constraintTop_toTopOf="@+id/checkBox_back_comm" />
 
                     <TextView
-                        android:id="@+id/percent_symbol_lay_commission2"
+                        android:id="@+id/percent_symbol_lay_commission_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/percent"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/ex_commission4"
-                        app:layout_constraintTop_toTopOf="@+id/ex_commission4"
-                        tools:layout_editor_absoluteX="361dp" />
+                        app:layout_constraintBottom_toBottomOf="@+id/ex_commission_place"
+                        app:layout_constraintStart_toEndOf="@+id/ex_commission_place"
+                        app:layout_constraintTop_toTopOf="@+id/ex_commission_place" />
 
                     <TextView
-                        android:id="@+id/label_back_bet_odds5"
+                        android:id="@+id/label_back_bet_place_odds"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Back E/W Place Odds"
+                        android:text="@string/back_e_w_place_odds"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView2"
-                        app:layout_constraintEnd_toEndOf="@+id/textView2"
-                        app:layout_constraintStart_toStartOf="@+id/textView2" />
+                        app:layout_constraintBottom_toTopOf="@+id/back_bet_place_odds"
+                        app:layout_constraintEnd_toEndOf="@+id/back_bet_place_odds"
+                        app:layout_constraintStart_toStartOf="@+id/back_bet_place_odds" />
 
                     <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/label_place_payout_div"
                         style="@style/textViewDisplay"
                         android:layout_width="50dp"
                         android:layout_height="48dp"
-                        android:text=" 1  /"
-                        app:layout_constraintBottom_toBottomOf="@+id/back_bet_odds2"
-                        app:layout_constraintEnd_toStartOf="@+id/back_bet_odds2"
-                        app:layout_constraintTop_toTopOf="@+id/back_bet_odds2" />
+                        android:text="@string/_1"
+                        app:layout_constraintBottom_toBottomOf="@+id/place_payout"
+                        app:layout_constraintEnd_toStartOf="@+id/place_payout"
+                        app:layout_constraintTop_toTopOf="@+id/place_payout" />
 
                     <TextView
-                        android:id="@+id/label_back_bet_odds4"
+                        android:id="@+id/label_back_bet_stake_total"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Back Stake"
+                        android:text="@string/total_back_stake"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@+id/textView"
-                        app:layout_constraintEnd_toEndOf="@+id/textView"
-                        app:layout_constraintStart_toStartOf="@+id/textView" />
+                        app:layout_constraintBottom_toTopOf="@+id/back_bet_stake_total"
+                        app:layout_constraintEnd_toEndOf="@+id/back_bet_stake_total"
+                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake_total" />
 
                     <EditText
-                        android:id="@+id/back_bet_odds2"
+                        android:id="@+id/place_payout"
                         style="@style/EditText"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/back_blue"
                         android:ems="10"
-                        android:inputType="number|numberDecimal"
+                        android:inputType="number"
                         android:maxLength="6"
                         android:minHeight="48dp"
                         android:textSize="20sp"
-                        app:layout_constraintEnd_toEndOf="@+id/back_bet_stake"
-                        app:layout_constraintTop_toBottomOf="@+id/label_back_bet_odds2" />
+                        app:layout_constraintEnd_toEndOf="@+id/back_bet_stake_ew"
+                        app:layout_constraintTop_toBottomOf="@+id/label_place_payout" />
 
                     <TextView
-                        android:id="@+id/label_back_bet_odds2"
+                        android:id="@+id/label_place_payout"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_large"
-                        android:text="Place Payout"
+                        android:text="@string/place_payout"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/back_bet_odds2"
-                        app:layout_constraintStart_toStartOf="@+id/textView3"
-                        app:layout_constraintTop_toBottomOf="@+id/back_bet_stake" />
+                        app:layout_constraintEnd_toEndOf="@+id/place_payout"
+                        app:layout_constraintStart_toStartOf="@+id/label_place_payout_div"
+                        app:layout_constraintTop_toBottomOf="@+id/back_bet_stake_ew" />
 
                     <EditText
-                        android:id="@+id/ex_lay_bet_odds4"
+                        android:id="@+id/ex_lay_bet_odds_place"
                         style="@style/EditText"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -140,11 +141,11 @@
                         android:minHeight="48dp"
                         android:textSize="20sp"
                         android:theme="@style/EditText"
-                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds"
-                        app:layout_constraintTop_toBottomOf="@+id/label_lay_odds4" />
+                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds_win"
+                        app:layout_constraintTop_toBottomOf="@+id/label_ex_lay_odds_place" />
 
                     <EditText
-                        android:id="@+id/ex_commission4"
+                        android:id="@+id/ex_commission_place"
                         style="@style/EditText"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -156,35 +157,35 @@
                         android:theme="@style/EditText"
                         app:layout_constraintEnd_toEndOf="@+id/ex_commission"
                         app:layout_constraintStart_toStartOf="@+id/ex_commission"
-                        app:layout_constraintTop_toBottomOf="@+id/label_lay_odds4" />
+                        app:layout_constraintTop_toBottomOf="@+id/label_ex_lay_odds_place" />
 
                     <TextView
-                        android:id="@+id/label_exchange_commission4"
+                        android:id="@+id/label_exchange_commission_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Place Lay Commission"
+                        android:text="@string/place_lay_commission"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toTopOf="@+id/ex_commission4"
-                        app:layout_constraintEnd_toEndOf="@+id/ex_commission4"
-                        app:layout_constraintStart_toStartOf="@+id/ex_commission4" />
+                        app:layout_constraintBottom_toTopOf="@+id/ex_commission_place"
+                        app:layout_constraintEnd_toEndOf="@+id/ex_commission_place"
+                        app:layout_constraintStart_toStartOf="@+id/ex_commission_place" />
 
                     <TextView
-                        android:id="@+id/label_lay_odds4"
+                        android:id="@+id/label_ex_lay_odds_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_large"
-                        android:text="Place Lay Odds"
+                        android:text="@string/place_lay_odds"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/ex_lay_bet_odds4"
-                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds4"
-                        app:layout_constraintTop_toBottomOf="@+id/ex_lay_bet_odds" />
+                        app:layout_constraintEnd_toEndOf="@+id/ex_lay_bet_odds_place"
+                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds_place"
+                        app:layout_constraintTop_toBottomOf="@+id/ex_lay_bet_odds_win" />
 
                     <TextView
-                        android:id="@+id/percent_symbol_lay_commission"
+                        android:id="@+id/percent_symbol_lay_commission_win"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/percent"
@@ -212,29 +213,29 @@
                         android:text="@string/pounds"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/back_bet_stake"
-                        app:layout_constraintEnd_toStartOf="@+id/back_bet_stake"
-                        app:layout_constraintTop_toTopOf="@+id/back_bet_stake" />
+                        app:layout_constraintBottom_toBottomOf="@+id/back_bet_stake_ew"
+                        app:layout_constraintEnd_toStartOf="@+id/back_bet_stake_ew"
+                        app:layout_constraintTop_toTopOf="@+id/back_bet_stake_ew" />
 
                     <TextView
-                        android:id="@+id/label_back_bet_stake"
+                        android:id="@+id/label_back_bet_stake_ew"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_normal"
-                        android:text="Back E/W Stake"
+                        android:text="@string/back_e_w_stake"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/back_bet_stake"
-                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake"
+                        app:layout_constraintEnd_toEndOf="@+id/back_bet_stake_ew"
+                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake_ew"
                         app:layout_constraintTop_toBottomOf="@+id/radioGroupBetType" />
 
                     <TextView
-                        android:id="@+id/label_exchange_commission"
+                        android:id="@+id/label_exchange_commission_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Win Lay Commission"
+                        android:text="@string/win_lay_commission"
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toTopOf="@+id/ex_commission"
@@ -252,7 +253,7 @@
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="@+id/back_bet_odds"
                         app:layout_constraintStart_toStartOf="@+id/back_bet_odds"
-                        app:layout_constraintTop_toBottomOf="@+id/back_bet_odds2" />
+                        app:layout_constraintTop_toBottomOf="@+id/place_payout" />
 
                     <TextView
                         android:id="@+id/label_back_bet_comm"
@@ -291,7 +292,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:checkedButton="@={normalCalculatorViewModel.radioInputChecked}"
+                        android:checkedButton="@={eachWayCalculatorViewModel.radioInputChecked}"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -346,11 +347,11 @@
                         android:maxLength="6"
                         android:minHeight="48dp"
                         android:textSize="20sp"
-                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake"
+                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake_ew"
                         app:layout_constraintTop_toBottomOf="@+id/label_back_bet_odds" />
 
                     <EditText
-                        android:id="@+id/back_bet_stake"
+                        android:id="@+id/back_bet_stake_ew"
                         style="@style/EditText"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -361,11 +362,11 @@
                         android:maxLength="10"
                         android:minHeight="48dp"
                         android:textSize="20sp"
-                        app:layout_constraintEnd_toStartOf="@+id/textView"
+                        app:layout_constraintEnd_toStartOf="@+id/back_bet_stake_total"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toEndOf="@+id/currency_symbol_back_stake"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="125dp" />
+                        app:layout_constraintTop_toBottomOf="@+id/label_back_bet_stake_ew" />
 
                     <EditText
                         android:id="@+id/ex_commission"
@@ -382,11 +383,11 @@
                         android:theme="@style/EditText"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/ex_lay_bet_odds"
-                        app:layout_constraintTop_toTopOf="@+id/ex_lay_bet_odds" />
+                        app:layout_constraintStart_toEndOf="@+id/ex_lay_bet_odds_win"
+                        app:layout_constraintTop_toTopOf="@+id/ex_lay_bet_odds_win" />
 
                     <EditText
-                        android:id="@+id/ex_lay_bet_odds"
+                        android:id="@+id/ex_lay_bet_odds_win"
                         style="@style/EditText"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -400,19 +401,19 @@
                         app:layout_constraintEnd_toStartOf="@+id/ex_commission"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/label_lay_odds" />
+                        app:layout_constraintTop_toBottomOf="@+id/label_lay_odds_win" />
 
                     <TextView
-                        android:id="@+id/label_lay_odds"
+                        android:id="@+id/label_lay_odds_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_large"
-                        android:text="Win Lay Odds"
+                        android:text="@string/win_lay_odds"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="@+id/ex_lay_bet_odds"
-                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds"
+                        app:layout_constraintEnd_toEndOf="@+id/ex_lay_bet_odds_win"
+                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds_win"
                         app:layout_constraintTop_toBottomOf="@+id/back_bet_odds" />
 
                     <EditText
@@ -424,11 +425,10 @@
                         android:ems="10"
                         android:inputType="number|numberDecimal"
                         android:minHeight="48dp"
-                        android:textCursorDrawable="@null"
                         android:textSize="20sp"
                         android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/label_back_bet_odds2"
+                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake_total"
+                        app:layout_constraintTop_toBottomOf="@+id/label_place_payout"
                         tools:visibility="visible" />
 
                     <CheckBox
@@ -441,8 +441,8 @@
                         android:text="@string/back_bet_commission"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds4"
-                        app:layout_constraintTop_toBottomOf="@+id/ex_commission4" />
+                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds_place"
+                        app:layout_constraintTop_toBottomOf="@+id/ex_commission_place" />
 
                     <androidx.constraintlayout.widget.Group
                         android:id="@+id/group_back_bet_commission"
@@ -473,27 +473,27 @@
                         app:srcCompat="@drawable/icon_heading" />
 
                     <TextView
-                        android:id="@+id/textView"
+                        android:id="@+id/back_bet_stake_total"
                         style="@style/textViewDisplay"
                         android:layout_width="150dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="@dimen/margin_normal"
                         android:layout_marginEnd="@dimen/margin_normal"
-                        android:text="£100"
-                        app:layout_constraintBottom_toBottomOf="@+id/back_bet_stake"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.backBetStakeTotal}"
+                        app:layout_constraintBottom_toBottomOf="@+id/back_bet_stake_ew"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/back_bet_stake"
-                        app:layout_constraintTop_toTopOf="@+id/back_bet_stake" />
+                        app:layout_constraintStart_toEndOf="@+id/back_bet_stake_ew"
+                        app:layout_constraintTop_toTopOf="@+id/back_bet_stake_ew" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/back_bet_place_odds"
                         style="@style/textViewDisplay"
                         android:layout_width="150dp"
                         android:layout_height="0dp"
-                        android:text="3.5"
+                        app:doubleToString="@{eachWayCalculatorViewModel.backBetPlaceOdds}"
                         app:layout_constraintBottom_toBottomOf="@+id/back_bet_odds"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
+                        app:layout_constraintStart_toStartOf="@+id/back_bet_stake_total"
                         app:layout_constraintTop_toTopOf="@+id/back_bet_odds" />
 
 
@@ -505,7 +505,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/padding_medium"
-                app:cardBackgroundColor="@color/back_tint"
+                app:cardBackgroundColor="@color/black_tint"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
@@ -522,62 +522,62 @@
 
 
                     <ImageButton
-                        android:id="@+id/button_copy2"
+                        android:id="@+id/button_copy_place"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_large"
                         android:background="@drawable/button_background"
-                        app:layout_constraintBottom_toBottomOf="@+id/label_lay_stake2"
-                        app:layout_constraintStart_toEndOf="@+id/lay_stake3"
-                        app:layout_constraintTop_toTopOf="@+id/label_lay_stake2"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_lay_stake_place"
+                        app:layout_constraintStart_toEndOf="@+id/lay_stake_place"
+                        app:layout_constraintTop_toTopOf="@+id/label_lay_stake_place"
                         app:srcCompat="@drawable/ic_baseline_content_copy_24" />
 
                     <TextView
-                        android:id="@+id/lay_stake3"
+                        android:id="@+id/lay_stake_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:maxWidth="200dp"
                         android:textColor="@color/white"
                         android:textSize="24sp"
-                        app:doubleToCurrencyString="@{normalCalculatorViewModel.layStake}"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.layStakePlace}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/heading_profit3" />
+                        app:layout_constraintTop_toBottomOf="@+id/heading_place_market" />
 
                     <TextView
-                        android:id="@+id/lay_odds_results3"
+                        android:id="@+id/lay_odds_results_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
-                        app:doubleToString="@{normalCalculatorViewModel.layBetOdds}"
+                        app:doubleToString="@{eachWayCalculatorViewModel.placeLayOdds}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_stake3" />
+                        app:layout_constraintTop_toBottomOf="@+id/lay_stake_place" />
 
                     <TextView
-                        android:id="@+id/lay_liability3"
+                        android:id="@+id/lay_liability_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
-                        app:doubleToCurrencyString="@{normalCalculatorViewModel.layLiability}"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.layLiabilityPlace}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_odds_results3" />
+                        app:layout_constraintTop_toBottomOf="@+id/lay_odds_results_place" />
 
                     <TextView
-                        android:id="@+id/label_lay_stake2"
+                        android:id="@+id/label_lay_stake_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -585,49 +585,49 @@
                         android:text="@string/lay_stake"
                         android:textColor="@color/white"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lay_stake3"
+                        app:layout_constraintBottom_toBottomOf="@+id/lay_stake_place"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lay_stake3" />
+                        app:layout_constraintTop_toTopOf="@+id/lay_stake_place" />
 
                     <TextView
-                        android:id="@+id/label_lay_liability2"
+                        android:id="@+id/label_lay_liability_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lay_liability"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lay_liability3"
-                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake2"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_odds_results3" />
+                        app:layout_constraintBottom_toBottomOf="@+id/lay_liability_place"
+                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake_place"
+                        app:layout_constraintTop_toBottomOf="@+id/lay_odds_results_place" />
 
                     <TextView
-                        android:id="@+id/label_lay_odds_results2"
+                        android:id="@+id/label_lay_odds_results_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/exchange_lay_odds"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lay_odds_results3"
-                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake2"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_stake3" />
+                        app:layout_constraintBottom_toBottomOf="@+id/lay_odds_results_place"
+                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake_place"
+                        app:layout_constraintTop_toBottomOf="@+id/lay_stake_place" />
 
                     <TextView
-                        android:id="@+id/heading_profit3"
+                        android:id="@+id/heading_place_market"
                         style="@style/text_normal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
                         android:background="@drawable/heading"
-                        android:text="Place Market"
+                        android:text="@string/place_market"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_liability" />
+                        app:layout_constraintTop_toBottomOf="@+id/lay_liability_win" />
 
                     <TextView
                         android:id="@+id/heading_results"
@@ -649,76 +649,76 @@
 
 
                     <TextView
-                        android:id="@+id/lay_stake"
+                        android:id="@+id/lay_stake_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:maxWidth="200dp"
                         android:textColor="@color/white"
                         android:textSize="24sp"
-                        app:doubleToCurrencyString="@{normalCalculatorViewModel.layStake}"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.layStakeWin}"
                         app:layout_constraintEnd_toEndOf="@+id/heading_results"
                         app:layout_constraintStart_toStartOf="@+id/heading_results"
-                        app:layout_constraintTop_toBottomOf="@+id/heading_profit2" />
+                        app:layout_constraintTop_toBottomOf="@+id/heading_win_market" />
 
                     <TextView
-                        android:id="@+id/lay_odds_results"
+                        android:id="@+id/lay_odds_results_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
-                        app:doubleToString="@{normalCalculatorViewModel.layBetOdds}"
+                        app:doubleToString="@{eachWayCalculatorViewModel.layBetOdds}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_stake" />
+                        app:layout_constraintTop_toBottomOf="@+id/lay_stake_win" />
 
 
                     <TextView
-                        android:id="@+id/lay_liability"
+                        android:id="@+id/lay_liability_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
-                        app:doubleToCurrencyString="@{normalCalculatorViewModel.layLiability}"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.layLiabilityWin}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_odds_results" />
+                        app:layout_constraintTop_toBottomOf="@+id/lay_odds_results_win" />
 
                     <TextView
-                        android:id="@+id/label_lay_liability"
+                        android:id="@+id/label_lay_liability_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/lay_liability"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lay_liability"
-                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake"
-                        app:layout_constraintTop_toTopOf="@+id/lay_liability" />
+                        app:layout_constraintBottom_toBottomOf="@+id/lay_liability_win"
+                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake_win"
+                        app:layout_constraintTop_toTopOf="@+id/lay_liability_win" />
 
                     <TextView
-                        android:id="@+id/label_lay_odds_results"
+                        android:id="@+id/label_lay_odds_results_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/exchange_lay_odds"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lay_odds_results"
-                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake"
-                        app:layout_constraintTop_toTopOf="@+id/lay_odds_results" />
+                        app:layout_constraintBottom_toBottomOf="@+id/lay_odds_results_win"
+                        app:layout_constraintStart_toStartOf="@+id/label_lay_stake_win"
+                        app:layout_constraintTop_toTopOf="@+id/lay_odds_results_win" />
 
                     <TextView
-                        android:id="@+id/label_lay_stake"
+                        android:id="@+id/label_lay_stake_win"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -726,9 +726,9 @@
                         android:text="@string/lay_stake"
                         android:textColor="@color/white"
                         android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/lay_stake"
+                        app:layout_constraintBottom_toBottomOf="@+id/lay_stake_win"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/lay_stake" />
+                        app:layout_constraintTop_toTopOf="@+id/lay_stake_win" />
 
                     <TextView
                         android:id="@+id/heading_profit"
@@ -744,16 +744,16 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/lay_liability3" />
+                        app:layout_constraintTop_toBottomOf="@+id/lay_liability_place" />
 
                     <TextView
-                        android:id="@+id/heading_profit2"
+                        android:id="@+id/heading_win_market"
                         style="@style/text_normal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_small"
                         android:background="@drawable/heading"
-                        android:text="Win Market"
+                        android:text="@string/win_market"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -787,74 +787,65 @@
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_small"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
                         android:textColor="@color/white"
                         android:textSize="24sp"
-                        app:doubleToCurrencyString="@{normalCalculatorViewModel.profitBackWins}"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.profitBackWins}"
                         app:layout_constraintEnd_toEndOf="@+id/heading_results"
                         app:layout_constraintStart_toStartOf="@+id/heading_results"
-                        app:layout_constraintTop_toBottomOf="@+id/heading_profit" />
+                        app:layout_constraintTop_toBottomOf="@+id/label_profit_normal" />
 
                     <TextView
-                        android:id="@+id/profit_2"
+                        android:id="@+id/profit_extra_place"
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black_tint"
+                        android:backgroundTint="@color/black_tint"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        app:doubleToCurrencyString="@{eachWayCalculatorViewModel.profitExtraPlace}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/heading_results"
+                        app:layout_constraintTop_toBottomOf="@+id/label_profit_extra_place" />
+
+                    <TextView
+                        android:id="@+id/label_profit_extra_place"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_normal"
-                        android:background="@color/back_tint"
-                        android:backgroundTint="@color/back_tint"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        app:doubleToCurrencyString="@{normalCalculatorViewModel.profitLayWins}"
+                        android:text="@string/if_extra_place"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/heading_results"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/profit" />
 
                     <TextView
-                        android:id="@+id/label_profit_lay_wins"
+                        android:id="@+id/label_profit_normal"
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="EP Triggered"
+                        android:layout_marginTop="9dp"
+                        android:text="If Not Extra Place"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/profit_2"
-                        app:layout_constraintStart_toStartOf="@+id/label_profit_back_wins"
-                        app:layout_constraintTop_toTopOf="@+id/profit_2" />
-
-                    <TextView
-                        android:id="@+id/label_profit_back_wins"
-                        style="@style/text_normal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_large"
-                        android:text="Normal"
-                        android:textColor="@android:color/darker_gray"
-                        android:textSize="12sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/profit"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/profit" />
+                        app:layout_constraintTop_toBottomOf="@+id/heading_profit" />
 
                     <ImageButton
-                        android:id="@+id/button_copy"
+                        android:id="@+id/button_copy_win"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/margin_large"
                         android:background="@drawable/button_background"
-                        app:layout_constraintBottom_toBottomOf="@+id/label_lay_stake"
-                        app:layout_constraintStart_toEndOf="@+id/lay_stake"
-                        app:layout_constraintTop_toTopOf="@+id/label_lay_stake"
+                        app:layout_constraintBottom_toBottomOf="@+id/label_lay_stake_win"
+                        app:layout_constraintStart_toEndOf="@+id/lay_stake_win"
+                        app:layout_constraintTop_toTopOf="@+id/label_lay_stake_win"
                         app:srcCompat="@drawable/ic_baseline_content_copy_24" />
-
-                    <androidx.constraintlayout.widget.Group
-                        android:id="@+id/group_profit_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        app:constraint_referenced_ids="profit_2,label_profit_back_wins,label_profit_lay_wins"
-                        tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -863,7 +854,6 @@
                 android:id="@+id/button_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:background="@drawable/button_background"
@@ -872,7 +862,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/button_clear"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/resultsCardView"
                 app:layout_constraintTop_toBottomOf="@+id/resultsCardView"
                 app:srcCompat="@drawable/ic_baseline_save_24"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -883,11 +873,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small"
                 android:background="@drawable/button_background"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/resultsCardView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/button_save"
                 app:layout_constraintTop_toBottomOf="@+id/resultsCardView"

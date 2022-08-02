@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/normalCalculatorFragment"
+        android:title="@string/app_name"
+        android:icon="@drawable/icon_heading"/>
+    <item
+        android:id="@+id/eachWayCalculatorFragment"
+        android:title="@string/each_way_calculator"
+        android:icon="@drawable/icon_heading"/>
+    <item
+        android:id="@+id/savedBetsFragment"
+        android:title="@string/saved_bets"
+        android:icon="@drawable/ic_baseline_save_24"/>
+    <item
+        android:id="@+id/settings_drawer_select"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_baseline_settings_24"/>
+</menu>

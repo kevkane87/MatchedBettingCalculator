@@ -111,23 +111,36 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
     val id: MutableLiveData<String>
         get() = _id
 
+    var defaultLayCommission: Double = 0.0
+
+    private val _currencySymbol = MutableLiveData<String>()
+    val currencySymbol: MutableLiveData<String>
+        get() = _currencySymbol
+
+    val backCommCheckboxSate = MutableLiveData<Boolean>()
+    val parLaySwitchState = MutableLiveData<Boolean>()
+    val parLay2Visibility = MutableLiveData<Boolean>()
+
 
     init {
         setRadioButton()
+        backCommCheckboxSate.value = false
+        parLaySwitchState.value = false
+        parLay2Visibility.value = false
     }
 
     fun clear() {
         _backBetStake.value = 0.0
         _backBetOdds.value = 0.0
         _layBetOdds.value = 0.0
-        _exchangeCommission.value = 0.0
+        _exchangeCommission.value = defaultLayCommission
         _backCommission.value = 0.0
         _parLayStake1.value = 0.0
         _parLayStake2.value = 0.0
         _parLayOdds1.value = 0.0
         _parLayOdds2.value = 0.0
-        _parLayComm1.value = 0.0
-        _parLayComm2.value = 0.0
+        _parLayComm1.value = defaultLayCommission
+        _parLayComm2.value = defaultLayCommission
         _layStake.value = 0.0
         _layLiability.value = 0.0
         _layOddsResults.value = 0.0
@@ -207,7 +220,6 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
             val liabilityPar = layStakePar * layOddsPar - layStakePar
 
             val layOdds = if(isPartial()) layOddsPar  else _layBetOdds.value!!
-            //val layCommDecimal= if(isPartial()) layCommPar  else layCommDecimal
 
             when (_betType.value) {
 
@@ -250,12 +262,6 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                         _profitLayWins.value = profitLayWinsQual(_layStake.value!!, newBackStake, layCommPar) + profitLayWinsQual(layStakePar, parBackStake, layCommPar)
 
                     }
-
-                    _layStake.value = Math.round(_layStake.value!! * 100) / 100.0
-                    _layLiability.value = Math.round(_layLiability.value!! * 100) / 100.0
-                    _layOddsResults.value = _layBetOdds.value
-                    _profitBackWins.value = Math.round(_profitBackWins.value!! * 100) / 100.0
-                    _profitLayWins.value = Math.round(_profitLayWins.value!! * 100) / 100.0
 
                 }
 
@@ -329,11 +335,6 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                             )
                     }
 
-                    _layStake.value = Math.round(_layStake.value!! * 100) / 100.0
-                    _layLiability.value = Math.round(_layLiability.value!! * 100) / 100.0
-                    _layOddsResults.value = _layBetOdds.value
-                    _profitBackWins.value = Math.round(_profitBackWins.value!! * 100) / 100.0
-                    _profitLayWins.value = Math.round(_profitLayWins.value!! * 100) / 100.0
                 }
 
                 "SR" -> {
@@ -373,14 +374,6 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                         _profitLayWins.value = profitLayWinsSR(_layStake.value!!, layCommPar) + profitLayWinsSR(layStakePar, layCommPar)
 
                     }
-
-
-                    _layStake.value = Math.round(_layStake.value!! * 100) / 100.0
-                    _layLiability.value = Math.round(_layLiability.value!! * 100) / 100.0
-                    _layOddsResults.value = _layBetOdds.value
-                    _profitBackWins.value = Math.round(_profitBackWins.value!! * 100) / 100.0
-                    _profitLayWins.value = Math.round(_profitLayWins.value!! * 100) / 100.0
-
                 }
             }
         }
