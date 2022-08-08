@@ -10,15 +10,32 @@
         app:entries="@array/pref_lay_commission_labels"
         app:entryValues="@array/pref_lay_commission_values"
         app:iconSpaceReserved="false"
-        app:title="Default Lay Commission" />
+        app:title="Default Lay Commission"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+    <ListPreference
+        app:key="key_default_place_payout"
+        app:summary="%s"
+        app:defaultValue="5"
+        app:entries="@array/pref_place_payout_labels"
+        app:entryValues="@array/pref_place_payout_values"
+        app:iconSpaceReserved="false"
+        app:title="Default Place Payout"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
 
     <ListPreference
         app:key="key_currency"
         app:summary="%s"
-        app:defaultValue="0"
+        app:defaultValue="£"
         app:entries="@array/pref_currency"
         app:entryValues="@array/pref_currency"
         app:iconSpaceReserved="false"
-        app:title="Currency" />
+        app:title="Currency Symbol"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"/>
+
+
 
 </PreferenceScreen>

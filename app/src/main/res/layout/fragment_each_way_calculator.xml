@@ -32,7 +32,7 @@
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_input"
@@ -55,7 +55,7 @@
                         android:text="@string/extra_place_offer"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@+id/ex_commission_place"
+                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds_place"
                         app:layout_constraintTop_toTopOf="@+id/checkBox_back_comm" />
 
                     <TextView
@@ -210,7 +210,7 @@
                         android:id="@+id/currency_symbol_back_stake"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/pounds"
+                        android:text="@{eachWayCalculatorViewModel.currencySymbol}"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="@+id/back_bet_stake_ew"
@@ -441,7 +441,7 @@
                         android:text="@string/back_bet_commission"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:layout_constraintStart_toStartOf="@+id/ex_lay_bet_odds_place"
+                        app:layout_constraintStart_toStartOf="@+id/ex_commission_place"
                         app:layout_constraintTop_toBottomOf="@+id/ex_commission_place" />
 
                     <androidx.constraintlayout.widget.Group
@@ -618,11 +618,13 @@
                         style="@style/text_normal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:background="@drawable/heading"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:background="@drawable/subheading"
                         android:text="@string/place_market"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/green_dark"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -735,11 +737,13 @@
                         style="@style/text_normal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:background="@drawable/heading"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:background="@drawable/subheading"
                         android:text="@string/profit"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/green_dark"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -751,11 +755,13 @@
                         style="@style/text_normal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
                         android:layout_marginTop="@dimen/margin_small"
-                        android:background="@drawable/heading"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:background="@drawable/subheading"
                         android:text="@string/win_market"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@color/green_dark"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -846,6 +852,13 @@
                         app:layout_constraintStart_toEndOf="@+id/lay_stake_win"
                         app:layout_constraintTop_toTopOf="@+id/label_lay_stake_win"
                         app:srcCompat="@drawable/ic_baseline_content_copy_24" />
+
+                    <androidx.constraintlayout.widget.Group
+                        android:id="@+id/group_profit_extra_place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:constraint_referenced_ids="profit_extra_place,label_profit_extra_place,label_profit_normal" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

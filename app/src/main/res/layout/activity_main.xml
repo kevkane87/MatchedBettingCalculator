@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" />
 
         <!-- The main content view where fragments are loaded -->
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/myNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

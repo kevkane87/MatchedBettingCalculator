@@ -101,6 +101,7 @@
     <string name="each_way_calculator">Each Way Calculator</string>
 
     <string name="key_default_lay_commission">key_default_lay_commission</string>
+    <string name="key_default_place_payout">key_default_place_payout</string>
     <string name="key_currency">key_currency"</string>
 
 
@@ -126,6 +127,16 @@
         <item>£</item>
         <item>$</item>
         <item>€</item>
+    </string-array>
+
+    <string-array name="pref_place_payout_labels">
+        <item>1/4</item>
+        <item>1/5</item>
+    </string-array>
+
+    <string-array name="pref_place_payout_values">
+        <item>4</item>
+        <item>5</item>
     </string-array>
 
 </resources>

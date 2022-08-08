@@ -114,8 +114,20 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
     val bet: MutableLiveData<MatchedBetDataItem>
         get() = _bet
 
+    private val _currencySymbol = MutableLiveData<String>()
+    val currencySymbol: MutableLiveData<String>
+        get() = _currencySymbol
+
+    var defaultLayCommission: Double = 0.0
+    var defaultPlacePayout: Int = 5
+
+    val backCommCheckboxSate = MutableLiveData<Boolean>()
+    val extraPlaceCheckboxSate = MutableLiveData<Boolean>()
+
     init {
         setRadioButton()
+        backCommCheckboxSate.value = false
+        extraPlaceCheckboxSate.value = false
     }
 
     fun clear() {

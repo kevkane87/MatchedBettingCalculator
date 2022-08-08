@@ -17,8 +17,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.example.android.kevkane87.matchedbettingcalculator.R
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentEachWayCalculatorBinding
+import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentNormalCalculatorBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -26,6 +28,9 @@ import com.example.android.kevkane87.matchedbettingcalculator.databinding.Fragme
 class EachWayCalculatorFragment : Fragment() {
 
     private var betName = "Each Way Matched Bet"
+    private lateinit var layCommissionDefault: String
+    private lateinit var placePayoutDefault: String
+    private lateinit var currency: String
 
     private val viewModel: EachWayCalculatorViewModel by lazy {
         val activity = requireNotNull(this.activity)
@@ -41,46 +46,17 @@ class EachWayCalculatorFragment : Fragment() {
             R.layout.fragment_each_way_calculator, container, false
         )
 
-/*
-
-        // The usage of an interface lets you inject your own implementation
-        val menuHost: MenuHost = requireActivity()
-
-        // Add menu items without using the Fragment Menu APIs
-        // Note how we can tie the MenuProvider to the viewLifecycleOwner
-        // and an optional Lifecycle.State (here, RESUMED) to indicate when
-        // the menu should be visible
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                // Add menu items here
-                menuInflater.inflate(R.menu.menu_main, menu)
-            }
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                // Handle the menu selection
-                return when (menuItem.itemId) {
-                    R.id.saved_bets -> {
-                        findNavController().navigate(R.id.action_normalCalculatorFragment_to_savedBetsFragment)
-                        true
-                    }
-                    R.id.settings -> {
-                        // loadTasks(true)
-                        findNavController().navigate(R.id.action_normalCalculatorFragment_to_savedBetsFragment)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-*/
-
-        //(activity as AppCompatActivity).supportActionBar?.title = "Matched Betting Calculator - Normal"
-
         binding.eachWayCalculatorViewModel = viewModel
+
+        setDefaults(binding)
 
         viewModel.clear()
         viewModel.setRadioButton()
 
         binding.lifecycleOwner = this
+
+        binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
+        binding.groupProfitExtraPlace.isVisible = viewModel.extraPlaceCheckboxSate.value!!
 
 
         binding.buttonCopyWin.setOnClickListener {
@@ -105,11 +81,24 @@ class EachWayCalculatorFragment : Fragment() {
                 .show()
         }
 
+        binding.checkBoxExtraPlace.setOnClickListener{
+            if (binding.checkBoxExtraPlace.isChecked){
+                viewModel.extraPlaceCheckboxSate.value = true
+                binding.groupProfitExtraPlace.isVisible = true
+            }
+            else{
+                viewModel.extraPlaceCheckboxSate.value = false
+                binding.groupProfitExtraPlace.isGone = true
+            }
+        }
+
         binding.checkBoxBackComm.setOnClickListener{
             if (binding.checkBoxBackComm.isChecked){
+                viewModel.backCommCheckboxSate.value = true
                 binding.groupBackBetCommission.isVisible = true
             }
             else{
+                viewModel.backCommCheckboxSate.value = false
                 binding.groupBackBetCommission.isGone = true
                 binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
                 viewModel.backCommission.value = 0.0
@@ -167,8 +156,6 @@ class EachWayCalculatorFragment : Fragment() {
             calculate(binding)
         }
 
-
-        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -214,14 +201,18 @@ class EachWayCalculatorFragment : Fragment() {
 
     private fun clear(binding: FragmentEachWayCalculatorBinding){
         //clear button
-            viewModel.clear()
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        layCommissionDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_lay_commission), "").toString()
+        placePayoutDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_place_payout), "").toString()
+
+        viewModel.clear()
             binding.backBetStakeEw.text = Editable.Factory.getInstance().newEditable("")
             binding.backBetOdds.text = Editable.Factory.getInstance().newEditable("")
-            binding.placePayout.text = Editable.Factory.getInstance().newEditable("")
+            binding.placePayout.text = Editable.Factory.getInstance().newEditable(placePayoutDefault)
             binding.exLayBetOddsWin.text = Editable.Factory.getInstance().newEditable("")
-            binding.exCommission.text = Editable.Factory.getInstance().newEditable("")
+            binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
             binding.exLayBetOddsPlace.text = Editable.Factory.getInstance().newEditable("")
-            binding.exCommissionPlace.text = Editable.Factory.getInstance().newEditable("")
+            binding.exCommissionPlace.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
             binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
 
     }
@@ -251,5 +242,32 @@ class EachWayCalculatorFragment : Fragment() {
 
         builder.show()
     }
+
+    private fun setDefaults(binding: FragmentEachWayCalculatorBinding){
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
+        layCommissionDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_lay_commission), "").toString()
+        viewModel.defaultLayCommission = layCommissionDefault.toDouble()
+
+        placePayoutDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_place_payout), "").toString()
+        viewModel.defaultPlacePayout = placePayoutDefault.toInt()
+
+        currency = sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
+        viewModel.currencySymbol.value = currency
+
+        binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.exCommissionPlace.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.placePayout.text = Editable.Factory.getInstance().newEditable(placePayoutDefault)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        currency = sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
+        viewModel.currencySymbol.value = currency
+        viewModel.calculate()
+    }
+
 
 }
