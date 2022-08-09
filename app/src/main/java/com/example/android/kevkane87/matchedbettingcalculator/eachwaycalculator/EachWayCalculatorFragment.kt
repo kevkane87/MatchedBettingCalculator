@@ -10,7 +10,9 @@ import android.text.InputType
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
@@ -54,6 +56,9 @@ class EachWayCalculatorFragment : Fragment() {
         viewModel.setRadioButton()
 
         binding.lifecycleOwner = this
+
+        val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
+        toolbarTitle.text = getString(R.string.each_way_calculator)
 
         binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
         binding.groupProfitExtraPlace.isVisible = viewModel.extraPlaceCheckboxSate.value!!

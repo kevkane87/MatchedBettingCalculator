@@ -12,6 +12,7 @@ import android.os.SystemClock
 import android.provider.SyncStateContract
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
@@ -41,6 +42,9 @@ class SavedBetsFragment : Fragment(){
         val binding = FragmentSavedBetsBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
+
+        val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
+        toolbarTitle.text = getString(R.string.saved_bets)
 
         binding.savedBetsViewModel = viewModel
 

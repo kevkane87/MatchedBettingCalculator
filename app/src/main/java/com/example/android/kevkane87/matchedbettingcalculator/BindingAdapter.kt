@@ -25,6 +25,20 @@ fun doubleToString(textView: TextView, number: Double) {
     textView.text = df.format(number)
 }
 
+@BindingAdapter("doubleToStringNoZero")
+fun doubleToStringNoZero(textView: TextView, number: Double) {
+    val df = DecimalFormat("#.######")
+
+    if (number!=0.0) {
+        textView.text = df.format(number)
+    }
+    else
+    {
+        textView.text = ""
+    }
+}
+
+
 @BindingAdapter("doubleToCurrencyString")
 fun doubleToCurrencyString(textView: TextView, number: Double) {
 

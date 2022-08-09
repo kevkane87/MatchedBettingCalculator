@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_normalCalculatorFragment_to_eachWayCalculatorFragment"
             app:destination="@id/eachWayCalculatorFragment" />
+        <action
+            android:id="@+id/action_normalCalculatorFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedBetsFragment"
@@ -23,6 +26,9 @@
         <action
             android:id="@+id/action_savedBetsFragment_to_normalCalculatorFragment"
             app:destination="@id/normalCalculatorFragment" />
+        <action
+            android:id="@+id/action_savedBetsFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
     </fragment>
     <fragment
         android:id="@+id/eachWayCalculatorFragment"
@@ -33,6 +39,23 @@
             app:destination="@id/savedBetsFragment" />
         <action
             android:id="@+id/action_eachWayCalculatorFragment_to_normalCalculatorFragment"
+            app:destination="@id/normalCalculatorFragment" />
+        <action
+            android:id="@+id/action_eachWayCalculatorFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/remindersFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.reminders.RemindersFragment"
+        android:label="RemindersFragment" >
+        <action
+            android:id="@+id/action_remindersFragment_to_savedBetsFragment"
+            app:destination="@id/savedBetsFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_eachWayCalculatorFragment"
+            app:destination="@id/eachWayCalculatorFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_normalCalculatorFragment"
             app:destination="@id/normalCalculatorFragment" />
     </fragment>
 </navigation>

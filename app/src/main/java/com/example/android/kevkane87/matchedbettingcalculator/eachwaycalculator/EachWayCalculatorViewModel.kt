@@ -90,10 +90,6 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
     val betType: MutableLiveData<String>
         get() = _betType
 
-    private val _resultType = MutableLiveData<String>()
-    val resultType: MutableLiveData<String>
-        get() = _resultType
-
     private val _radioInputChecked = MutableLiveData<Int>()
     val radioInputChecked: MutableLiveData<Int>
         get() = _radioInputChecked
@@ -128,6 +124,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         setRadioButton()
         backCommCheckboxSate.value = false
         extraPlaceCheckboxSate.value = false
+        _betType.value = ""
     }
 
     fun clear() {
@@ -135,10 +132,11 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         _backBetStakeTotal.value = 0.0
         _backBetOdds.value = 0.0
         _placePayout.value = 0
+        _backBetPlaceOdds.value = 0.0
         _layBetOdds.value = 0.0
-        _exchangeCommission.value = 0.0
+        _exchangeCommission.value = defaultLayCommission
         _placeLayOdds.value = 0.0
-        _placeLayComm.value = 0.0
+        _placeLayComm.value = defaultLayCommission
         _backCommission.value = 0.0
         _layStakeWin.value = 0.0
         _layStakePlace.value = 0.0
@@ -147,8 +145,6 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         _profitBackWins.value = 0.0
         _profitLayWins.value = 0.0
         _profitExtraPlace.value = 0.0
-        _betType.value = ""
-        _resultType.value = ""
         _id.value = ""
 
     }
@@ -167,24 +163,26 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         }
     }
 
-        private fun inputDataComplete():Boolean{
-            return (_backBetOdds.value != null && _backBetStakeEw.value != null && _layBetOdds.value != null && _placePayout.value != null && _placeLayOdds.value != null
-                    && _backBetOdds.value != 0.0 && _backBetStakeEw.value != 0.0 && _layBetOdds.value != 0.0 && _placePayout.value != 0 && _placeLayOdds.value != 0.0)
-        }
+    private fun inputDataComplete(): Boolean {
+        return (_backBetOdds.value != null && _backBetStakeEw.value != null && _layBetOdds.value != null && _placePayout.value != null && _placeLayOdds.value != null
+                && _backBetOdds.value != 0.0 && _backBetStakeEw.value != 0.0 && _layBetOdds.value != 0.0 && _placePayout.value != 0 && _placeLayOdds.value != 0.0)
+    }
 
-    private fun isStakeInput():Boolean{
+    private fun isStakeInput(): Boolean {
         return (_backBetStakeEw.value != null && _backBetStakeEw.value != 0.0)
     }
 
-    private fun isOddsInput():Boolean{
-        return (_backBetOdds.value != null && _backBetOdds.value != 0.0 && _placePayout.value != null && _placePayout.value != 0 )
+    private fun isOddsInput(): Boolean {
+        return (_backBetOdds.value != null && _backBetOdds.value != 0.0 && _placePayout.value != null && _placePayout.value != 0)
     }
 
     //function provides matched bet calculations
     fun calculate() {
 
-        if (isStakeInput()) _backBetStakeTotal.value = _backBetStakeEw.value!! * 2
-        if (isOddsInput()) _backBetPlaceOdds.value = (_backBetOdds.value!! - 1) / _placePayout.value!! + 1
+        if (isStakeInput()) _backBetStakeTotal.value = _backBetStakeEw.value!! * 2 else _backBetStakeTotal.value = 0.0
+
+        if (isOddsInput()) _backBetPlaceOdds.value =
+            (_backBetOdds.value!! - 1) / _placePayout.value!! + 1 else _backBetPlaceOdds.value = 0.0
 
         if (inputDataComplete()) {
 
@@ -192,25 +190,40 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
             val layCommDecimal = exchangeCommission.value!! / 100
             val layOdds = _layBetOdds.value!!
             val layOddsPlace = _placeLayOdds.value!!
-            val layCommPlace = _placeLayComm.value!!/100
+            val layCommPlace = _placeLayComm.value!! / 100
 
             when (_betType.value) {
 
                 "Qualifier" -> {
 
 
-                            _layStakeWin.value = layStakeQualNor(_backBetStakeEw.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
-                            _layStakePlace.value = layStakeQualNor(
-                                _backBetStakeEw.value!!,
-                                _backBetPlaceOdds.value!!,
-                                backCommDecimal,
-                                layOddsPlace,
-                                layCommPlace
-                            )
+                    _layStakeWin.value = layStakeQualNor(
+                        _backBetStakeEw.value!!,
+                        _backBetOdds.value!!,
+                        backCommDecimal,
+                        layOdds,
+                        layCommDecimal
+                    )
+                    _layStakePlace.value = layStakeQualNor(
+                        _backBetStakeEw.value!!,
+                        _backBetPlaceOdds.value!!,
+                        backCommDecimal,
+                        layOddsPlace,
+                        layCommPlace
+                    )
 
-                    _layLiabilityWin.value = layLiability(layOdds,_layStakeWin.value!!)
-                    _profitBackWins.value = profitBackWinsQual(_backBetStakeEw.value!!,_backBetOdds.value!!,backCommDecimal,_layLiabilityWin.value!!)
-                    _profitLayWins.value = profitLayWinsQual(_layStakeWin.value!!,_backBetStakeEw.value!!,layCommDecimal)
+                    _layLiabilityWin.value = layLiability(layOdds, _layStakeWin.value!!)
+                    _profitBackWins.value = profitBackWinsQual(
+                        _backBetStakeEw.value!!,
+                        _backBetOdds.value!!,
+                        backCommDecimal,
+                        _layLiabilityWin.value!!
+                    )
+                    _profitLayWins.value = profitLayWinsQual(
+                        _layStakeWin.value!!,
+                        _backBetStakeEw.value!!,
+                        layCommDecimal
+                    )
                     _layLiabilityPlace.value = layLiability(layOddsPlace, _layStakePlace.value!!)
                     _profitBackWins.value = _profitBackWins.value!! + profitBackWinsQual(
                         _backBetStakeEw.value!!,
@@ -223,12 +236,19 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
                         _backBetStakeEw.value!!,
                         layCommPlace
                     )
-                    _profitExtraPlace.value = _backBetStakeEw.value!! + (_backBetPlaceOdds.value!! * _backBetStakeEw.value!! - _backBetStakeEw.value!!) * (1-backCommDecimal) + _profitBackWins.value!!
+                    _profitExtraPlace.value =
+                        _backBetStakeEw.value!! + (_backBetPlaceOdds.value!! * _backBetStakeEw.value!! - _backBetStakeEw.value!!) * (1 - backCommDecimal) + _profitBackWins.value!!
                 }
 
                 "SNR" -> {
 
-                    _layStakeWin.value = layStakeSNRNor(_backBetStakeEw.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal )
+                    _layStakeWin.value = layStakeSNRNor(
+                        _backBetStakeEw.value!!,
+                        _backBetOdds.value!!,
+                        backCommDecimal,
+                        layOdds,
+                        layCommDecimal
+                    )
                     _layStakePlace.value = layStakeSNRNor(
                         _backBetStakeEw.value!!,
                         _backBetPlaceOdds.value!!,
@@ -237,9 +257,14 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
                         layCommPlace
                     )
 
-                    _layLiabilityWin.value = layLiability(_layBetOdds.value!!,_layStakeWin.value!!)
-                    _profitBackWins.value = profitBackWinsSNR(_backBetStakeEw.value!!,_backBetOdds.value!!, backCommDecimal, _layLiabilityWin.value!!)
-                    _profitLayWins.value = profitLayWinsSNR(_layStakeWin.value!!,layCommDecimal)
+                    _layLiabilityWin.value = layLiability(_layBetOdds.value!!, _layStakeWin.value!!)
+                    _profitBackWins.value = profitBackWinsSNR(
+                        _backBetStakeEw.value!!,
+                        _backBetOdds.value!!,
+                        backCommDecimal,
+                        _layLiabilityWin.value!!
+                    )
+                    _profitLayWins.value = profitLayWinsSNR(_layStakeWin.value!!, layCommDecimal)
                     _layLiabilityPlace.value = layLiability(layOddsPlace, _layStakePlace.value!!)
                     _profitBackWins.value = _profitBackWins.value!! + profitBackWinsSNR(
                         _backBetStakeEw.value!!,
@@ -251,12 +276,19 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
                         _layStakePlace.value!!,
                         layCommPlace
                     )
-                    _profitExtraPlace.value = (_backBetPlaceOdds.value!! * _backBetStakeEw.value!! - _backBetStakeEw.value!!)*(1-backCommDecimal) + _profitBackWins.value!!
+                    _profitExtraPlace.value =
+                        (_backBetPlaceOdds.value!! * _backBetStakeEw.value!! - _backBetStakeEw.value!!) * (1 - backCommDecimal) + _profitBackWins.value!!
                 }
 
                 "SR" -> {
 
-                    _layStakeWin.value = layStakeQualNor(_backBetStakeEw.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal )
+                    _layStakeWin.value = layStakeQualNor(
+                        _backBetStakeEw.value!!,
+                        _backBetOdds.value!!,
+                        backCommDecimal,
+                        layOdds,
+                        layCommDecimal
+                    )
                     _layStakePlace.value = layStakeQualNor(
                         _backBetStakeEw.value!!,
                         _backBetPlaceOdds.value!!,
@@ -264,9 +296,14 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
                         layOddsPlace,
                         layCommPlace
                     )
-                    _layLiabilityWin.value = layLiability(layOdds,_layStakeWin.value!!)
-                    _profitBackWins.value = profitBackWinsSR(_backBetStakeEw.value!!,_backBetOdds.value!!,backCommDecimal,_layLiabilityWin.value!!)
-                    _profitLayWins.value = profitLayWinsSR(_layStakeWin.value!!,layCommDecimal)
+                    _layLiabilityWin.value = layLiability(layOdds, _layStakeWin.value!!)
+                    _profitBackWins.value = profitBackWinsSR(
+                        _backBetStakeEw.value!!,
+                        _backBetOdds.value!!,
+                        backCommDecimal,
+                        _layLiabilityWin.value!!
+                    )
+                    _profitLayWins.value = profitLayWinsSR(_layStakeWin.value!!, layCommDecimal)
                     _layLiabilityPlace.value = layLiability(layOddsPlace, _layStakePlace.value!!)
                     _profitBackWins.value = _profitBackWins.value!! + profitBackWinsSR(
                         _backBetStakeEw.value!!,
@@ -278,14 +315,16 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
                         _layStakePlace.value!!,
                         layCommPlace
                     )
-                    _profitExtraPlace.value = (_backBetPlaceOdds.value!! * _backBetStakeEw.value!!) * (1-backCommDecimal) + _profitBackWins.value!!
+                    _profitExtraPlace.value =
+                        (_backBetPlaceOdds.value!! * _backBetStakeEw.value!!) * (1 - backCommDecimal) + _profitBackWins.value!!
 
                 }
             }
-        }
-        else{
+        } else {
             _layStakeWin.value = 0.0
             _layLiabilityWin.value = 0.0
+            _layStakePlace.value = 0.0
+            _layLiabilityPlace.value = 0.0
             _profitBackWins.value = 0.0
             _profitLayWins.value = 0.0
         }
@@ -301,17 +340,21 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         }
     }
 
-    fun setBetDetails(){
+    fun setBetDetails() {
 
         val builder = StringBuilder()
         val df = DecimalFormat("#.######")
         val cf = NumberFormat.getCurrencyInstance(Locale.UK)
 
-        builder.append( "Each Way Matched Bet\n")
+        builder.append("Each Way Matched Bet\n")
         builder.append("Back stake E/W = " + cf.format(_backBetStakeEw.value))
         builder.append("Back stake Tot = " + cf.format(_backBetStakeEw.value))
         builder.append(", Back odds = " + df.format(_backBetOdds.value))
-        if(_backCommission.value!! > 0.0)builder.append(", Back comm = " + df.format(_backCommission.value) + "%\n")else builder.append("\n")
+        if (_backCommission.value!! > 0.0) builder.append(
+            ", Back comm = " + df.format(
+                _backCommission.value
+            ) + "%\n"
+        ) else builder.append("\n")
 
         builder.append("Lay odds = " + df.format(_layBetOdds.value))
         builder.append(", Lay comm = " + df.format(_exchangeCommission.value) + "%\n")
@@ -325,7 +368,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
     }
 
 
-    private fun getDate(): String{
+    private fun getDate(): String {
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         val currentDateTime = LocalDate.now()
         return currentDateTime.format(formatter)

@@ -123,10 +123,12 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
 
     init {
-        setRadioButton()
         backCommCheckboxSate.value = false
         parLaySwitchState.value = false
         parLay2Visibility.value = false
+        _betType.value = ""
+        _resultType.value = ""
+        setRadioButton()
     }
 
     fun clear() {
@@ -146,8 +148,6 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
         _layOddsResults.value = 0.0
         _profitBackWins.value = 0.0
         _profitLayWins.value = 0.0
-        _betType.value = ""
-        _resultType.value = ""
         _id.value = ""
 
     }

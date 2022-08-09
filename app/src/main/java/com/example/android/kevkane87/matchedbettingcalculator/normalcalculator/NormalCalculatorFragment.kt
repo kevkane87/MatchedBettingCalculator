@@ -9,6 +9,7 @@ import android.text.InputType
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -60,6 +61,9 @@ class NormalCalculatorFragment : Fragment() {
         viewModel.setRadioButton()
 
         binding.lifecycleOwner = this
+
+        val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
+        toolbarTitle.text = getString(R.string.app_name)
 
         when(viewModel.radioResultChecked.value) {
 
@@ -238,7 +242,6 @@ class NormalCalculatorFragment : Fragment() {
             calculate(binding)
         }
 
-        //setHasOptionsMenu(true)
         return binding.root
     }
 
