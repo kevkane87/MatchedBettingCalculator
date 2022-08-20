@@ -65,7 +65,15 @@
         <item name="android:itemTextAppearance">@color/white</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="colorAccent">@color/green_primary</item>
+        <item name="buttonBarButtonStyle">@style/DatePickerTheme.ButtonBarStyle</item>
+        <item name="backgroundColor">@color/black_tint</item>
+    </style>
 
+    <style name="DatePickerTheme.ButtonBarStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/green_primary</item>
+    </style>
 
     <style name="Theme.MatchedBettingCalculator.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

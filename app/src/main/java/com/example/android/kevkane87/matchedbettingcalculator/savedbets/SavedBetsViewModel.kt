@@ -46,5 +46,11 @@ class SavedBetsViewModel (application: Application) : ViewModel(){
             }
         }
     }
+
+    fun deleteBet(id: String){
+        viewModelScope.launch {
+            repository.deleteBet((id))
+        }
+    }
 }
 private const val TAG = "SavedBetsViewModel"

@@ -1,6 +1,7 @@
 package com.example.android.kevkane87.matchedbetapp.savedbets
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.ItemSavedBetBinding
 
-class SavedBetsAdapter (val onClickListener: OnClickListener) : ListAdapter<MatchedBetDTO,
+class SavedBetsAdapter(val onLongClickListener: OnLongClickListener) : ListAdapter<MatchedBetDTO,
             SavedBetsAdapter.ViewHolder>(BetDiffCallback) {
 
 
@@ -46,14 +47,14 @@ class SavedBetsAdapter (val onClickListener: OnClickListener) : ListAdapter<Matc
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val bet = getItem(position)
             holder.itemView.setOnClickListener {
-                onClickListener.onClick(bet)
+                onLongClickListener.onLongClick(bet)
             }
             holder.bind(bet)
         }
 
 
         //click listener class
-        class OnClickListener(val clickListener: (asteroid: MatchedBetDTO) -> Unit) {
-            fun onClick(bet: MatchedBetDTO) = clickListener(bet)
+        class OnLongClickListener(val clickListener: (bet: MatchedBetDTO) -> Unit) {
+            fun onLongClick(bet: MatchedBetDTO) = clickListener(bet)
         }
     }

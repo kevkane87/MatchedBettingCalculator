@@ -27,5 +27,15 @@ class Repository(private val database: BetDatabase) {
             }
         }
     }
+
+    suspend fun deleteBet(id: String) =
+        withContext(Dispatchers.IO) {
+            try {
+                database.betDao.deleteBetById(id)
+            }
+            catch (ex: Exception) {
+                //Log.e(TAG, "Error connecting to API")
+            }
+        }
 }
 

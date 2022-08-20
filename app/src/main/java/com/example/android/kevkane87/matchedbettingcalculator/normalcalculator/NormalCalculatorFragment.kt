@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.service.controls.ControlsProviderService.TAG
 import android.text.Editable
 import android.text.InputType
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.EditText
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -41,7 +43,10 @@ class NormalCalculatorFragment : Fragment() {
 
     private val viewModel: NormalCalculatorViewModel by lazy {
         val activity = requireNotNull(this.activity)
-        ViewModelProvider(this, NormalCalculatorViewModelFactory(activity.application))[NormalCalculatorViewModel::class.java]
+        ViewModelProvider(
+            this,
+            NormalCalculatorViewModelFactory(activity.application)
+        )[NormalCalculatorViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -65,15 +70,15 @@ class NormalCalculatorFragment : Fragment() {
         val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
         toolbarTitle.text = getString(R.string.app_name)
 
-        when(viewModel.radioResultChecked.value) {
+        when (viewModel.radioResultChecked.value) {
 
-            R.id.normal ->{
+            R.id.normal -> {
                 binding.groupProfit2.isGone = true
             }
-            R.id.underlay ->{
+            R.id.underlay -> {
                 binding.groupProfit2.isVisible = true
             }
-            R.id.overlay ->{
+            R.id.overlay -> {
                 binding.groupProfit2.isVisible = true
             }
         }
@@ -81,28 +86,35 @@ class NormalCalculatorFragment : Fragment() {
         binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
         binding.partialLayout.isVisible = viewModel.parLaySwitchState.value!!
 
-        if(viewModel.parLay2Visibility.value!!) {
+        if (viewModel.parLay2Visibility.value!!) {
             binding.groupPartLay2.isVisible = true
             binding.addPartLay2.isGone = true
-        }
-        else{
+        } else {
             binding.groupPartLay2.isGone = true
             binding.addPartLay2.isVisible = true
         }
 
 
-        viewModel.radioResultChecked.observeForever{
+        viewModel.radioResultChecked.observeForever {
 
-            when(viewModel.radioResultChecked.value) {
+            when (viewModel.radioResultChecked.value) {
 
-                R.id.normal ->{
+                R.id.normal -> {
                     binding.groupProfit2.isGone = true
+                    binding.groupCustom.isGone = true
                 }
-                R.id.underlay ->{
+                R.id.underlay -> {
                     binding.groupProfit2.isVisible = true
+                    binding.groupCustom.isGone = true
                 }
-                R.id.overlay ->{
+                R.id.overlay -> {
                     binding.groupProfit2.isVisible = true
+                    binding.groupCustom.isGone = true
+                }
+                R.id.custom -> {
+                    binding.groupProfit2.isVisible = true
+                    binding.groupCustom.isVisible = true
+
                 }
             }
         }
@@ -110,17 +122,18 @@ class NormalCalculatorFragment : Fragment() {
         binding.switchPartialLay.setOnClickListener {
             binding.partialLayout.isVisible = binding.switchPartialLay.isChecked
 
-            if (!binding.switchPartialLay.isChecked){
+            if (!binding.switchPartialLay.isChecked) {
                 viewModel.parLaySwitchState.value = false
                 viewModel.parLay2Visibility.value = false
                 binding.exLayBetStakePar1.text = Editable.Factory.getInstance().newEditable("")
                 binding.exLayBetStakePar2.text = Editable.Factory.getInstance().newEditable("")
                 binding.exLayBetOddsPar1.text = Editable.Factory.getInstance().newEditable("")
                 binding.exLayBetOddsPar2.text = Editable.Factory.getInstance().newEditable("")
-                binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
-                binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
-            }
-            else{
+                binding.exLayBetCommPar1.text =
+                    Editable.Factory.getInstance().newEditable(layCommissionDefault)
+                binding.exLayBetCommPar2.text =
+                    Editable.Factory.getInstance().newEditable(layCommissionDefault)
+            } else {
                 viewModel.parLaySwitchState.value = true
                 viewModel.parLay2Visibility.value = false
                 binding.addPartLay2.isVisible = true
@@ -147,12 +160,11 @@ class NormalCalculatorFragment : Fragment() {
         }
 
 
-        binding.checkBoxBackComm.setOnClickListener{
-            if (binding.checkBoxBackComm.isChecked){
+        binding.checkBoxBackComm.setOnClickListener {
+            if (binding.checkBoxBackComm.isChecked) {
                 viewModel.backCommCheckboxSate.value = true
                 binding.groupBackBetCommission.isVisible = true
-            }
-            else{
+            } else {
                 viewModel.backCommCheckboxSate.value = false
                 binding.groupBackBetCommission.isVisible = false
                 binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
@@ -164,7 +176,7 @@ class NormalCalculatorFragment : Fragment() {
         binding.buttonSave.setOnClickListener {
 
             if (viewModel.backBetOdds.value != 0.0 && viewModel.backBetOdds.value != 0.0 && viewModel.layBetOdds.value != 0.0) {
-               saveBet()
+                saveBet()
             } else {
                 Toast.makeText(context, R.string.please_enter_bet_input_details, Toast.LENGTH_SHORT)
                     .show()
@@ -206,20 +218,25 @@ class NormalCalculatorFragment : Fragment() {
         binding.underlay.setOnClickListener {
             calculate(binding)
         }
+        binding.custom.setOnClickListener {
+            viewModel.isCustomMaxMin.value = false
+            calculate(binding)
+            binding.customLayStake.setProgress((viewModel.customMin.value!! + viewModel.customMax.value!!) / 2)
+            binding.customMin.setText((viewModel.customMin.value!! / 100).toString())
+            binding.cusomMax.setText((viewModel.customMax.value!! / 100).toString())
+        }
         binding.backBetStake.doAfterTextChanged {
             calculate(binding)
         }
         binding.backBetOdds.doAfterTextChanged {
             calculate(binding)
         }
-
         binding.exLayBetOdds.doAfterTextChanged {
             calculate(binding)
         }
         binding.exCommission.doAfterTextChanged {
             calculate(binding)
         }
-
         binding.backBetCommission.doAfterTextChanged {
             calculate(binding)
         }
@@ -241,6 +258,37 @@ class NormalCalculatorFragment : Fragment() {
         binding.exLayBetCommPar2.doAfterTextChanged {
             calculate(binding)
         }
+        binding.customMin.doAfterTextChanged {
+            viewModel.isCustomMaxMin.value = true
+            viewModel.customMin.value = (binding.customMin.text.toString().toDouble() * 100).toInt()
+            calculate(binding)
+        }
+        binding.cusomMax.doAfterTextChanged {
+            viewModel.isCustomMaxMin.value = true
+            viewModel.customMax.value = (binding.cusomMax.text.toString().toDouble() * 100).toInt()
+            calculate(binding)
+        }
+
+        binding.customLayStake.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+
+                if (fromUser) {
+                    viewModel.layStakeCustom.value = progress.toDouble() / 100
+                    calculate(binding)
+                } else {
+                    calculate(binding)
+                    binding.customLayStake.setProgress((viewModel.customMin.value!! + viewModel.customMax.value!!) / 2)
+                }
+
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+        })
 
         return binding.root
     }
@@ -264,33 +312,56 @@ class NormalCalculatorFragment : Fragment() {
         if (binding.exCommission.text.isNullOrEmpty()) viewModel.exchangeCommission.value = 0.0
         else viewModel.exchangeCommission.value = binding.exCommission.text.toString().toDouble()
 
-        if (binding.backBetCommission.text.startsWith('.')) binding.backBetCommission.text.insert(0, "0")
+        if (binding.backBetCommission.text.startsWith('.')) binding.backBetCommission.text.insert(
+            0,
+            "0"
+        )
         if (binding.backBetCommission.text.isNullOrEmpty()) viewModel.backCommission.value = 0.0
         else viewModel.backCommission.value = binding.backBetCommission.text.toString().toDouble()
 
-        if (binding.exLayBetStakePar1.text.startsWith('.')) binding.exLayBetStakePar1.text.insert(0, "0")
+        if (binding.exLayBetStakePar1.text.startsWith('.')) binding.exLayBetStakePar1.text.insert(
+            0,
+            "0"
+        )
         if (binding.exLayBetStakePar1.text.isNullOrEmpty()) viewModel.parLayStake1.value = 0.0
         else viewModel.parLayStake1.value = binding.exLayBetStakePar1.text.toString().toDouble()
 
-        if (binding.exLayBetStakePar2.text.startsWith('.')) binding.exLayBetStakePar2.text.insert(0, "0")
+        if (binding.exLayBetStakePar2.text.startsWith('.')) binding.exLayBetStakePar2.text.insert(
+            0,
+            "0"
+        )
         if (binding.exLayBetStakePar2.text.isNullOrEmpty()) viewModel.parLayStake2.value = 0.0
         else viewModel.parLayStake2.value = binding.exLayBetStakePar2.text.toString().toDouble()
 
-        if (binding.exLayBetOddsPar1.text.startsWith('.')) binding.exLayBetOddsPar1.text.insert(0, "0")
+        if (binding.exLayBetOddsPar1.text.startsWith('.')) binding.exLayBetOddsPar1.text.insert(
+            0,
+            "0"
+        )
         if (binding.exLayBetOddsPar1.text.isNullOrEmpty()) viewModel.parLayOdds1.value = 0.0
         else viewModel.parLayOdds1.value = binding.exLayBetOddsPar1.text.toString().toDouble()
 
-        if (binding.exLayBetOddsPar2.text.startsWith('.')) binding.exLayBetOddsPar2.text.insert(0, "0")
+        if (binding.exLayBetOddsPar2.text.startsWith('.')) binding.exLayBetOddsPar2.text.insert(
+            0,
+            "0"
+        )
         if (binding.exLayBetOddsPar2.text.isNullOrEmpty()) viewModel.parLayOdds2.value = 0.0
         else viewModel.parLayOdds2.value = binding.exLayBetOddsPar2.text.toString().toDouble()
 
-        if (binding.exLayBetCommPar1.text.startsWith('.')) binding.exLayBetCommPar1.text.insert(0, "0")
+        if (binding.exLayBetCommPar1.text.startsWith('.')) binding.exLayBetCommPar1.text.insert(
+            0,
+            "0"
+        )
         if (binding.exLayBetCommPar1.text.isNullOrEmpty()) viewModel.parLayComm1.value = 0.0
         else viewModel.parLayComm1.value = binding.exLayBetCommPar1.text.toString().toDouble()
 
-        if (binding.exLayBetCommPar2.text.startsWith('.')) binding.exLayBetCommPar2.text.insert(0, "0")
+        if (binding.exLayBetCommPar2.text.startsWith('.')) binding.exLayBetCommPar2.text.insert(
+            0,
+            "0"
+        )
         if (binding.exLayBetCommPar2.text.isNullOrEmpty()) viewModel.parLayComm2.value = 0.0
         else viewModel.parLayComm2.value = binding.exLayBetCommPar2.text.toString().toDouble()
+
+        viewModel.layStakeCustom.value = (binding.customLayStake.progress).toDouble() / 100
 
 
         viewModel.setBetType()
@@ -298,63 +369,71 @@ class NormalCalculatorFragment : Fragment() {
         viewModel.calculate()
     }
 
-    private fun clear(binding: FragmentNormalCalculatorBinding){
+    private fun clear(binding: FragmentNormalCalculatorBinding) {
         //clear button
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        layCommissionDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_lay_commission), "").toString()
+        layCommissionDefault = sharedPreferences?.getString(
+            activity?.getString(R.string.key_default_lay_commission),
+            ""
+        ).toString()
 
-            viewModel.clear()
-            binding.backBetStake.text = Editable.Factory.getInstance().newEditable("")
-            binding.backBetOdds.text = Editable.Factory.getInstance().newEditable("")
-            binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
-            binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetOdds.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetStakePar1.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetStakePar2.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetOddsPar1.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetOddsPar2.text = Editable.Factory.getInstance().newEditable("")
-            binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
-            binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        viewModel.clear()
+        binding.backBetStake.text = Editable.Factory.getInstance().newEditable("")
+        binding.backBetOdds.text = Editable.Factory.getInstance().newEditable("")
+        binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
+        binding.exLayBetOdds.text = Editable.Factory.getInstance().newEditable("")
+        binding.exLayBetStakePar1.text = Editable.Factory.getInstance().newEditable("")
+        binding.exLayBetStakePar2.text = Editable.Factory.getInstance().newEditable("")
+        binding.exLayBetOddsPar1.text = Editable.Factory.getInstance().newEditable("")
+        binding.exLayBetOddsPar2.text = Editable.Factory.getInstance().newEditable("")
+        binding.exLayBetCommPar1.text =
+            Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.exLayBetCommPar2.text =
+            Editable.Factory.getInstance().newEditable(layCommissionDefault)
     }
 
 
-    fun saveBet(){
-        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
+    private fun saveBet() {
+        val builder: android.app.AlertDialog.Builder =
+            android.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Set Bet Name")
-// Set up the input
+
         val input = EditText(requireContext())
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
         input.hint = "Enter Bet Name"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-// Set up the buttons
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
             // Here you get get input text from the Edittext
             val name = input.text.toString()
-            if (name.isEmpty())viewModel.betName.value = betName else viewModel.betName.value = name
+            if (name.isEmpty()) viewModel.betName.value = betName else viewModel.betName.value =
+                name
             viewModel.setBetDetails()
             viewModel.saveBet()
             Toast.makeText(context, viewModel.betDetails.value, Toast.LENGTH_SHORT)
                 .show()
         })
-        //builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
-
         builder.show()
     }
 
-
-    private fun setDefaults(binding: FragmentNormalCalculatorBinding){
+    private fun setDefaults(binding: FragmentNormalCalculatorBinding) {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        layCommissionDefault = sharedPreferences?.getString(activity?.getString(R.string.key_default_lay_commission), "").toString()
+        layCommissionDefault = sharedPreferences?.getString(
+            activity?.getString(R.string.key_default_lay_commission),
+            ""
+        ).toString()
         viewModel.defaultLayCommission = layCommissionDefault.toDouble()
 
-        currency = sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
+        currency =
+            sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
         viewModel.currencySymbol.value = currency
 
-        binding.exLayBetCommPar1.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
-        binding.exLayBetCommPar2.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.exLayBetCommPar1.text =
+            Editable.Factory.getInstance().newEditable(layCommissionDefault)
+        binding.exLayBetCommPar2.text =
+            Editable.Factory.getInstance().newEditable(layCommissionDefault)
         binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
     }
 
@@ -362,7 +441,8 @@ class NormalCalculatorFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        currency = sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
+        currency =
+            sharedPreferences?.getString(activity?.getString(R.string.key_currency), "").toString()
         viewModel.currencySymbol.value = currency
         viewModel.calculate()
     }

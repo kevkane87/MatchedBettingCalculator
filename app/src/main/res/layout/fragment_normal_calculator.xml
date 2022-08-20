@@ -73,6 +73,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/margin_large"
+                            android:autofillHints=""
                             android:backgroundTint="@color/lay_pink"
                             android:ems="10"
                             android:inputType="number|numberDecimal"
@@ -92,6 +93,7 @@
                             android:backgroundTint="@color/lay_pink"
                             android:ems="10"
                             android:inputType="number|numberDecimal"
+                            android:nextFocusDown="@id/ex_lay_bet_comm_par_2"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@+id/ex_lay_bet_comm_par_2"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -109,6 +111,7 @@
                             android:backgroundTint="@color/lay_pink"
                             android:ems="10"
                             android:inputType="number|numberDecimal"
+                            android:nextFocusDown="@id/ex_lay_bet_odds_par_2"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@+id/ex_lay_bet_odds_par_2"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -126,6 +129,7 @@
                             android:backgroundTint="@color/lay_pink"
                             android:ems="10"
                             android:inputType="number|numberDecimal"
+                            android:nextFocusDown="@id/ex_lay_bet_odds_par_1"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@+id/ex_lay_bet_odds_par_1"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -142,6 +146,7 @@
                             android:backgroundTint="@color/lay_pink"
                             android:ems="10"
                             android:inputType="number|numberDecimal"
+                            android:nextFocusDown="@id/ex_lay_bet_stake_par_2"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -157,6 +162,7 @@
                             android:backgroundTint="@color/lay_pink"
                             android:ems="10"
                             android:inputType="number|numberDecimal"
+                            android:nextFocusDown="@id/ex_lay_bet_comm_par_1"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toStartOf="@+id/ex_lay_bet_comm_par_1"
                             app:layout_constraintHorizontal_bias="0.5"
@@ -444,6 +450,7 @@
                         android:inputType="number|numberDecimal"
                         android:maxLength="6"
                         android:minHeight="48dp"
+                        android:nextFocusDown="@id/back_bet_commission"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -478,6 +485,7 @@
                         android:inputType="number|numberDecimal"
                         android:maxLength="10"
                         android:minHeight="48dp"
+                        android:nextFocusDown="@id/back_bet_odds"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/back_bet_odds"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -494,6 +502,7 @@
                         android:ems="10"
                         android:inputType="number|numberDecimal"
                         android:minHeight="48dp"
+                        android:nextFocusDown="@id/ex_commission"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toStartOf="@+id/ex_commission"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -522,6 +531,7 @@
                         android:ems="10"
                         android:inputType="number|numberDecimal"
                         android:minHeight="48dp"
+                        android:nextFocusDown="@id/ex_lay_bet_odds"
                         android:textCursorDrawable="@null"
                         android:textSize="20sp"
                         android:visibility="gone"
@@ -648,7 +658,6 @@
                             style="@style/text_normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/margin_normal"
                             android:layout_weight="1"
                             android:buttonTint="@color/green_primary"
                             android:checked="true"
@@ -661,8 +670,7 @@
                             style="@style/text_normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_normal"
-                            android:layout_marginRight="@dimen/margin_normal"
+                            android:layout_marginLeft="@dimen/margin_small"
                             android:layout_weight="1"
                             android:buttonTint="@color/green_primary"
                             android:text="@string/underlay"
@@ -674,14 +682,41 @@
                             style="@style/text_normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_normal"
+                            android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:buttonTint="@color/green_primary"
                             android:text="@string/overlay"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
+
+                        <RadioButton
+                            android:id="@+id/custom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/green_primary"
+                            android:text="Custom"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+
                     </RadioGroup>
 
+
+                    <SeekBar
+                        android:id="@+id/custom_lay_stake"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:max="@{normalCalculatorViewModel.customMax}"
+                        android:min="@{normalCalculatorViewModel.customMin}"
+                        app:layout_constraintBottom_toBottomOf="@+id/custom_min"
+                        app:layout_constraintEnd_toStartOf="@+id/currency_symbol_custom_max"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toEndOf="@+id/custom_min"
+                        app:layout_constraintTop_toTopOf="@+id/custom_min"
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <TextView
                         android:id="@+id/lay_stake"
@@ -697,7 +732,7 @@
                         app:doubleToCurrencyString="@{normalCalculatorViewModel.layStake}"
                         app:layout_constraintEnd_toEndOf="@+id/heading_results"
                         app:layout_constraintStart_toStartOf="@+id/heading_results"
-                        app:layout_constraintTop_toBottomOf="@+id/radioGroupResultType" />
+                        app:layout_constraintTop_toBottomOf="@+id/custom_min" />
 
                     <TextView
                         android:id="@+id/lay_odds_results"
@@ -875,7 +910,86 @@
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         app:constraint_referenced_ids="profit_2,label_profit_back_wins,label_profit_lay_wins"
-                        tools:visibility="visible" />
+                        tools:visibility="visible">
+
+                    </androidx.constraintlayout.widget.Group>
+
+                    <TextView
+                        android:id="@+id/label_min"
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:text="Min"
+                        app:layout_constraintEnd_toEndOf="@+id/custom_min"
+                        app:layout_constraintStart_toStartOf="@+id/custom_min"
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroupResultType" />
+
+                    <EditText
+                        android:id="@+id/custom_min"
+                        style="@style/EditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/green_dark"
+                        android:inputType="number|numberDecimal"
+                        android:text="0"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toEndOf="@+id/currency_symbol_custom_min"
+                        app:layout_constraintTop_toBottomOf="@+id/label_min" />
+
+                    <TextView
+                        android:id="@+id/currency_symbol_custom_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:text="@{normalCalculatorViewModel.currencySymbol.toString()}"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/custom_min"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/custom_min" />
+
+                    <TextView
+                        android:id="@+id/currency_symbol_custom_max"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{normalCalculatorViewModel.currencySymbol.toString()}"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/cusom_max"
+                        app:layout_constraintEnd_toStartOf="@+id/cusom_max"
+                        app:layout_constraintTop_toTopOf="@+id/cusom_max" />
+
+                    <TextView
+                        android:id="@+id/label_max"
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:text="Max"
+                        app:layout_constraintEnd_toEndOf="@+id/cusom_max"
+                        app:layout_constraintStart_toStartOf="@+id/cusom_max"
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroupResultType" />
+
+                    <EditText
+                        android:id="@+id/cusom_max"
+                        style="@style/EditText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:backgroundTint="@color/green_dark"
+                        android:inputType="number|numberDecimal"
+                        android:text="100"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/label_max" />
+
+                    <androidx.constraintlayout.widget.Group
+                        android:id="@+id/group_custom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:constraint_referenced_ids="custom_min,label_min,custom_lay_stake,cusom_max,label_max, currency_symbol_custom_max, currency_symbol_custom_min" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

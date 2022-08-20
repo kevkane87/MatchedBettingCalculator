@@ -16,4 +16,7 @@ interface BetDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveBet(bet: MatchedBetDTO)
 
+    @Query("DELETE FROM bets where id = :betId")
+    suspend fun deleteBetById(betId: String)
+
 }

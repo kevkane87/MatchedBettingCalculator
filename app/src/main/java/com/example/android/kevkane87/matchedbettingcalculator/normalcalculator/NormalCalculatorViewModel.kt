@@ -1,6 +1,7 @@
 package com.example.android.kevkane87.matchedbettingcalculator.normalcalculator
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -67,6 +68,10 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
     val layStake: MutableLiveData<Double>
         get() = _layStake
 
+    private val _layStakeCustom = MutableLiveData<Double>()
+    val layStakeCustom: MutableLiveData<Double>
+        get() = _layStakeCustom
+
     private val _layLiability = MutableLiveData<Double>()
     val layLiability: MutableLiveData<Double>
         get() = _layLiability
@@ -99,6 +104,18 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
     val radioResultChecked: MutableLiveData<Int>
         get() = _radioResultChecked
 
+    private val _customMax = MutableLiveData<Int>()
+    val customMax: MutableLiveData<Int>
+        get() = _customMax
+
+    private val _customMin = MutableLiveData<Int>()
+    val customMin: MutableLiveData<Int>
+        get() = _customMin
+
+    private val _isCustomMaxMin = MutableLiveData<Boolean>()
+    val isCustomMaxMin : MutableLiveData<Boolean>
+        get() = _isCustomMaxMin
+
     private val _betDetails = MutableLiveData<String>()
     val betDetails: MutableLiveData<String>
         get() = _betDetails
@@ -126,6 +143,9 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
         backCommCheckboxSate.value = false
         parLaySwitchState.value = false
         parLay2Visibility.value = false
+        _isCustomMaxMin.value = false
+        _customMax.value = 0
+        _customMin.value = 0
         _betType.value = ""
         _resultType.value = ""
         setRadioButton()
@@ -144,6 +164,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
         _parLayComm1.value = defaultLayCommission
         _parLayComm2.value = defaultLayCommission
         _layStake.value = 0.0
+        _layStakeCustom.value = 0.0
         _layLiability.value = 0.0
         _layOddsResults.value = 0.0
         _profitBackWins.value = 0.0
@@ -174,6 +195,8 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                 _radioResultChecked.postValue(R.id.underlay)
             "O-lay" ->
                 _radioResultChecked.postValue(R.id.overlay)
+            "Custom" ->
+                _radioInputChecked.postValue(R.id.custom_lay_stake)
         }
     }
 
@@ -235,6 +258,28 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                         "O-lay" ->
                             _layStake.value = layStakeQualOlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal )
+
+                        "Custom" -> {
+                            _layStake.value = _layStakeCustom.value!!
+
+                            if (!_isCustomMaxMin.value!!) {
+                                _customMax.value = ((layStakeQualNor(
+                                    _backBetStake.value!!,
+                                    _backBetOdds.value!!,
+                                    backCommDecimal,
+                                    layOdds,
+                                    layCommDecimal
+                                ) * 100) * 1.1).toInt()
+                                _customMin.value = ((layStakeQualNor(
+                                    _backBetStake.value!!,
+                                    _backBetOdds.value!!,
+                                    backCommDecimal,
+                                    layOdds,
+                                    layCommDecimal
+                                ) * 100) * 0.9).toInt()
+                            }
+                        }
+
                     }
 
                     _layLiability.value = layLiability(layOdds,_layStake.value!!)
@@ -254,7 +299,27 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                 _layStake.value = layStakeQualUlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
                             "O-lay" ->
                                 _layStake.value = layStakeQualOlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
-//
+
+                            "Custom" -> {
+                                _layStake.value = _layStakeCustom.value!!
+
+                                if (!_isCustomMaxMin.value!!) {
+                                    _customMax.value = ((layStakeQualNor(
+                                        newBackStake,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        _layBetOdds.value!!,
+                                        layCommPar
+                                    ) * 100) * 1.1).toInt()
+                                    _customMin.value = ((layStakeQualNor(
+                                        newBackStake,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        _layBetOdds.value!!,
+                                        layCommPar
+                                    ) * 100) * 0.9).toInt()
+                                }
+                            }
                         }
 
                         _layLiability.value = layLiability(_layBetOdds.value!!, _layStake.value!! )
@@ -275,6 +340,26 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                             _layStake.value = layStakeSNRUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
                         "O-lay" ->
                             _layStake.value = layStakeSNROlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                        "Custom" -> {
+                            _layStake.value = _layStakeCustom.value!!
+
+                            if (!_isCustomMaxMin.value!!) {
+                                _customMax.value = ((layStakeSNRNor(
+                                    _backBetStake.value!!,
+                                    _backBetOdds.value!!,
+                                    backCommDecimal,
+                                    layOdds,
+                                    layCommDecimal
+                                ) * 100) * 1.1).toInt()
+                                _customMin.value = ((layStakeSNRNor(
+                                    _backBetStake.value!!,
+                                    _backBetOdds.value!!,
+                                    backCommDecimal,
+                                    layOdds,
+                                    layCommDecimal
+                                ) * 100) * 0.9).toInt()
+                            }
+                        }
                     }
 
                     _layLiability.value = layLiability(_layBetOdds.value!!,_layStake.value!!)
@@ -313,6 +398,27 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                     layCommPar
                                 )
 
+                            "Custom" -> {
+                                _layStake.value = _layStakeCustom.value!!
+
+                                if (!_isCustomMaxMin.value!!) {
+                                    _customMax.value = ((layStakeSNRNor(
+                                        newBackStake,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        _layBetOdds.value!!,
+                                        layCommPar
+                                    ) * 100) * 1.1).toInt()
+                                    _customMin.value = ((layStakeSNRNor(
+                                        newBackStake,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        _layBetOdds.value!!,
+                                        layCommPar
+                                    ) * 100) * 0.9).toInt()
+                                }
+                            }
+
                         }
 
                         _layLiability.value = layLiability(_layBetOdds.value!!, _layStake.value!!)
@@ -349,6 +455,27 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                         "O-lay" ->
                             _layStake.value = layStakeQualOlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+
+                        "Custom" -> {
+                            _layStake.value = _layStakeCustom.value!!
+
+                            if (!_isCustomMaxMin.value!!) {
+                                _customMax.value = ((layStakeQualNor(
+                                    _backBetStake.value!!,
+                                    _backBetOdds.value!!,
+                                    backCommDecimal,
+                                    layOdds,
+                                    layCommDecimal
+                                ) * 100) * 1.1).toInt()
+                                _customMin.value = ((layStakeQualNor(
+                                    _backBetStake.value!!,
+                                    _backBetOdds.value!!,
+                                    backCommDecimal,
+                                    layOdds,
+                                    layCommDecimal
+                                ) * 100) * 0.9).toInt()
+                            }
+                        }
                     }
 
                     _layLiability.value = layLiability(layOdds,_layStake.value!!)
@@ -367,6 +494,26 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                 _layStake.value = layStakeQualUlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
                             "O-lay" ->
                                 _layStake.value = layStakeQualOlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                            "Custom" -> {
+                                _layStake.value = _layStakeCustom.value!!
+
+                                if (!_isCustomMaxMin.value!!) {
+                                    _customMax.value = ((layStakeQualNor(
+                                        newBackStake,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        _layBetOdds.value!!,
+                                        layCommPar
+                                    ) * 100) * 1.1).toInt()
+                                    _customMin.value = ((layStakeQualNor(
+                                        newBackStake,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        _layBetOdds.value!!,
+                                        layCommPar
+                                    ) * 100) * 0.9).toInt()
+                                }
+                            }
                         }
 
                         _layLiability.value = layLiability(_layBetOdds.value!!, _layStake.value!! )
@@ -401,7 +548,15 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
             R.id.normal -> _resultType.value = "Normal"
             R.id.underlay -> _resultType.value = "U-lay"
             R.id.overlay -> _resultType.value = "O-lay"
+            R.id.custom-> _resultType.value = "Custom"
         }
+    }
+
+
+    fun setCustomMaxMin(){
+
+
+
     }
 
 
@@ -449,7 +604,6 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
         _betDetails.value = builder.toString()
     }
-
 
     private fun getDate(): String{
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")

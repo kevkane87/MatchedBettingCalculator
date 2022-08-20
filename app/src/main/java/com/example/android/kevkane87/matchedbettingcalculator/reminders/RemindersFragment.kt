@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -34,6 +35,8 @@ class RemindersFragment : Fragment() {
 
         _binding = FragmentRemindersBinding.inflate(inflater, container, false)
 
+        val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
+        toolbarTitle.text = getString(R.string.bet_reminder)
 
         createChannel(
             getString((R.string.bet_reminder_channel_id)),
@@ -42,16 +45,14 @@ class RemindersFragment : Fragment() {
 
         _binding!!.reminderSetButton.setOnClickListener {
 
-            setDateDialog(_binding!!.reminderText.toString())
+            setDateDialog(_binding!!.reminderText.text.toString())
         }
 
-
         return binding.root
-
     }
 
 
-    @SuppressLint("UnspecifiedImmutableFlag")
+    //@SuppressLint("UnspecifiedImmutableFlag")
     private fun setAlarm(message: String) {
 
         alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -73,8 +74,6 @@ class RemindersFragment : Fragment() {
         Toast.makeText(context, "Reminder is set", Toast.LENGTH_SHORT).show()
     }
 
-    //get reminder date from user using dialog
-    @SuppressLint("ResourceAsColor")
     private fun setDateDialog(message: String) {
 
         val c = Calendar.getInstance()
@@ -84,7 +83,7 @@ class RemindersFragment : Fragment() {
 
         val dpd = DatePickerDialog(
             requireContext(),
-            R.style.TimePickerTheme,
+            R.style.DialogTheme,
             { view, year, monthOfYear, dayOfMonth ->
 
                 dateTimeReminder.set(Calendar.YEAR, year)
@@ -99,10 +98,6 @@ class RemindersFragment : Fragment() {
             day
         )
         dpd.show()
-        /*dpd.getButton(DatePickerDialog.BUTTON_POSITIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.green_primary))
-        dpd.getButton(DatePickerDialog.BUTTON_NEGATIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.green_primary))*/
 
     }
 
@@ -116,15 +111,12 @@ class RemindersFragment : Fragment() {
             setAlarm(message)
         }
         val tpd = TimePickerDialog(
-            requireContext(), R.style.TimePickerTheme, timeSetListener, cal.get(
+            requireContext(), R.style.DialogTheme, timeSetListener, cal.get(
                 Calendar.HOUR_OF_DAY
             ), cal.get(Calendar.MINUTE), true
         )
         tpd.show()
-        /*tpd.getButton(TimePickerDialog.BUTTON_POSITIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.green_primary))
-        tpd.getButton(TimePickerDialog.BUTTON_NEGATIVE)
-            .setTextColor(ContextCompat.getColor(requireContext(), R.color.green_primary))*/
+
     }
 
 

@@ -11,6 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        app:boxBackgroundColor="@color/black_tint"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reminder_instructions_label">
@@ -19,7 +24,6 @@
             android:id="@+id/reminder_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black_tint"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 

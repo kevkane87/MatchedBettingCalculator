@@ -1,32 +1,14 @@
 package com.example.android.kevkane87.matchedbetapp.savedbets
 
-import android.annotation.SuppressLint
-import android.app.*
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.os.SystemClock
-import android.provider.SyncStateContract
-import android.util.Log
 import android.view.*
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.app.AlarmManagerCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat.getColor
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.android.kevkane87.matchedbettingcalculator.R
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentSavedBetsBinding
 import com.example.android.kevkane87.matchedbettingcalculator.savedbets.SavedBetsViewModel
 import com.example.android.kevkane87.matchedbettingcalculator.savedbets.SavedBetsViewModelFactory
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SavedBetsFragment : Fragment(){
 
@@ -51,7 +33,10 @@ class SavedBetsFragment : Fragment(){
         viewModel.loadBets()
 
         //set the recycler view adapter
-        binding.savedBetsRecycler.adapter = SavedBetsAdapter(SavedBetsAdapter.OnClickListener {
+        binding.savedBetsRecycler.adapter = SavedBetsAdapter(SavedBetsAdapter.OnLongClickListener {
+
+                viewModel.deleteBet(it.id)
+
             })
 
 
