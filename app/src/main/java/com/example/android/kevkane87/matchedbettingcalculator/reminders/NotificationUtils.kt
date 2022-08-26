@@ -18,14 +18,11 @@ package com.example.android.kevkane87.matchedbettingcalculator.reminders
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import com.example.android.kevkane87.matchedbettingcalculator.Constants
-import com.example.android.kevkane87.matchedbettingcalculator.MainActivity
 import com.example.android.kevkane87.matchedbettingcalculator.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 //import kotlinx.coroutines.channels.consumesAll
 
@@ -41,7 +38,7 @@ private val NOTIFICATION_ID = 0
 fun NotificationManager.sendNotification(applicationContext: Context, message: String) {
     // Create the content intent for the notification, which launches
     // this activity. Attach bet item in bundle
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+ /*   val contentIntent = Intent(applicationContext, MainActivity::class.java)
     val bundle = Bundle()
     bundle.putSerializable(Constants.REMINDER_ID, message)
     contentIntent.putExtra(Constants.REMINDER_ID, bundle)
@@ -51,19 +48,19 @@ fun NotificationManager.sendNotification(applicationContext: Context, message: S
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
-
+*/
     // Build the notification
     val builder = NotificationCompat.Builder(
         applicationContext,
         applicationContext.getString(R.string.bet_reminder_channel_id)
     )
-        .setSmallIcon(R.drawable.ic_baseline_notifications_24)
+        .setSmallIcon(R.drawable.icon)
         .setContentTitle(applicationContext.getString(R.string.bet_reminder))
         .setContentText(message)
-        .setContentIntent(contentPendingIntent)
+        //.setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
-    notify(NOTIFICATION_ID, builder.build())
+    notify(createID(), builder.build())
 }
 
 /**
@@ -72,4 +69,9 @@ fun NotificationManager.sendNotification(applicationContext: Context, message: S
  */
 fun NotificationManager.cancelNotifications() {
     cancelAll()
+}
+
+fun createID(): Int {
+    val now = Date()
+    return SimpleDateFormat("ddHHmmss", Locale.UK).format(now).toInt()
 }

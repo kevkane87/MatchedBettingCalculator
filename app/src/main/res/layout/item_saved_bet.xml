@@ -21,7 +21,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/black_tint">
+            android:background="@color/black_tint"
+            android:paddingBottom="@dimen/padding_small">
 
             <TextView
                 android:id="@+id/bet_name"

@@ -21,7 +21,7 @@ class SavedBetsViewModel (application: Application) : ViewModel(){
 
     private val repository = Repository(BetDatabase.getDatabase(application))
 
-     val betList = MutableLiveData<List<MatchedBetDTO>>()
+     val betList = MutableLiveData<MutableList<MatchedBetDTO>>()
 
     //loads saved bets using coroutine
     fun loadBets() {

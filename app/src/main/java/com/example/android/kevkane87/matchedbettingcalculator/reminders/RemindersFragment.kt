@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import androidx.fragment.app.Fragment
 import com.example.android.kevkane87.matchedbettingcalculator.Constants
 import com.example.android.kevkane87.matchedbettingcalculator.R
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentRemindersBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 class RemindersFragment : Fragment() {
@@ -52,7 +54,7 @@ class RemindersFragment : Fragment() {
     }
 
 
-    //@SuppressLint("UnspecifiedImmutableFlag")
+
     private fun setAlarm(message: String) {
 
         alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -62,8 +64,11 @@ class RemindersFragment : Fragment() {
         val bundle = Bundle()
         bundle.putSerializable(Constants.REMINDER_ID, message)
         intent.putExtra(Constants.REMINDER_ID, bundle)
+
+        Log.d("message sent ", message)
+
         alarmIntent = intent.let { intent ->
-            PendingIntent.getBroadcast(context, 0, intent, 0)
+            PendingIntent.getBroadcast(context, createID(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
         alarmMgr?.set(
@@ -72,6 +77,7 @@ class RemindersFragment : Fragment() {
             alarmIntent
         )
         Toast.makeText(context, "Reminder is set", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun setDateDialog(message: String) {
@@ -144,6 +150,9 @@ class RemindersFragment : Fragment() {
         }
     }
 
-
+    fun createID(): Int {
+        val now = Date()
+        return SimpleDateFormat("ddHHmmss", Locale.UK).format(now).toInt()
+    }
 
 }

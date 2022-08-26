@@ -933,7 +933,7 @@
                         android:backgroundTint="@color/green_dark"
                         android:inputType="number|numberDecimal"
                         android:text="0"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         app:layout_constraintStart_toEndOf="@+id/currency_symbol_custom_min"
                         app:layout_constraintTop_toBottomOf="@+id/label_min" />
 
@@ -980,7 +980,7 @@
                         android:backgroundTint="@color/green_dark"
                         android:inputType="number|numberDecimal"
                         android:text="100"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/label_max" />
 
@@ -989,7 +989,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
-                        app:constraint_referenced_ids="custom_min,label_min,custom_lay_stake,cusom_max,label_max, currency_symbol_custom_max, currency_symbol_custom_min" />
+                        app:constraint_referenced_ids="custom_min,label_min,custom_lay_stake,cusom_max,label_max, currency_symbol_custom_max, currency_symbol_custom_min"
+                        tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -998,15 +999,14 @@
                 android:id="@+id/button_save"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small"
                 android:background="@drawable/button_background"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_clear"
+                app:layout_constraintEnd_toEndOf="@+id/resultsCardView"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/resultsCardView"
+                app:layout_constraintStart_toEndOf="@+id/button_clear"
                 app:layout_constraintTop_toBottomOf="@+id/resultsCardView"
                 app:srcCompat="@drawable/ic_baseline_save_24"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -1015,16 +1015,15 @@
                 android:id="@+id/button_clear"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/button_background"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="@+id/resultsCardView"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/button_save"
+                app:layout_constraintEnd_toStartOf="@+id/button_save"
+                app:layout_constraintStart_toStartOf="@+id/resultsCardView"
                 app:layout_constraintTop_toBottomOf="@+id/resultsCardView"
-                app:srcCompat="@drawable/ic_baseline_refresh_24" />
+                app:srcCompat="@drawable/ic_baseline_clear_24" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

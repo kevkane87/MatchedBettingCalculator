@@ -259,14 +259,26 @@ class NormalCalculatorFragment : Fragment() {
             calculate(binding)
         }
         binding.customMin.doAfterTextChanged {
-            viewModel.isCustomMaxMin.value = true
-            viewModel.customMin.value = (binding.customMin.text.toString().toDouble() * 100).toInt()
-            calculate(binding)
+            if (!binding.customMin.text.isNullOrEmpty()) {
+
+                viewModel.isCustomMaxMin.value = true
+                viewModel.customMin.value =
+                    (binding.customMin.text.toString().toDouble() * 100).toInt()
+
+                if (viewModel.customMax.value!! >= viewModel.customMin.value!!)
+                    calculate(binding)
+            }
         }
         binding.cusomMax.doAfterTextChanged {
+
+            if (!binding.cusomMax.text.isNullOrEmpty()){
+
             viewModel.isCustomMaxMin.value = true
             viewModel.customMax.value = (binding.cusomMax.text.toString().toDouble() * 100).toInt()
+
+            if (viewModel.customMax.value!! >= viewModel.customMin.value!!)
             calculate(binding)
+            }
         }
 
         binding.customLayStake.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {

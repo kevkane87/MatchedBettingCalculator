@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.ItemSavedBetBinding
 
-class SavedBetsAdapter(val onLongClickListener: OnLongClickListener) : ListAdapter<MatchedBetDTO,
+class SavedBetsAdapter(private val onLongClickListener: OnLongClickListener) : ListAdapter<MatchedBetDTO,
             SavedBetsAdapter.ViewHolder>(BetDiffCallback) {
-
 
         //viewholder for bet items
         class ViewHolder (private val binding: ItemSavedBetBinding)
@@ -46,15 +45,22 @@ class SavedBetsAdapter(val onLongClickListener: OnLongClickListener) : ListAdapt
         //called by RecyclerView to display the data at the specified position
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val bet = getItem(position)
-            holder.itemView.setOnClickListener {
-                onLongClickListener.onLongClick(bet)
+            holder.itemView.setOnLongClickListener {
+                onLongClickListener.onLongClick(bet, position)
+                return@setOnLongClickListener true
             }
             holder.bind(bet)
         }
 
 
         //click listener class
-        class OnLongClickListener(val clickListener: (bet: MatchedBetDTO) -> Unit) {
-            fun onLongClick(bet: MatchedBetDTO) = clickListener(bet)
+        class OnLongClickListener(val clickListener: (bet: MatchedBetDTO, pos: Int) -> Unit) {
+            fun onLongClick(bet: MatchedBetDTO, pos: Int) = clickListener(bet, pos)
         }
+
+   /* interface OnLongClickListener{
+        fun onLongClick(bet: MatchedBetDTO, pos: Int)
+
+    }
+*/
     }
