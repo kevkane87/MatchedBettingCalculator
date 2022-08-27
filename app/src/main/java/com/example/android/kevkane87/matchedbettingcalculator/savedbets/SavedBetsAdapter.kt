@@ -58,9 +58,4 @@ class SavedBetsAdapter(private val onLongClickListener: OnLongClickListener) : L
             fun onLongClick(bet: MatchedBetDTO, pos: Int) = clickListener(bet, pos)
         }
 
-   /* interface OnLongClickListener{
-        fun onLongClick(bet: MatchedBetDTO, pos: Int)
-
-    }
-*/
     }

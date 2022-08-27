@@ -16,6 +16,8 @@ import com.example.android.kevkane87.matchedbettingcalculator.database.BetDataba
 import com.example.android.kevkane87.matchedbettingcalculator.Result
 import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SavedBetsViewModel (application: Application) : ViewModel(){
 
@@ -38,6 +40,8 @@ class SavedBetsViewModel (application: Application) : ViewModel(){
                             bet.id
                         )
                     })
+
+                    dataList.reverse()
                     betList.value = dataList
                 }
                 is Result.Error ->

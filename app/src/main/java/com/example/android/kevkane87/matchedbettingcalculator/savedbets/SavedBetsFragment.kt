@@ -43,12 +43,7 @@ class SavedBetsFragment : Fragment() {
 
         viewModel.loadBets()
 
-        /*adapter = SavedBetsAdaptor(itemList, this)*/
-
-
-
         //set the recycler view adapter
-
         binding.savedBetsRecycler.adapter = SavedBetsAdapter(SavedBetsAdapter.OnLongClickListener{ bet, pos ->
 
             deleteBetDialog(bet, pos)

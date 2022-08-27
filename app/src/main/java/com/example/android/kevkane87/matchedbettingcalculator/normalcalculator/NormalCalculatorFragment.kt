@@ -65,23 +65,14 @@ class NormalCalculatorFragment : Fragment() {
         viewModel.clear()
         viewModel.setRadioButton()
 
+        if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
+        else binding.layoutResults.isGone = true
+
         binding.lifecycleOwner = this
 
         val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
         toolbarTitle.text = getString(R.string.app_name)
 
-        when (viewModel.radioResultChecked.value) {
-
-            R.id.normal -> {
-                binding.groupProfit2.isGone = true
-            }
-            R.id.underlay -> {
-                binding.groupProfit2.isVisible = true
-            }
-            R.id.overlay -> {
-                binding.groupProfit2.isVisible = true
-            }
-        }
 
         binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
         binding.partialLayout.isVisible = viewModel.parLaySwitchState.value!!
@@ -100,19 +91,25 @@ class NormalCalculatorFragment : Fragment() {
             when (viewModel.radioResultChecked.value) {
 
                 R.id.normal -> {
-                    binding.groupProfit2.isGone = true
+
                     binding.groupCustom.isGone = true
+                    viewModel.isCustomMaxMin.value = true
+
                 }
                 R.id.underlay -> {
-                    binding.groupProfit2.isVisible = true
+
                     binding.groupCustom.isGone = true
+                    viewModel.isCustomMaxMin.value = true
+
                 }
                 R.id.overlay -> {
-                    binding.groupProfit2.isVisible = true
+
                     binding.groupCustom.isGone = true
+                    viewModel.isCustomMaxMin.value = true
+
                 }
                 R.id.custom -> {
-                    binding.groupProfit2.isVisible = true
+
                     binding.groupCustom.isVisible = true
 
                 }
@@ -219,11 +216,14 @@ class NormalCalculatorFragment : Fragment() {
             calculate(binding)
         }
         binding.custom.setOnClickListener {
-            viewModel.isCustomMaxMin.value = false
-            calculate(binding)
-            binding.customLayStake.setProgress((viewModel.customMin.value!! + viewModel.customMax.value!!) / 2)
-            binding.customMin.setText((viewModel.customMin.value!! / 100).toString())
-            binding.cusomMax.setText((viewModel.customMax.value!! / 100).toString())
+
+                viewModel.isCustomMaxMin.value = false
+                calculate(binding)
+                binding.customMin.setText((viewModel.customMin.value!!.toDouble() / 100.00).toString())
+                binding.cusomMax.setText((viewModel.customMax.value!!.toDouble() / 100.00).toString())
+                binding.customLayStake.setProgress((viewModel.layStake.value!! * 100).toInt())
+            viewModel.isCustomMaxMin.value = true
+
         }
         binding.backBetStake.doAfterTextChanged {
             calculate(binding)
@@ -373,8 +373,10 @@ class NormalCalculatorFragment : Fragment() {
         if (binding.exLayBetCommPar2.text.isNullOrEmpty()) viewModel.parLayComm2.value = 0.0
         else viewModel.parLayComm2.value = binding.exLayBetCommPar2.text.toString().toDouble()
 
-        viewModel.layStakeCustom.value = (binding.customLayStake.progress).toDouble() / 100
+        viewModel.layStakeCustom.value = (binding.customLayStake.progress).toDouble() / 100.00
 
+        if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
+        else binding.layoutResults.isGone = true
 
         viewModel.setBetType()
         viewModel.setResultType()

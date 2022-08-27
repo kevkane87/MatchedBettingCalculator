@@ -196,7 +196,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
             "O-lay" ->
                 _radioResultChecked.postValue(R.id.overlay)
             "Custom" ->
-                _radioInputChecked.postValue(R.id.custom_lay_stake)
+                _radioResultChecked.postValue(R.id.custom_lay_stake)
         }
     }
 
@@ -229,10 +229,15 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
             _parLayComm1.value!!/100
     }
 
+    fun canCalculate():Boolean{
+
+        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null && _backBetOdds.value != 0.0 && _backBetStake.value != 0.0 && _layBetOdds.value != 0.0
+    }
+
     //function provides matched bet calculations
     fun calculate() {
 
-        if (_backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null && _backBetOdds.value != 0.0 && _backBetStake.value != 0.0 && _layBetOdds.value != 0.0) {
+        if (canCalculate()) {
 
             val backCommDecimal = backCommission.value!! / 100
             val layCommDecimal = exchangeCommission.value!! / 100
@@ -243,6 +248,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
             val liabilityPar = layStakePar * layOddsPar - layStakePar
 
             val layOdds = if(isPartial()) layOddsPar  else _layBetOdds.value!!
+            val layComm =  if(isPartial()) layCommPar  else layCommDecimal
 
             when (_betType.value) {
 
@@ -251,32 +257,37 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                     when (_resultType.value) {
 
                         "Normal" ->
-                            _layStake.value = layStakeQualNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal )
+                            _layStake.value = layStakeQualNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm )
 
                         "U-lay" ->
-                            _layStake.value = layStakeQualUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeQualUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
 
                         "O-lay" ->
-                            _layStake.value = layStakeQualOlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal )
+                            _layStake.value = layStakeQualOlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm )
 
                         "Custom" -> {
                             _layStake.value = _layStakeCustom.value!!
 
-                            if (!_isCustomMaxMin.value!!) {
-                                _customMax.value = ((layStakeQualNor(
-                                    _backBetStake.value!!,
-                                    _backBetOdds.value!!,
-                                    backCommDecimal,
-                                    layOdds,
-                                    layCommDecimal
-                                ) * 100) * 1.1).toInt()
-                                _customMin.value = ((layStakeQualNor(
-                                    _backBetStake.value!!,
-                                    _backBetOdds.value!!,
-                                    backCommDecimal,
-                                    layOdds,
-                                    layCommDecimal
-                                ) * 100) * 0.9).toInt()
+                            if(!isPartial()) {
+
+                                if (!_isCustomMaxMin.value!!) {
+                                    _customMax.value = ((layStakeQualNor(
+                                        _backBetStake.value!!,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        layOdds,
+                                        layComm
+                                    ) * 100) * 1.1).toInt()
+                                    Log.d("Custom Max ", _customMax.value!!.toString() )
+                                    _customMin.value = ((layStakeQualNor(
+                                        _backBetStake.value!!,
+                                        _backBetOdds.value!!,
+                                        backCommDecimal,
+                                        layOdds,
+                                        layComm
+                                    ) * 100) * 0.9).toInt()
+                                    Log.d("Custom Min ", _customMin.value!!.toString() )
+                                }
                             }
                         }
 
@@ -284,7 +295,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                     _layLiability.value = layLiability(layOdds,_layStake.value!!)
                     _profitBackWins.value = profitBackWinsQual(_backBetStake.value!!,_backBetOdds.value!!,backCommDecimal,_layLiability.value!!)
-                    _profitLayWins.value = profitLayWinsQual(_layStake.value!!,_backBetStake.value!!,layCommDecimal)
+                    _profitLayWins.value = profitLayWinsQual(_layStake.value!!,_backBetStake.value!!,layComm)
 
 
                     if(isPartial()){
@@ -294,11 +305,11 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                         when (_resultType.value) {
 
                             "Normal" ->
-                                _layStake.value = layStakeQualNor(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                                _layStake.value = layStakeQualNor(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
                             "U-lay" ->
-                                _layStake.value = layStakeQualUlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                                _layStake.value = layStakeQualUlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
                             "O-lay" ->
-                                _layStake.value = layStakeQualOlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                                _layStake.value = layStakeQualOlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
 
                             "Custom" -> {
                                 _layStake.value = _layStakeCustom.value!!
@@ -309,14 +320,14 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                         _backBetOdds.value!!,
                                         backCommDecimal,
                                         _layBetOdds.value!!,
-                                        layCommPar
+                                        layCommDecimal
                                     ) * 100) * 1.1).toInt()
                                     _customMin.value = ((layStakeQualNor(
                                         newBackStake,
                                         _backBetOdds.value!!,
                                         backCommDecimal,
                                         _layBetOdds.value!!,
-                                        layCommPar
+                                        layCommDecimal
                                     ) * 100) * 0.9).toInt()
                                 }
                             }
@@ -324,7 +335,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                         _layLiability.value = layLiability(_layBetOdds.value!!, _layStake.value!! )
                         _profitBackWins.value = profitBackWinsQual(newBackStake,_backBetOdds.value!!,backCommDecimal,_layLiability.value!!) + profitBackWinsQual(parBackStake,_backBetOdds.value!!,backCommDecimal,liabilityPar)
-                        _profitLayWins.value = profitLayWinsQual(_layStake.value!!, newBackStake, layCommPar) + profitLayWinsQual(layStakePar, parBackStake, layCommPar)
+                        _profitLayWins.value = profitLayWinsQual(_layStake.value!!, newBackStake, layCommDecimal) + profitLayWinsQual(layStakePar, parBackStake, layCommPar)
 
                     }
 
@@ -335,11 +346,11 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                     when (_resultType.value) {
 
                         "Normal" ->
-                            _layStake.value = layStakeSNRNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeSNRNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
                         "U-lay" ->
-                            _layStake.value = layStakeSNRUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeSNRUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
                         "O-lay" ->
-                            _layStake.value = layStakeSNROlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeSNROlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
                         "Custom" -> {
                             _layStake.value = _layStakeCustom.value!!
 
@@ -349,14 +360,14 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     layOdds,
-                                    layCommDecimal
+                                    layComm
                                 ) * 100) * 1.1).toInt()
                                 _customMin.value = ((layStakeSNRNor(
                                     _backBetStake.value!!,
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     layOdds,
-                                    layCommDecimal
+                                    layComm
                                 ) * 100) * 0.9).toInt()
                             }
                         }
@@ -364,7 +375,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                     _layLiability.value = layLiability(_layBetOdds.value!!,_layStake.value!!)
                     _profitBackWins.value = profitBackWinsSNR(_backBetStake.value!!,_backBetOdds.value!!, backCommDecimal, _layLiability.value!!)
-                    _profitLayWins.value = profitLayWinsSNR(_layStake.value!!,layCommDecimal)
+                    _profitLayWins.value = profitLayWinsSNR(_layStake.value!!,layComm)
 
 
                     if(isPartial()) {
@@ -379,7 +390,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     _layBetOdds.value!!,
-                                    layCommPar
+                                    layCommDecimal
                                 )
                             "U-lay" ->
                                 _layStake.value = layStakeSNRUlay(
@@ -387,7 +398,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     _layBetOdds.value!!,
-                                    layCommPar
+                                    layCommDecimal
                                 )
                             "O-lay" ->
                                 _layStake.value = layStakeSNROlay(
@@ -395,7 +406,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     _layBetOdds.value!!,
-                                    layCommPar
+                                    layCommDecimal
                                 )
 
                             "Custom" -> {
@@ -407,14 +418,14 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                         _backBetOdds.value!!,
                                         backCommDecimal,
                                         _layBetOdds.value!!,
-                                        layCommPar
+                                        layCommDecimal
                                     ) * 100) * 1.1).toInt()
                                     _customMin.value = ((layStakeSNRNor(
                                         newBackStake,
                                         _backBetOdds.value!!,
                                         backCommDecimal,
                                         _layBetOdds.value!!,
-                                        layCommPar
+                                        layCommDecimal
                                     ) * 100) * 0.9).toInt()
                                 }
                             }
@@ -435,7 +446,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                 liabilityPar
                             )
                         _profitLayWins.value =
-                            profitLayWinsSNR(_layStake.value!!, layCommPar) + profitLayWinsSNR(
+                            profitLayWinsSNR(_layStake.value!!, layCommDecimal) + profitLayWinsSNR(
                                 layStakePar,
                                 layCommPar
                             )
@@ -448,13 +459,13 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                     when (_resultType.value) {
 
                         "Normal" ->
-                            _layStake.value = layStakeQualNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeQualNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
 
                         "U-lay" ->
-                            _layStake.value = layStakeQualUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeQualUlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
 
                         "O-lay" ->
-                            _layStake.value = layStakeQualOlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layCommDecimal)
+                            _layStake.value = layStakeQualOlay(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
 
                         "Custom" -> {
                             _layStake.value = _layStakeCustom.value!!
@@ -465,14 +476,14 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     layOdds,
-                                    layCommDecimal
+                                    layComm
                                 ) * 100) * 1.1).toInt()
                                 _customMin.value = ((layStakeQualNor(
                                     _backBetStake.value!!,
                                     _backBetOdds.value!!,
                                     backCommDecimal,
                                     layOdds,
-                                    layCommDecimal
+                                    layComm
                                 ) * 100) * 0.9).toInt()
                             }
                         }
@@ -480,7 +491,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                     _layLiability.value = layLiability(layOdds,_layStake.value!!)
                     _profitBackWins.value = profitBackWinsSR(_backBetStake.value!!,_backBetOdds.value!!,backCommDecimal,_layLiability.value!!)
-                    _profitLayWins.value = profitLayWinsSR(_layStake.value!!,layCommDecimal)
+                    _profitLayWins.value = profitLayWinsSR(_layStake.value!!,layComm)
 
                     if(isPartial()){
                         val ratio = layStakePar / _layStake.value!!
@@ -489,11 +500,11 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                         when (_resultType.value) {
 
                             "Normal" ->
-                                _layStake.value = layStakeQualNor(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                                _layStake.value = layStakeQualNor(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
                             "U-lay" ->
-                                _layStake.value = layStakeQualUlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                                _layStake.value = layStakeQualUlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
                             "O-lay" ->
-                                _layStake.value = layStakeQualOlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommPar )
+                                _layStake.value = layStakeQualOlay(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
                             "Custom" -> {
                                 _layStake.value = _layStakeCustom.value!!
 
@@ -503,14 +514,14 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                                         _backBetOdds.value!!,
                                         backCommDecimal,
                                         _layBetOdds.value!!,
-                                        layCommPar
+                                        layCommDecimal
                                     ) * 100) * 1.1).toInt()
                                     _customMin.value = ((layStakeQualNor(
                                         newBackStake,
                                         _backBetOdds.value!!,
                                         backCommDecimal,
                                         _layBetOdds.value!!,
-                                        layCommPar
+                                        layCommDecimal
                                     ) * 100) * 0.9).toInt()
                                 }
                             }
@@ -518,7 +529,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                         _layLiability.value = layLiability(_layBetOdds.value!!, _layStake.value!! )
                         _profitBackWins.value = profitBackWinsSR(newBackStake,_backBetOdds.value!!,backCommDecimal,_layLiability.value!!) + profitBackWinsSR(parBackStake,_backBetOdds.value!!,backCommDecimal,liabilityPar)
-                        _profitLayWins.value = profitLayWinsSR(_layStake.value!!, layCommPar) + profitLayWinsSR(layStakePar, layCommPar)
+                        _profitLayWins.value = profitLayWinsSR(_layStake.value!!, layCommDecimal) + profitLayWinsSR(layStakePar, layCommPar)
 
                     }
                 }
@@ -548,16 +559,11 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
             R.id.normal -> _resultType.value = "Normal"
             R.id.underlay -> _resultType.value = "U-lay"
             R.id.overlay -> _resultType.value = "O-lay"
-            R.id.custom-> _resultType.value = "Custom"
+            R.id.custom -> _resultType.value = "Custom"
         }
     }
 
 
-    fun setCustomMaxMin(){
-
-
-
-    }
 
 
     fun setBetDetails(){
