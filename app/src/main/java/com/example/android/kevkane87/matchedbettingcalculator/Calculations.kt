@@ -65,3 +65,5 @@ fun profitLayWinsSR(layStake: Double, layComm: Double ):Double{
 }
 
 
+
+

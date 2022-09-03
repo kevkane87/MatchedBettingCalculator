@@ -12,17 +12,14 @@ import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.example.android.kevkane87.matchedbettingcalculator.R
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentEachWayCalculatorBinding
-import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentNormalCalculatorBinding
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -54,6 +51,9 @@ class EachWayCalculatorFragment : Fragment() {
 
         viewModel.clear()
         viewModel.setRadioButton()
+
+        if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
+        else binding.layoutResults.isGone = true
 
         binding.lifecycleOwner = this
 
@@ -199,6 +199,9 @@ class EachWayCalculatorFragment : Fragment() {
         if (binding.backBetCommission.text.isNullOrEmpty()) viewModel.backCommission.value = 0.0
         else viewModel.backCommission.value = binding.backBetCommission.text.toString().toDouble()
 
+        if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
+        else binding.layoutResults.isGone = true
+
 
         viewModel.setBetType()
         viewModel.calculate()
@@ -223,27 +226,26 @@ class EachWayCalculatorFragment : Fragment() {
     }
 
 
-    fun saveBet(){
+    private fun saveBet(){
         val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
         builder.setTitle("Set Bet Name")
-// Set up the input
+
         val input = EditText(requireContext())
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+
         input.hint = "Enter Bet Name"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-// Set up the buttons
+
         builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
             // Here you get get input text from the Edittext
             val name = input.text.toString()
             if (name.isEmpty())viewModel.betName.value = betName else viewModel.betName.value = name
             viewModel.setBetDetails()
             viewModel.saveBet()
-            Toast.makeText(context, viewModel.betDetails.value, Toast.LENGTH_SHORT)
+            Toast.makeText(context, activity?.getString(R.string.bet_saved), Toast.LENGTH_SHORT)
                 .show()
         })
-        //builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
 
         builder.show()
     }

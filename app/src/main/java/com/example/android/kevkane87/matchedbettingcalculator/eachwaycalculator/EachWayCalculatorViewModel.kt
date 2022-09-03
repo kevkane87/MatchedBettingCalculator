@@ -106,8 +106,8 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
     val id: MutableLiveData<String>
         get() = _id
 
-    private var _bet = MutableLiveData<MatchedBetDataItem>()
-    val bet: MutableLiveData<MatchedBetDataItem>
+    private var _bet = MutableLiveData<MatchedBetDTO>()
+    val bet: MutableLiveData<MatchedBetDTO>
         get() = _bet
 
     private val _currencySymbol = MutableLiveData<String>()
@@ -163,7 +163,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         }
     }
 
-    private fun inputDataComplete(): Boolean {
+    fun canCalculate(): Boolean {
         return (_backBetOdds.value != null && _backBetStakeEw.value != null && _layBetOdds.value != null && _placePayout.value != null && _placeLayOdds.value != null
                 && _backBetOdds.value != 0.0 && _backBetStakeEw.value != 0.0 && _layBetOdds.value != 0.0 && _placePayout.value != 0 && _placeLayOdds.value != 0.0)
     }
@@ -184,7 +184,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         if (isOddsInput()) _backBetPlaceOdds.value =
             (_backBetOdds.value!! - 1) / _placePayout.value!! + 1 else _backBetPlaceOdds.value = 0.0
 
-        if (inputDataComplete()) {
+        if (canCalculate()) {
 
             val backCommDecimal = backCommission.value!! / 100
             val layCommDecimal = exchangeCommission.value!! / 100
@@ -346,23 +346,35 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         val df = DecimalFormat("#.######")
         val cf = NumberFormat.getCurrencyInstance(Locale.UK)
 
-        builder.append("Each Way Matched Bet\n")
-        builder.append("Back stake E/W = " + cf.format(_backBetStakeEw.value))
-        builder.append("Back stake Tot = " + cf.format(_backBetStakeEw.value))
-        builder.append(", Back odds = " + df.format(_backBetOdds.value))
+        builder.append("E/W stake: " + cf.format(_backBetStakeEw.value))
+        builder.append(", Back odds: " + df.format(_backBetOdds.value))
+        builder.append(", Pl payout: 1/" + _placePayout.value)
         if (_backCommission.value!! > 0.0) builder.append(
-            ", Back comm = " + df.format(
+            ", Back comm: " + df.format(
                 _backCommission.value
             ) + "%\n"
         ) else builder.append("\n")
 
-        builder.append("Lay odds = " + df.format(_layBetOdds.value))
-        builder.append(", Lay comm = " + df.format(_exchangeCommission.value) + "%\n")
+        builder.append("Lay odds (win): " + df.format(_layBetOdds.value))
+        builder.append(", Lay comm (win): " + df.format(_exchangeCommission.value) + "%\n")
+
+        builder.append("Lay odds (pl): " + df.format(_placeLayOdds.value))
+        builder.append(", Lay comm (pl): " + df.format(_placeLayComm.value) + "%\n")
+
+        builder.append("Lay stake (win): " + cf.format(_layStakeWin.value))
+        builder.append(", Lay liab (win): " + cf.format(_layLiabilityWin.value) + "\n")
+
+        builder.append("Lay stake (pl): " + cf.format(_layStakePlace.value))
+        builder.append(", Lay liab (pl): " + cf.format(_layLiabilityPlace.value) + "\n")
 
 
-        builder.append("Lay stake = " + cf.format(_layStakeWin.value))
-        builder.append(", Lay liability = " + cf.format(_layLiabilityWin.value) + "\n")
-
+        if (extraPlaceCheckboxSate.value!!) {
+            builder.append("Profit:  " + cf.format(_profitBackWins.value) + " (not ex pl), ")
+            builder.append(cf.format(_profitExtraPlace.value) + " (ex pl)")
+        }
+        else{
+            builder.append("Profit: " + cf.format(_profitBackWins.value))
+        }
 
         _betDetails.value = builder.toString()
     }
@@ -379,7 +391,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         val dateToday = getDate()
         viewModelScope.launch {
             repository.saveBet(
-                MatchedBetDTO(dateToday, _betName.value!!, _betDetails.value!!)
+                MatchedBetDTO(dateToday, _betName.value!!, "Each Way Bet", _betDetails.value!!)
             )
         }
     }

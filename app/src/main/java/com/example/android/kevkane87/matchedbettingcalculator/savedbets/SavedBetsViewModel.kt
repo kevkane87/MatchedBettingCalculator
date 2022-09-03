@@ -36,6 +36,7 @@ class SavedBetsViewModel (application: Application) : ViewModel(){
                         MatchedBetDTO(
                             bet.betDate,
                             bet.betName,
+                            bet.betType,
                             bet.betDetails,
                             bet.id
                         )

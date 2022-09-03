@@ -150,7 +150,7 @@ class RemindersFragment : Fragment() {
         }
     }
 
-    fun createID(): Int {
+    private fun createID(): Int {
         val now = Date()
         return SimpleDateFormat("ddHHmmss", Locale.UK).format(now).toInt()
     }

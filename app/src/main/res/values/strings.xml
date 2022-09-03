@@ -2,13 +2,6 @@
     <string name="app_name">Matched Betting Calculator</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <string name="back_bet_stake">Back Bet Stake</string>
     <string name="back_bet_odds">Back Bet Odds</string>
@@ -40,16 +33,12 @@
     <string name="overlay">Overlay</string>
 
 
-    <string name="please_enter_bet_input_details">Please enter bet input details</string>
-    <string name="bet_deleted_from_database">Bet deleted from database</string>
     <string name="lay_stake_copied_to_clipboard">Lay stake copied to clipboard</string>
     <string name="calculator">Calculator</string>
     <string name="saved_bets">Saved Bets</string>
-    <string name="find_bets">Find Bets</string>
-    <string name="bet_type">Bet Type:</string>
-    <string name="bet_stake">Bet Stake:</string>
-    <string name="outcome">Outcome:</string>
-    <string name="event_">Event:</string>
+    <string name="bet_saved">Bet saved</string>
+    <string name="please_enter_bet_input_details">Please enter sufficient input details</string>
+
 
     <string name="set_reminder_for_bet">Set reminder for bet?</string>
     <string name="set_reminder">Set reminder</string>
@@ -57,7 +46,6 @@
 
     <string name="percent"> %</string>
     <string name="pounds">£</string>
-
 
     <string name="bet_reminder_channel_id" translatable="false">bet_reminder_channel</string>
     <string name="bet_reminder_channel_name" translatable="true">Bet Reminders</string>
@@ -81,7 +69,6 @@
     <string name="profit">Profit</string>
 
 
-    <string name="test">Normal Matched Bet\nStake = £35.33, Back Odds = 5, Back Commission = 5%\nLay Odds = 5.5, Lay Commission = 5%\nLay Stake = £30, Lay Liability = £4000\nUnderlay: Profit = £400 (back wins) £0 (Lay Wins),</string>
     <string name="add_second_part_lay">Add Second Part Lay +</string>
     <string name="part_lay_1">Part Lay 1</string>
     <string name="part_lay_2">Part Lay 2</string>
@@ -103,6 +90,22 @@
     <string name="key_default_lay_commission">key_default_lay_commission</string>
     <string name="key_default_place_payout">key_default_place_payout</string>
     <string name="key_currency">key_currency"</string>
+    <string name="custom">Custom</string>
+    <string name="probability">Probability</string>
+    <string name="american">American</string>
+    <string name="decimal">Decimal</string>
+    <string name="fractional">Fractional</string>
+
+    <string name="odds_converter_calculator">Odds Converter Calculator</string>
+    <string name="input_results">Input / Results</string>
+    <string name="fine_adjust">Fine Adjust</string>
+    <string name="refund">Refund</string>
+
+    <string name="refund_if_calculator">Refund If Calculator</string>
+    <string name="refund_retention">Refund Retention</string>
+    <string name="refund_trigger_lay_bet">Refund Trigger Lay Bet</string>
+    <string name="initial_lay_bet">Initial Lay Bet</string>
+    <string name="if_not_extra_place">If Not Extra Place</string>
 
 
     <string-array name="pref_lay_commission_labels">

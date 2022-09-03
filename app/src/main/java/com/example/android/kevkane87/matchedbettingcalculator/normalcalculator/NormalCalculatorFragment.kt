@@ -1,36 +1,24 @@
 package com.example.android.kevkane87.matchedbettingcalculator.normalcalculator
 
 import android.content.*
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.service.controls.ControlsProviderService.TAG
 import android.text.Editable
 import android.text.InputType
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.core.view.marginTop
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.airbnb.lottie.L
 import com.example.android.kevkane87.matchedbettingcalculator.R
-import com.example.android.kevkane87.matchedbettingcalculator.SettingsActivity
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentNormalCalculatorBinding
-import java.lang.Double
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -57,6 +45,8 @@ class NormalCalculatorFragment : Fragment() {
             inflater,
             R.layout.fragment_normal_calculator, container, false
         )
+
+        var isFineTune = false
 
         binding.normalCalculatorViewModel = viewModel
 
@@ -93,19 +83,19 @@ class NormalCalculatorFragment : Fragment() {
                 R.id.normal -> {
 
                     binding.groupCustom.isGone = true
-                    viewModel.isCustomMaxMin.value = true
+                    viewModel.setCustomMaxMin.value = true
 
                 }
                 R.id.underlay -> {
 
                     binding.groupCustom.isGone = true
-                    viewModel.isCustomMaxMin.value = true
+                    viewModel.setCustomMaxMin.value = true
 
                 }
                 R.id.overlay -> {
 
                     binding.groupCustom.isGone = true
-                    viewModel.isCustomMaxMin.value = true
+                    viewModel.setCustomMaxMin.value = true
 
                 }
                 R.id.custom -> {
@@ -201,9 +191,13 @@ class NormalCalculatorFragment : Fragment() {
             calculate(binding)
         }
         binding.snr.setOnClickListener {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.sr.setOnClickListener {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.normal.setOnClickListener {
@@ -217,51 +211,73 @@ class NormalCalculatorFragment : Fragment() {
         }
         binding.custom.setOnClickListener {
 
-                viewModel.isCustomMaxMin.value = false
+
                 calculate(binding)
                 binding.customMin.setText((viewModel.customMin.value!!.toDouble() / 100.00).toString())
                 binding.cusomMax.setText((viewModel.customMax.value!!.toDouble() / 100.00).toString())
                 binding.customLayStake.setProgress((viewModel.layStake.value!! * 100).toInt())
-            viewModel.isCustomMaxMin.value = true
+                viewModel.setCustomMaxMin.value = false
+            //viewModel.isCustomMaxMin.value = true
 
         }
         binding.backBetStake.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.backBetOdds.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetOdds.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exCommission.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.backBetCommission.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetStakePar1.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetStakePar2.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetOddsPar1.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetOddsPar2.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetCommPar1.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.exLayBetCommPar2.doAfterTextChanged {
+            viewModel.radioResultChecked.value = R.id.normal
+            viewModel.setResultType()
             calculate(binding)
         }
         binding.customMin.doAfterTextChanged {
             if (!binding.customMin.text.isNullOrEmpty()) {
 
-                viewModel.isCustomMaxMin.value = true
                 viewModel.customMin.value =
                     (binding.customMin.text.toString().toDouble() * 100).toInt()
 
@@ -273,7 +289,6 @@ class NormalCalculatorFragment : Fragment() {
 
             if (!binding.cusomMax.text.isNullOrEmpty()){
 
-            viewModel.isCustomMaxMin.value = true
             viewModel.customMax.value = (binding.cusomMax.text.toString().toDouble() * 100).toInt()
 
             if (viewModel.customMax.value!! >= viewModel.customMin.value!!)
@@ -284,7 +299,7 @@ class NormalCalculatorFragment : Fragment() {
         binding.customLayStake.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
 
-                if (fromUser) {
+                if (fromUser || isFineTune) {
                     viewModel.layStakeCustom.value = progress.toDouble() / 100
                     calculate(binding)
                 } else {
@@ -301,6 +316,24 @@ class NormalCalculatorFragment : Fragment() {
                 // you can probably leave this empty
             }
         })
+
+        binding.fineTuneMinus.setOnClickListener {
+
+            isFineTune = true
+            binding.customLayStake.setProgress( binding.customLayStake.progress - 1)
+            viewModel.layStakeCustom.value = binding.customLayStake.progress.toDouble() / 100
+            calculate(binding)
+            isFineTune = false
+        }
+
+        binding.fineTunePlus.setOnClickListener {
+
+            isFineTune = true
+            binding.customLayStake.setProgress( binding.customLayStake.progress + 1)
+            viewModel.layStakeCustom.value = binding.customLayStake.progress.toDouble() / 100
+            calculate(binding)
+            isFineTune = false
+        }
 
         return binding.root
     }
@@ -376,7 +409,9 @@ class NormalCalculatorFragment : Fragment() {
         viewModel.layStakeCustom.value = (binding.customLayStake.progress).toDouble() / 100.00
 
         if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
-        else binding.layoutResults.isGone = true
+        else {
+            binding.layoutResults.isGone = true
+        }
 
         viewModel.setBetType()
         viewModel.setResultType()
@@ -425,7 +460,7 @@ class NormalCalculatorFragment : Fragment() {
                 name
             viewModel.setBetDetails()
             viewModel.saveBet()
-            Toast.makeText(context, viewModel.betDetails.value, Toast.LENGTH_SHORT)
+            Toast.makeText(context,  activity?.getString(R.string.bet_saved), Toast.LENGTH_SHORT)
                 .show()
         })
         builder.show()

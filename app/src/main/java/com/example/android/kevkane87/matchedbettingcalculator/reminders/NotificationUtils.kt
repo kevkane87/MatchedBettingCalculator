@@ -24,11 +24,6 @@ import com.example.android.kevkane87.matchedbettingcalculator.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-//import kotlinx.coroutines.channels.consumesAll
-
-// Notification ID.
-private val NOTIFICATION_ID = 0
-
 /**
  * Builds and delivers the notification.
  *
@@ -36,40 +31,20 @@ private val NOTIFICATION_ID = 0
  */
 @SuppressLint("UnspecifiedImmutableFlag")
 fun NotificationManager.sendNotification(applicationContext: Context, message: String) {
-    // Create the content intent for the notification, which launches
-    // this activity. Attach bet item in bundle
- /*   val contentIntent = Intent(applicationContext, MainActivity::class.java)
-    val bundle = Bundle()
-    bundle.putSerializable(Constants.REMINDER_ID, message)
-    contentIntent.putExtra(Constants.REMINDER_ID, bundle)
-    val contentPendingIntent = PendingIntent.getActivity(
-        applicationContext,
-        NOTIFICATION_ID,
-        contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
-    )
-*/
+
     // Build the notification
     val builder = NotificationCompat.Builder(
         applicationContext,
         applicationContext.getString(R.string.bet_reminder_channel_id)
     )
-        .setSmallIcon(R.drawable.icon)
+        .setSmallIcon(R.drawable.icon_heading)
         .setContentTitle(applicationContext.getString(R.string.bet_reminder))
         .setContentText(message)
-        //.setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
         .setPriority(NotificationCompat.PRIORITY_HIGH)
     notify(createID(), builder.build())
 }
 
-/**
- * Cancels all notifications.
- *
- */
-fun NotificationManager.cancelNotifications() {
-    cancelAll()
-}
 
 fun createID(): Int {
     val now = Date()

@@ -669,7 +669,7 @@
                             style="@style/text_normal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/margin_small"
+                            android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:buttonTint="@color/green_primary"
                             android:text="@string/underlay"
@@ -695,7 +695,7 @@
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_weight="1"
                             android:buttonTint="@color/green_primary"
-                            android:text="Custom"
+                            android:text="@string/custom"
                             android:textColor="@color/white"
                             android:textSize="11sp" />
 
@@ -908,11 +908,10 @@
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_normal"
                         android:text="Min"
                         app:layout_constraintEnd_toEndOf="@+id/custom_min"
                         app:layout_constraintStart_toStartOf="@+id/custom_min"
-                        app:layout_constraintTop_toBottomOf="@+id/radioGroupResultType" />
+                        app:layout_constraintTop_toBottomOf="@+id/fine_tune_minus" />
 
                     <EditText
                         android:id="@+id/custom_min"
@@ -954,11 +953,10 @@
                         style="@style/text_normal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_normal"
                         android:text="Max"
                         app:layout_constraintEnd_toEndOf="@+id/cusom_max"
                         app:layout_constraintStart_toStartOf="@+id/cusom_max"
-                        app:layout_constraintTop_toBottomOf="@+id/radioGroupResultType" />
+                        app:layout_constraintTop_toTopOf="@+id/label_min" />
 
                     <EditText
                         android:id="@+id/cusom_max"
@@ -978,8 +976,48 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
-                        app:constraint_referenced_ids="custom_min,label_min,custom_lay_stake,cusom_max,label_max, currency_symbol_custom_max, currency_symbol_custom_min"
+                        app:constraint_referenced_ids="custom_min,label_min,custom_lay_stake,cusom_max,label_max, currency_symbol_custom_max, currency_symbol_custom_min, fine_tune_plus, fine_tune_label, fine_tune_minus"
                         tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/fine_tune_minus"
+                        style="@style/text_normal"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_large"
+                        android:background="@drawable/button_background"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@+id/fine_tune_label"
+                        app:layout_constraintTop_toBottomOf="@+id/radioGroupResultType" />
+
+                    <TextView
+                        android:id="@+id/fine_tune_label"
+                        style="@style/text_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fine_adjust"
+                        app:layout_constraintBottom_toBottomOf="@+id/fine_tune_minus"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/fine_tune_minus" />
+
+                    <TextView
+                        android:id="@+id/fine_tune_plus"
+                        style="@style/text_normal"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/margin_large"
+                        android:background="@drawable/button_background"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toEndOf="@+id/fine_tune_label"
+                        app:layout_constraintTop_toTopOf="@+id/fine_tune_minus" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

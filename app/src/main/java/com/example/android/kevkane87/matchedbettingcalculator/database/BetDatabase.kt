@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
 
 
-@Database(entities = [MatchedBetDTO::class], version = 3, exportSchema = false)
+@Database(entities = [MatchedBetDTO::class], version = 4, exportSchema = false)
 abstract class BetDatabase: RoomDatabase() {
 
     abstract val betDao: BetDAO
