@@ -99,13 +99,14 @@
     <string name="odds_converter_calculator">Odds Converter Calculator</string>
     <string name="input_results">Input / Results</string>
     <string name="fine_adjust">Fine Adjust</string>
-    <string name="refund">Refund</string>
+    <string name="refund">Refund Amount</string>
 
     <string name="refund_if_calculator">Refund If Calculator</string>
     <string name="refund_retention">Refund Retention</string>
     <string name="refund_trigger_lay_bet">Refund Trigger Lay Bet</string>
     <string name="initial_lay_bet">Initial Lay Bet</string>
     <string name="if_not_extra_place">If Not Extra Place</string>
+    <string name="refund_calculator">Refund Calculator</string>
 
 
     <string-array name="pref_lay_commission_labels">

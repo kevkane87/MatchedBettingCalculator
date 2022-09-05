@@ -64,6 +64,10 @@ fun profitLayWinsSR(layStake: Double, layComm: Double ):Double{
     return layStake*(1-layComm)
 }
 
+fun layStakeQualNorRef(backStake: Double, backOdds: Double, backComm: Double, layOdds: Double, layComm: Double, refund: Double):Double {
+    return ((backStake + (backStake * backOdds - backStake) * (1 - backComm)) - refund)/ (layOdds - layComm)
+}
+
 
 
 

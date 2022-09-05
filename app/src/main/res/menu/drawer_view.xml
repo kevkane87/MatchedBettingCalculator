@@ -15,6 +15,10 @@
             android:icon="@drawable/icon_heading"
             android:title="@string/each_way_calculator" />
         <item
+            android:id="@+id/refundCalculatorFragment"
+            android:icon="@drawable/icon_heading"
+            android:title="@string/refund_calculator" />
+        <item
             android:id="@+id/refundIfCalculatorFragment"
             android:icon="@drawable/icon_heading"
             android:title="@string/refund_if_calculator" />

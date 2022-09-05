@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_normalCalculatorFragment_to_refundIfCalculatorFragment"
             app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_normalCalculatorFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedBetsFragment"
@@ -41,6 +44,12 @@
         <action
             android:id="@+id/action_savedBetsFragment_to_refundIfCalculatorFragment"
             app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_savedBetsFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_savedBetsFragment_to_eachWayCalculatorFragment"
+            app:destination="@id/eachWayCalculatorFragment" />
     </fragment>
     <fragment
         android:id="@+id/eachWayCalculatorFragment"
@@ -61,6 +70,9 @@
         <action
             android:id="@+id/action_eachWayCalculatorFragment_to_refundIfCalculatorFragment"
             app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_eachWayCalculatorFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
     </fragment>
     <fragment
         android:id="@+id/remindersFragment"
@@ -81,6 +93,9 @@
         <action
             android:id="@+id/action_remindersFragment_to_refundIfCalculatorFragment"
             app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
     </fragment>
     <fragment
         android:id="@+id/oddsConverterCalculatorFragment"
@@ -101,11 +116,14 @@
         <action
             android:id="@+id/action_oddsConverterCalculatorFragment_to_refundIfCalculatorFragment"
             app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_oddsConverterCalculatorFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
     </fragment>
     <fragment
         android:id="@+id/refundIfCalculatorFragment"
         android:name="com.example.android.kevkane87.matchedbettingcalculator.refundifcalculator.RefundIfCalculatorFragment"
-        android:label="RefundIfCalculatorFragment" >
+        android:label="RefundIfCalculatorFragment">
         <action
             android:id="@+id/action_refundIfCalculatorFragment_to_normalCalculatorFragment"
             app:destination="@id/normalCalculatorFragment" />
@@ -121,5 +139,31 @@
         <action
             android:id="@+id/action_refundIfCalculatorFragment_to_oddsConverterCalculatorFragment"
             app:destination="@id/oddsConverterCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundIfCalculatorFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/refundCalculatorFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.refundcalculator.RefundCalculatorFragment"
+        android:label="RefundCalculatorFragment" >
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_refundIfCalculatorFragment"
+            app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_eachWayCalculatorFragment"
+            app:destination="@id/eachWayCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_savedBetsFragment"
+            app:destination="@id/savedBetsFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_oddsConverterCalculatorFragment"
+            app:destination="@id/oddsConverterCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_normalCalculatorFragment"
+            app:destination="@id/normalCalculatorFragment" />
     </fragment>
 </navigation>

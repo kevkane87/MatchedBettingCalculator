@@ -1,4 +1,4 @@
-package com.example.android.kevkane87.matchedbettingcalculator.refundifcalculator
+package com.example.android.kevkane87.matchedbettingcalculator.refundcalculator
 
 import android.content.*
 import android.os.Bundle
@@ -16,35 +16,36 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.example.android.kevkane87.matchedbettingcalculator.R
-import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentRefundIfCalculatorBinding
+import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentRefundCalculatorBinding
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class RefundIfCalculatorFragment : Fragment() {
+class RefundCalculatorFragment : Fragment() {
 
     private lateinit var layCommissionDefault: String
     private lateinit var currency: String
 
-    private val viewModel: RefundIfCalculatorViewModel by lazy {
+    private val viewModel: RefundCalculatorViewModel by lazy {
         val activity = requireNotNull(this.activity)
         ViewModelProvider(
             this,
-            RefundIfCalculatorViewModelFactory(activity.application)
-        )[RefundIfCalculatorViewModel::class.java]
+            RefundCalculatorViewModelFactory(activity.application)
+        )[RefundCalculatorViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<FragmentRefundIfCalculatorBinding>(
+        val binding = DataBindingUtil.inflate<FragmentRefundCalculatorBinding>(
             inflater,
-            R.layout.fragment_refund_if_calculator, container, false
+            R.layout.fragment_refund_calculator, container, false
         )
 
 
-        binding.refundIfCalculatorViewModel = viewModel
+        binding.refundCalculatorViewModel = viewModel
 
         setDefaults(binding)
 
@@ -56,7 +57,7 @@ class RefundIfCalculatorFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
-        toolbarTitle.text = getString(R.string.refund_if_calculator)
+        toolbarTitle.text = getString(R.string.refund_calculator)
 
 
         binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
@@ -101,16 +102,6 @@ class RefundIfCalculatorFragment : Fragment() {
                 .show()
         }
 
-        binding.buttonCopyRefundOutcome.setOnClickListener {
-            var stake = binding.layStakeRefundOutcome.text
-            stake = stake.drop(1)
-            val clipboard =
-                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip: ClipData = ClipData.newPlainText("copy_lay_stake", stake)
-            clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "$stake copied to clipboard", Toast.LENGTH_SHORT)
-                .show()
-        }
 
         //listeners to calculate for any user input changes
 
@@ -135,18 +126,12 @@ class RefundIfCalculatorFragment : Fragment() {
         binding.refundRetention.doAfterTextChanged {
             calculate(binding)
         }
-        binding.exLayBetRefundOutcomeOdds.doAfterTextChanged {
-            calculate(binding)
-        }
-        binding.exCommissionRefundOutcome.doAfterTextChanged {
-            calculate(binding)
-        }
 
         return binding.root
     }
 
     //function to trigger calculation
-    private fun calculate(binding: FragmentRefundIfCalculatorBinding) {
+    private fun calculate(binding: FragmentRefundCalculatorBinding) {
 
         if (binding.backBetStake.text.startsWith('.')) binding.backBetStake.text.insert(0, "0")
         if (binding.backBetStake.text.isNullOrEmpty()) viewModel.backBetStake.value = 0.0
@@ -179,14 +164,6 @@ class RefundIfCalculatorFragment : Fragment() {
         if (binding.refundRetention.text.isNullOrEmpty()) viewModel.refundRetention.value = 0.0
         else viewModel.refundRetention.value = binding.refundRetention.text.toString().toDouble()
 
-        if (binding.exLayBetRefundOutcomeOdds.text.startsWith('.')) binding.exLayBetRefundOutcomeOdds.text.insert(0, "0")
-        if (binding.exLayBetRefundOutcomeOdds.text.isNullOrEmpty()) viewModel.layOddsRefund.value = 0.0
-        else viewModel.layOddsRefund.value = binding.exLayBetRefundOutcomeOdds.text.toString().toDouble()
-
-        if (binding.exCommissionRefundOutcome.text.startsWith('.')) binding.exCommissionRefundOutcome.text.insert(0, "0")
-        if (binding.exCommissionRefundOutcome.text.isNullOrEmpty()) viewModel.refundLayComm.value = 0.0
-        else viewModel.refundLayComm.value = binding.exCommissionRefundOutcome.text.toString().toDouble()
-
         if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
         else {
             binding.layoutResults.isGone = true
@@ -195,7 +172,7 @@ class RefundIfCalculatorFragment : Fragment() {
         viewModel.calculate()
     }
 
-    private fun clear(binding: FragmentRefundIfCalculatorBinding) {
+    private fun clear(binding: FragmentRefundCalculatorBinding) {
         //clear button
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         layCommissionDefault = sharedPreferences?.getString(
@@ -211,8 +188,6 @@ class RefundIfCalculatorFragment : Fragment() {
         binding.exLayBetOdds.text = Editable.Factory.getInstance().newEditable("")
         binding.refund.text = Editable.Factory.getInstance().newEditable("")
         binding.refundRetention.text = Editable.Factory.getInstance().newEditable("")
-        binding.exLayBetRefundOutcomeOdds.text = Editable.Factory.getInstance().newEditable("")
-        binding.exCommissionRefundOutcome.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
 
 
     }
@@ -241,7 +216,7 @@ class RefundIfCalculatorFragment : Fragment() {
         builder.show()
     }
 
-    private fun setDefaults(binding: FragmentRefundIfCalculatorBinding) {
+    private fun setDefaults(binding: FragmentRefundCalculatorBinding) {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         layCommissionDefault = sharedPreferences?.getString(
@@ -255,7 +230,7 @@ class RefundIfCalculatorFragment : Fragment() {
         viewModel.currencySymbol.value = currency
 
         binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
-        binding.exCommissionRefundOutcome.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
+
     }
 
 
