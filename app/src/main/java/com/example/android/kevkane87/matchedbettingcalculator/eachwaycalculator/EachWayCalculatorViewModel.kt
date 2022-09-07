@@ -165,7 +165,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
 
     fun canCalculate(): Boolean {
         return (_backBetOdds.value != null && _backBetStakeEw.value != null && _layBetOdds.value != null && _placePayout.value != null && _placeLayOdds.value != null
-                && _backBetOdds.value != 0.0 && _backBetStakeEw.value != 0.0 && _layBetOdds.value != 0.0 && _placePayout.value != 0 && _placeLayOdds.value != 0.0)
+                && _backBetOdds.value!! > 1.0 && _backBetStakeEw.value != 0.0 && _layBetOdds.value!! > 1.0 && _placePayout.value != 0 && _placeLayOdds.value!! > 1.0)
     }
 
     private fun isStakeInput(): Boolean {
@@ -173,7 +173,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
     }
 
     private fun isOddsInput(): Boolean {
-        return (_backBetOdds.value != null && _backBetOdds.value != 0.0 && _placePayout.value != null && _placePayout.value != 0)
+        return (_backBetOdds.value != null && _backBetOdds.value!! > 1.0 && _placePayout.value != null && _placePayout.value != 0)
     }
 
     //function provides matched bet calculations

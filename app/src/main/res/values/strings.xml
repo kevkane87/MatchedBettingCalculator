@@ -38,6 +38,8 @@
     <string name="saved_bets">Saved Bets</string>
     <string name="bet_saved">Bet saved</string>
     <string name="please_enter_bet_input_details">Please enter sufficient input details</string>
+    <string name="set_bet_title">Set Bet Title</string>
+    <string name="copied_to_clipboard">copied to clipboard</string>
 
 
     <string name="set_reminder_for_bet">Set reminder for bet?</string>
@@ -51,12 +53,15 @@
     <string name="bet_reminder_channel_name" translatable="true">Bet Reminders</string>
     <string name="help">Help</string>
 
-    <string name="about_heading">About</string>
+    <string name="intro">This application provides a variety of calculators for matched betting.  It is expected that the user has prior knowledge of matched betting strategies. The appropriate lay stakes and profits are calculated and displayed automatically on input of data.\n\nThe application also includes a ‘Bet Reminder’ function to set notification reminders at a time in the future.</string>
 
-    <string name="about_description">Matched Bet App is a tool designed to assist with matched betting on mobile devices. The application includes a calculator for matched bet calculations and a bet finding tool to quickly find real-time matched bets for UK bookmakers.</string>
-
-    <string name="calculator_description">Select the type of bet to calculate: \n\u25CF Qualifier\n\u25CF Stake Not Returned (SNR) \n\u25CF Stake Returned (SR) \n\nEnter bookmaker stake, bookmaker odds, exchange lay odds and exchange commission (if applicable). Press the calculate button to calculate the lay stake for placing the lay bet on the exchange. Bet details can be entered for saving bet.\nBet reminder notifications can be set by pressing the reminder button and selecting date and time for reminder.\nSaved bets can be deleted using the delete button, which is visible only when showing a saved bet.
-</string>
+    <string name="user_guide">User Guide</string>
+    <string name="matched_betting_calc_guide">This calculator is used for normal matched betting calculations. Firstly, make sure you select the correct type of bet: \n\n\u25CF Qualifier: Standard back and lay bet. Also used for arbitrage bets \n\u25CF SNR (Stake not returned free bet) : Bookmaker fee bet which returns only the winnings from the free bet and not the stake \n\u25CF SR (Stake returned free bet): Bookmaker free bet which returns the stake with the winnings\n\nEnter the relevant input details to show results. Results can be displayed as normal, underlay, overlay or custom. Selecting custom will allow you to vary the lay stake using the slider bar.\n\nCalculator also used for partially matched bets where the original lay bet did not get fully matched. Select ‘Partially Matched’ and enter the details of the partially matched bet. Make sure to set the current market lay odds in the main input data and the appropriate lay stakes will be calculated to match the bet.</string>
+    <string name="each_way_calc_guide">Used for each way matched bets and each way extra place offers. Select correct type of bet: Qualifier, SNR or SR and enter relevant input data to show results. Check the ‘Extra Place Offer’ checkbox to also show potential profit of an extra place if the bookmaker is paying out more places than the exchange.</string>
+    <string name="refund_calc_guide">Used for offers where the bookmaker refunds stake on losing bets as either cash or free bet. If the refund is cash set the ‘Refund Retention’ to 100%. If the refund is a free bet set this to the percentage of the free bet you expect to turn into cash (typically 70%-80%). The results will show the required lay stake to lock in a profit.</string>
+    <string name="refund_if_calc_guide">Used for offers where the bookmaker refunds stakes as either cash or free bet due a specific outcome or trigger happening. For example, a refund on bets on a football game if a specific player scores, or a refund on a horse racing bet if the favourite wins. As well as laying the initial bet, the refund trigger can be layed as well to lock in a profit. Can also be used for 4/1 offers, in which case the refund trigger is the same as the initial bet and overall lay stake would be the sum of the initial and refund trigger lay stakes shown in the results.</string>
+    <string name="early_payout_calc_guide">Used for offers where the bookmaker pays out early during an event. For example, they pay out a football team as the winner if they go 2 goals up during the game. At this point, an in-play back bet can be placed to lock in a profit. The in-play back bet should only ever be placed after the early payout has been triggered. Use the slider to vary the in-play back bet stake if you do not wish to lock in a profit.</string>
+    <string name="odds_converter_calc_guide">Converts between decimal, fractional and American odds. Also shows implied probability.</string>
 
     <string name="find_bets_description">Searches real time odds for various UK bookmakers for upcoming English Premier League football games. The bets are shown based on the best rating for matched bet (100% rating = 100% of bookmaker stake retained after playing qualifying matched bet). Click on the bet to open in calculator.</string>
 
@@ -107,6 +112,9 @@
     <string name="initial_lay_bet">Initial Lay Bet</string>
     <string name="if_not_extra_place">If Not Extra Place</string>
     <string name="refund_calculator">Refund Calculator</string>
+    <string name="early_payout_calculator">Early Payout Calculator</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 
 
     <string-array name="pref_lay_commission_labels">

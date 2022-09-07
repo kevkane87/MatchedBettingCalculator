@@ -1,4 +1,4 @@
-package com.example.android.kevkane87.matchedbettingcalculator.refundifcalculator
+package com.example.android.kevkane87.matchedbettingcalculator.earlypayoutcalculator
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +14,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
+class EarlyPayoutCalculatorViewModel(application: Application) : ViewModel() {
 
     private val repository = Repository(getDatabase(application))
 
@@ -35,41 +35,29 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
     val exchangeCommission: MutableLiveData<Double>
         get() = _exchangeCommission
 
-    private val _refund = MutableLiveData<Double>()
-    val refund: MutableLiveData<Double>
-        get() = _refund
-
-    private val _refundRetention = MutableLiveData<Double>()
-    val refundRetention: MutableLiveData<Double>
-        get() = _refundRetention
-
-    private val _layOddsRefund = MutableLiveData<Double>()
-    val layOddsRefund: MutableLiveData<Double>
-        get() = _layOddsRefund
-
-    private val _refundLayComm = MutableLiveData<Double>()
-    val refundLayComm: MutableLiveData<Double>
-        get() = _refundLayComm
+    private val _inPlayBackOdds = MutableLiveData<Double>()
+    val inPlayBackOdds: MutableLiveData<Double>
+        get() = _inPlayBackOdds
 
     private val _backCommission = MutableLiveData<Double>()
     val backCommission: MutableLiveData<Double>
         get() = _backCommission
 
+    private val _maxPayout = MutableLiveData<Double>()
+    val maxPayout: MutableLiveData<Double>
+        get() = _maxPayout
+
     private val _layStake = MutableLiveData<Double>()
     val layStake: MutableLiveData<Double>
         get() = _layStake
 
+    private val _inPlayBackStake = MutableLiveData<Double>()
+    val inPlayBackStake: MutableLiveData<Double>
+        get() = _inPlayBackStake
+
     private val _layLiability = MutableLiveData<Double>()
     val layLiability: MutableLiveData<Double>
         get() = _layLiability
-
-    private val _layStakeRefund = MutableLiveData<Double>()
-    val layStakeRefund: MutableLiveData<Double>
-        get() = _layStakeRefund
-
-    private val _layLiabilityRefund = MutableLiveData<Double>()
-    val layLiabilityRefund: MutableLiveData<Double>
-        get() = _layLiabilityRefund
 
     private val _profitBackWins = MutableLiveData<Double>()
     val profitBackWins: MutableLiveData<Double>
@@ -86,6 +74,14 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
     private val _betType = MutableLiveData<String>()
     val betType: MutableLiveData<String>
         get() = _betType
+
+    private val _seekMax = MutableLiveData<Int>()
+    val seekMax: MutableLiveData<Int>
+        get() = _seekMax
+
+    private val _seekMin = MutableLiveData<Int>()
+    val seekMin: MutableLiveData<Int>
+        get() = _seekMin
 
     private val _betDetails = MutableLiveData<String>()
 
@@ -105,10 +101,24 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
 
     val backCommCheckboxSate = MutableLiveData<Boolean>()
 
+    val maxPayoutCheckboxSate = MutableLiveData<Boolean>()
+
+    private val _isCustomStake = MutableLiveData<Boolean>()
+    val isCustomStake: MutableLiveData<Boolean>
+        get() = _isCustomStake
+
+    private val _layStakeCustom = MutableLiveData<Double>()
+    val layStakeCustom: MutableLiveData<Double>
+        get() = _layStakeCustom
+
 
     init {
         backCommCheckboxSate.value = false
+        maxPayoutCheckboxSate.value = false
         _betType.value = ""
+        _seekMax.value = 0
+        _seekMin.value = 0
+        _layStakeCustom.value = 0.0
 
     }
 
@@ -116,16 +126,16 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
         _backBetStake.value = 0.0
         _backBetOdds.value = 0.0
         _layBetOdds.value = 0.0
-        _refund.value = 0.0
-        _refundRetention.value = 0.0
+        _inPlayBackOdds.value = 0.0
         _exchangeCommission.value = defaultLayCommission
-        _refundLayComm.value = defaultLayCommission
         _backCommission.value = 0.0
         _layStake.value = 0.0
         _layLiability.value = 0.0
+        _maxPayout.value = 0.0
         _layOddsResults.value = 0.0
         _profitBackWins.value = 0.0
         _profitLayWins.value = 0.0
+        _isCustomStake.value = false
         _id.value = ""
 
     }
@@ -135,7 +145,7 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
 
     fun canCalculate(): Boolean {
 
-        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null && _layOddsRefund.value != null && _refund.value != null && _refundRetention.value != null && _backBetOdds.value!! > 1.0 && _backBetStake.value != 0.0 && _layBetOdds.value!! > 1.0 && _layOddsRefund.value!! > 1.0  && _refund.value != 0.0 && _refundRetention.value != 0.0
+        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null  && _inPlayBackOdds.value != null && _backBetOdds.value!! > 1.0 && _backBetStake.value != 0.0 && _layBetOdds.value!! > 1.0  && _inPlayBackOdds.value!! > 1.0
     }
 
     //function provides matched bet calculations
@@ -145,47 +155,74 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
 
             val backCommDecimal = _backCommission.value!! / 100
             val layCommDecimal = _exchangeCommission.value!! / 100
-            val layCommRefundDecimal = _refundLayComm.value!! / 100
-            val refundAmount = _refund.value!! * (_refundRetention.value!! / 100)
-
-
             val layOdds =  _layBetOdds.value!!
+
+
 
             _layStake.value = layStakeQualNor(
                 _backBetStake.value!!,
                 _backBetOdds.value!!,
                 backCommDecimal,
                 layOdds,
-                layCommDecimal
+                layCommDecimal,
             )
 
             _layLiability.value = layLiability(layOdds, _layStake.value!!)
+
+
+            if (_isCustomStake.value!!){
+                _inPlayBackStake.value = _layStakeCustom.value
+            }
+            else{
+                if (maxPayoutCheckboxSate.value!! && _maxPayout.value!! != 0.0){
+                    if ((_backBetOdds.value!! * _backBetStake.value!!) > _maxPayout.value!!){
+
+                        _inPlayBackStake.value = ((_maxPayout.value!!) + layCommDecimal*_layStake.value!!)/ (inPlayBackOdds.value!!)
+
+                    }
+                    else{
+                        _inPlayBackStake.value = ((_backBetOdds.value!! * _backBetStake.value!!) + layCommDecimal*_layStake.value!!)/ (inPlayBackOdds.value!!)
+                    }
+                }
+                else{
+                    _inPlayBackStake.value = ((_backBetOdds.value!! * _backBetStake.value!!) + layCommDecimal*_layStake.value!!)/ (inPlayBackOdds.value!!)
+                }
+
+
+                _seekMin.value = (profitLayWinsQual(_layStake.value!!, _backBetStake.value!!, layCommDecimal)*100).toInt()
+                _seekMax.value = (_inPlayBackStake.value!! * 100).toInt()
+                _layStakeCustom.value = _seekMax.value!!.toDouble()/100
+                _isCustomStake.value = true
+            }
+
             _profitBackWins.value = profitBackWinsQual(
                 _backBetStake.value!!,
                 _backBetOdds.value!!,
                 backCommDecimal,
                 _layLiability.value!!
-            )
-
-            _profitLayWins.value =
-                profitLayWinsQual(_layStake.value!!, _backBetStake.value!!, layCommDecimal)
+            ) + (_inPlayBackStake.value!! * inPlayBackOdds.value!! - _inPlayBackStake.value!!)
 
 
-            _layStakeRefund.value = refundAmount  / (_layOddsRefund.value!! * (1-layCommRefundDecimal))
-
-            _layLiabilityRefund.value = layLiability(_layOddsRefund.value!!, _layStakeRefund.value!!)
-
-            _profitBackWins.value = _profitBackWins.value!! + _layStakeRefund.value!!
-            _profitLayWins.value = _profitLayWins.value!! + _layStakeRefund.value!!
+                if (maxPayoutCheckboxSate.value!! && _maxPayout.value!! != 0.0){
+                    if ((_backBetOdds.value!! * _backBetStake.value!!) > _maxPayout.value!!){
+                        _profitLayWins.value =
+                            profitLayWinsQual(_layStake.value!!, _backBetStake.value!!, layCommDecimal) + (_maxPayout.value!!) - _inPlayBackStake.value!!
+                    }
+                    else{
+                        _profitLayWins.value =
+                            profitLayWinsQual(_layStake.value!!, _backBetStake.value!!, layCommDecimal) + (_backBetStake.value!! * _backBetOdds.value!!) - _inPlayBackStake.value!!
+                    }
+                }
+                else{
+                    _profitLayWins.value =
+                        profitLayWinsQual(_layStake.value!!, _backBetStake.value!!, layCommDecimal) + (_backBetStake.value!! * _backBetOdds.value!!) - _inPlayBackStake.value!!
+                }
 
 
         } else {
             _layStake.value = 0.0
             _layLiability.value = 0.0
             _layOddsResults.value = 0.0
-            _layStakeRefund.value = 0.0
-            _layLiabilityRefund.value = 0.0
-            _layOddsRefund.value = 0.0
             _profitBackWins.value = 0.0
             _profitLayWins.value = 0.0
         }
@@ -206,22 +243,23 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
             ) + "%\n"
         ) else builder.append("\n")
 
-        builder.append("Refund amount: " + cf.format(_refund.value))
-        builder.append(", Refund retention: " + df.format(_refundRetention.value) + "%\n")
 
-        builder.append("Lay odds init: " + df.format(_layBetOdds.value))
-        builder.append(", Lay comm init: " + df.format(_exchangeCommission.value) + "%\n")
+        builder.append("Lay odds: " + df.format(_layBetOdds.value))
+        builder.append(", Lay comm: " + df.format(_exchangeCommission.value) + "%\n")
 
-        builder.append("Lay odds refund trig: " + df.format(_layOddsRefund.value))
-        builder.append(", Lay comm refund trig: " + df.format(_refundLayComm.value) + "%\n")
+        builder.append("In-play back odds: " + df.format(_layBetOdds.value)+"%\n")
+
+        if (maxPayoutCheckboxSate.value!! && _maxPayout.value!! > 0.0){
+            builder.append("Max payout: " + cf.format(_maxPayout.value)+"%\n")
+        }
 
         builder.append("Lay stake init: " + cf.format(_layStake.value))
         builder.append(", Lay liab init: " + cf.format(_layLiability.value) + "\n")
 
-        builder.append("Lay stake trig: " + cf.format(_layStakeRefund.value))
-        builder.append(", Lay liab trig: " + cf.format(_layLiabilityRefund.value) + "\n")
 
-        builder.append("Profit: " + cf.format(_profitBackWins.value))
+        builder.append("In-play back stake: " + cf.format(_layStake.value)+"\n")
+
+        builder.append("Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
 
         _betDetails.value = builder.toString()
     }
@@ -237,7 +275,7 @@ class RefundIfCalculatorViewModel(application: Application) : ViewModel() {
         val dateToday = getDate()
         viewModelScope.launch {
             repository.saveBet(
-                MatchedBetDTO(dateToday, _betName.value!!, "Refund If", _betDetails.value!!)
+                MatchedBetDTO(dateToday, _betName.value!!, "Early Payout", _betDetails.value!!)
             )
         }
     }

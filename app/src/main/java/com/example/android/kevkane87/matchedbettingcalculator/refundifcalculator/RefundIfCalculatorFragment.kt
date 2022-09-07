@@ -97,7 +97,7 @@ class RefundIfCalculatorFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText("copy_lay_stake", stake)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "$stake copied to clipboard", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "$stake" + " " + getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -108,7 +108,7 @@ class RefundIfCalculatorFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText("copy_lay_stake", stake)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "$stake copied to clipboard", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "$stake" + " " + getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -219,12 +219,9 @@ class RefundIfCalculatorFragment : Fragment() {
 
 
     private fun saveBet() {
-        val builder: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Set Bet Name")
-
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
+        builder.setTitle(activity?.getString(R.string.set_bet_title))
         val input = EditText(requireContext())
-        input.hint = "Enter Bet Name"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 

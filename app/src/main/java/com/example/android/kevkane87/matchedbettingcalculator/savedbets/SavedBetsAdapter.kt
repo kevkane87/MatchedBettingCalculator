@@ -1,7 +1,6 @@
-package com.example.android.kevkane87.matchedbetapp.savedbets
+package com.example.android.kevkane87.matchedbettingcalculator.savedbets
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +9,7 @@ import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
 import com.example.android.kevkane87.matchedbettingcalculator.databinding.ItemSavedBetBinding
 
 class SavedBetsAdapter(private val onLongClickListener: OnLongClickListener) : ListAdapter<MatchedBetDTO,
-            SavedBetsAdapter.ViewHolder>(BetDiffCallback) {
+        SavedBetsAdapter.ViewHolder>(BetDiffCallback) {
 
         //viewholder for bet items
         class ViewHolder (private val binding: ItemSavedBetBinding)

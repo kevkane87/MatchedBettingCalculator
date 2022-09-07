@@ -3,7 +3,6 @@ package com.example.android.kevkane87.matchedbettingcalculator.eachwaycalculator
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -26,7 +25,6 @@ import com.example.android.kevkane87.matchedbettingcalculator.databinding.Fragme
  */
 class EachWayCalculatorFragment : Fragment() {
 
-    private var betName = "Each Way Matched Bet"
     private lateinit var layCommissionDefault: String
     private lateinit var placePayoutDefault: String
     private lateinit var currency: String
@@ -71,7 +69,7 @@ class EachWayCalculatorFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText("copy_lay_stake", stake)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "$stake copied to clipboard", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "$stake" + " " + getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -82,7 +80,7 @@ class EachWayCalculatorFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText("copy_lay_stake", stake)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "$stake copied to clipboard", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "$stake" + " " + getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -228,24 +226,21 @@ class EachWayCalculatorFragment : Fragment() {
 
     private fun saveBet(){
         val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Set Bet Name")
-
+        builder.setTitle(activity?.getString(R.string.set_bet_title))
         val input = EditText(requireContext())
-
-        input.hint = "Enter Bet Name"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
 
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { _, _ ->
+        builder.setPositiveButton("OK") { _, _ ->
             // Here you get get input text from the Edittext
             val name = input.text.toString()
-            if (name.isEmpty())viewModel.betName.value = betName else viewModel.betName.value = name
+            if (name.isEmpty()) viewModel.betName.value = "" else viewModel.betName.value = name
             viewModel.setBetDetails()
             viewModel.saveBet()
             Toast.makeText(context, activity?.getString(R.string.bet_saved), Toast.LENGTH_SHORT)
                 .show()
-        })
+        }
 
         builder.show()
     }

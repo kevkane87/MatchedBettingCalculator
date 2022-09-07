@@ -5,18 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
-import com.example.android.kevkane87.matchedbettingcalculator.R
 import com.example.android.kevkane87.matchedbettingcalculator.Repository
 import com.example.android.kevkane87.matchedbettingcalculator.database.BetDatabase
 import kotlinx.coroutines.launch
 import java.text.DecimalFormat
-import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
 import kotlin.math.abs
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
 class OddsConverterCalculatorViewModel(application: Application) : ViewModel() {
 
@@ -154,7 +150,7 @@ class OddsConverterCalculatorViewModel(application: Application) : ViewModel() {
         builder.append("Factional: " + _fractionalOddsNumerator.value + " / " + _fractionalOddsDenominator.value + "\n")
         builder.append("Decimal: " + df.format(_decimalOdds.value) + "\n")
         builder.append("American: " + _americanOddsSign.value + df.format(_americanOdds.value) + "\n")
-        builder.append("probability: " + df.format(_probability.value) + "%")
+        builder.append("Probability: " + df.format(_probability.value) + "%")
 
 
         _betDetails.value = builder.toString()

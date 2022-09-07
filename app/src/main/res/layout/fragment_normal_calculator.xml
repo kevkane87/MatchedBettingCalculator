@@ -755,6 +755,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/black_tint"
                         android:backgroundTint="@color/black_tint"
+                        android:maxWidth="200dp"
                         android:textColor="@android:color/darker_gray"
                         android:textSize="16sp"
                         app:doubleToCurrencyString="@{normalCalculatorViewModel.layLiability}"

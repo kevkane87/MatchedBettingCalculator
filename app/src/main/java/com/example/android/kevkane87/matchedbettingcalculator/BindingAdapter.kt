@@ -1,23 +1,15 @@
 package com.example.android.kevkane87.matchedbettingcalculator
 
-import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.kevkane87.matchedbetapp.savedbets.SavedBetsAdapter
+import com.example.android.kevkane87.matchedbettingcalculator.savedbets.SavedBetsAdapter
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
 
-@BindingAdapter("goneIfNotNull")
-fun goneIfNotNull(view: View, it: Any?) {
-    view.visibility = if (it != null) View.GONE else View.VISIBLE
-}
 
 @BindingAdapter("doubleToString")
 fun doubleToString(textView: TextView, number: Double) {

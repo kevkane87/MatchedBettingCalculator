@@ -2,7 +2,6 @@ package com.example.android.kevkane87.matchedbettingcalculator
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 class SettingsActivity : AppCompatActivity() {
@@ -16,7 +15,7 @@ class SettingsActivity : AppCompatActivity() {
             .commit()
 
         supportActionBar?.title = "Settings"
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

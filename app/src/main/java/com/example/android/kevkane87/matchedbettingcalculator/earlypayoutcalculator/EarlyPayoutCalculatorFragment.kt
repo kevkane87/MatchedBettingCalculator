@@ -1,4 +1,4 @@
-package com.example.android.kevkane87.matchedbettingcalculator.refundcalculator
+package com.example.android.kevkane87.matchedbettingcalculator.earlypayoutcalculator
 
 import android.content.*
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.text.InputType
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.EditText
+import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isGone
@@ -16,40 +17,42 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.example.android.kevkane87.matchedbettingcalculator.R
-import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentRefundCalculatorBinding
+import com.example.android.kevkane87.matchedbettingcalculator.databinding.FragmentEarlyPayoutCalculatorBinding
 
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class RefundCalculatorFragment : Fragment() {
+class EarlyPayoutCalculatorFragment : Fragment() {
 
     private lateinit var layCommissionDefault: String
     private lateinit var currency: String
 
-    private val viewModel: RefundCalculatorViewModel by lazy {
+    private val viewModel: EarlyPayoutCalculatorViewModel by lazy {
         val activity = requireNotNull(this.activity)
         ViewModelProvider(
             this,
-            RefundCalculatorViewModelFactory(activity.application)
-        )[RefundCalculatorViewModel::class.java]
+            EarlyPayoutCalculatorViewModelFactory(activity.application)
+        )[EarlyPayoutCalculatorViewModel::class.java]
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = DataBindingUtil.inflate<FragmentRefundCalculatorBinding>(
+        val binding = DataBindingUtil.inflate<FragmentEarlyPayoutCalculatorBinding>(
             inflater,
-            R.layout.fragment_refund_calculator, container, false
+            R.layout.fragment_early_payout_calculator, container, false
         )
 
 
-        binding.refundCalculatorViewModel = viewModel
+        binding.earlyPayoutCalculatorViewModel = viewModel
 
         setDefaults(binding)
 
         viewModel.clear()
+
+        var isFineTune = false
 
         if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
         else binding.layoutResults.isGone = true
@@ -57,12 +60,11 @@ class RefundCalculatorFragment : Fragment() {
         binding.lifecycleOwner = this
 
         val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
-        toolbarTitle.text = getString(R.string.refund_calculator)
+        toolbarTitle.text = getString(R.string.early_payout_calculator)
 
 
         binding.groupBackBetCommission.isVisible = viewModel.backCommCheckboxSate.value!!
-
-
+        binding.groupMaxPayout.isVisible = viewModel.maxPayoutCheckboxSate.value!!
 
         binding.checkBoxBackComm.setOnClickListener {
             if (binding.checkBoxBackComm.isChecked) {
@@ -73,6 +75,18 @@ class RefundCalculatorFragment : Fragment() {
                 binding.groupBackBetCommission.isVisible = false
                 binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
                 viewModel.backCommission.value = 0.0
+            }
+        }
+
+        binding.checkBoxMaxPayout.setOnClickListener {
+            if (binding.checkBoxMaxPayout.isChecked) {
+                viewModel.maxPayoutCheckboxSate.value = true
+                binding.groupMaxPayout.isVisible = true
+            } else {
+                viewModel.maxPayoutCheckboxSate.value = false
+                binding.groupMaxPayout.isVisible = false
+                binding.maxPayout.text = Editable.Factory.getInstance().newEditable("")
+                viewModel.maxPayout.value = 0.0
             }
         }
 
@@ -102,36 +116,93 @@ class RefundCalculatorFragment : Fragment() {
                 .show()
         }
 
+        binding.buttonCopyInPlayBack.setOnClickListener {
+            var stake = binding.inPlayBackStake.text
+            stake = stake.drop(1)
+            val clipboard =
+                requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip: ClipData = ClipData.newPlainText("copy_back_stake", stake)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(context, "$stake" + " " + getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
+                .show()
+        }
+
 
         //listeners to calculate for any user input changes
 
         binding.backBetStake.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
         }
         binding.backBetOdds.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
         }
         binding.exLayBetOdds.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
         }
         binding.exCommission.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
         }
         binding.backBetCommission.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
         }
-        binding.refund.doAfterTextChanged {
+        binding.inPlayBackOdds.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
         }
-        binding.refundRetention.doAfterTextChanged {
+        binding.maxPayout.doAfterTextChanged {
+            viewModel.isCustomStake.value = false
             calculate(binding)
+        }
+
+        binding.customLayStakeEarly.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+
+                if (fromUser || isFineTune) {
+                    viewModel.layStakeCustom.value = progress.toDouble() / 100
+                    calculate(binding)
+                } else {
+                    calculate(binding)
+                    binding.customLayStakeEarly.setProgress(viewModel.seekMax.value!!)
+                }
+
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+        })
+
+        binding.fineTuneMinusEarly.setOnClickListener {
+
+            isFineTune = true
+            binding.customLayStakeEarly.setProgress( binding.customLayStakeEarly.progress - 1)
+            viewModel.layStakeCustom.value = binding.customLayStakeEarly.progress.toDouble() / 100
+            calculate(binding)
+            isFineTune = false
+        }
+
+        binding.fineTunePlusEarly.setOnClickListener {
+
+            isFineTune = true
+            binding.customLayStakeEarly.setProgress( binding.customLayStakeEarly.progress + 1)
+            viewModel.layStakeCustom.value = binding.customLayStakeEarly.progress.toDouble() / 100
+            calculate(binding)
+            isFineTune = false
         }
 
         return binding.root
     }
 
     //function to trigger calculation
-    private fun calculate(binding: FragmentRefundCalculatorBinding) {
+    private fun calculate(binding: FragmentEarlyPayoutCalculatorBinding) {
 
         if (binding.backBetStake.text.startsWith('.')) binding.backBetStake.text.insert(0, "0")
         if (binding.backBetStake.text.isNullOrEmpty()) viewModel.backBetStake.value = 0.0
@@ -156,13 +227,14 @@ class RefundCalculatorFragment : Fragment() {
         if (binding.backBetCommission.text.isNullOrEmpty()) viewModel.backCommission.value = 0.0
         else viewModel.backCommission.value = binding.backBetCommission.text.toString().toDouble()
 
-        if (binding.refund.text.startsWith('.')) binding.refund.text.insert(0, "0")
-        if (binding.refund.text.isNullOrEmpty()) viewModel.refund.value = 0.0
-        else viewModel.refund.value = binding.refund.text.toString().toDouble()
+        if (binding.inPlayBackOdds.text.startsWith('.')) binding.inPlayBackOdds.text.insert(0, "0")
+        if (binding.inPlayBackOdds.text.isNullOrEmpty()) viewModel.inPlayBackOdds.value = 0.0
+        else viewModel.inPlayBackOdds.value = binding.inPlayBackOdds.text.toString().toDouble()
 
-        if (binding.refundRetention.text.startsWith('.')) binding.refundRetention.text.insert(0, "0")
-        if (binding.refundRetention.text.isNullOrEmpty()) viewModel.refundRetention.value = 0.0
-        else viewModel.refundRetention.value = binding.refundRetention.text.toString().toDouble()
+        if (binding.maxPayout.text.startsWith('.')) binding.maxPayout.text.insert(0, "0")
+        if (binding.maxPayout.text.isNullOrEmpty()) viewModel.maxPayout.value = 0.0
+        else viewModel.maxPayout.value = binding.maxPayout.text.toString().toDouble()
+
 
         if (viewModel.canCalculate()) binding.layoutResults.isVisible = true
         else {
@@ -172,7 +244,7 @@ class RefundCalculatorFragment : Fragment() {
         viewModel.calculate()
     }
 
-    private fun clear(binding: FragmentRefundCalculatorBinding) {
+    private fun clear(binding: FragmentEarlyPayoutCalculatorBinding) {
         //clear button
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         layCommissionDefault = sharedPreferences?.getString(
@@ -186,9 +258,8 @@ class RefundCalculatorFragment : Fragment() {
         binding.exCommission.text = Editable.Factory.getInstance().newEditable(layCommissionDefault)
         binding.backBetCommission.text = Editable.Factory.getInstance().newEditable("")
         binding.exLayBetOdds.text = Editable.Factory.getInstance().newEditable("")
-        binding.refund.text = Editable.Factory.getInstance().newEditable("")
-        binding.refundRetention.text = Editable.Factory.getInstance().newEditable("")
-
+        binding.inPlayBackOdds.text = Editable.Factory.getInstance().newEditable("")
+        binding.maxPayout.text = Editable.Factory.getInstance().newEditable("")
 
     }
 
@@ -213,7 +284,7 @@ class RefundCalculatorFragment : Fragment() {
         builder.show()
     }
 
-    private fun setDefaults(binding: FragmentRefundCalculatorBinding) {
+    private fun setDefaults(binding: FragmentEarlyPayoutCalculatorBinding) {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         layCommissionDefault = sharedPreferences?.getString(

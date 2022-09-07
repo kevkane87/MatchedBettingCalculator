@@ -34,7 +34,7 @@ class Repository(private val database: BetDatabase) {
                 database.betDao.deleteBetById(id)
             }
             catch (ex: Exception) {
-                //Log.e(TAG, "Error connecting to API")
+
             }
         }
 }

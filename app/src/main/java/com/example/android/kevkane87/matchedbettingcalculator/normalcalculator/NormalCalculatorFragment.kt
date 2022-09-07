@@ -12,7 +12,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.core.view.marginTop
 import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -25,7 +24,6 @@ import com.example.android.kevkane87.matchedbettingcalculator.databinding.Fragme
  */
 class NormalCalculatorFragment : Fragment() {
 
-    private var betName = "Normal Matched Bet"
     private lateinit var layCommissionDefault: String
     private lateinit var currency: String
 
@@ -181,7 +179,7 @@ class NormalCalculatorFragment : Fragment() {
                 requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip: ClipData = ClipData.newPlainText("copy_lay_stake", stake)
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "$stake copied to clipboard", Toast.LENGTH_SHORT)
+            Toast.makeText(context, "$stake" + " " + getString(R.string.copied_to_clipboard), Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -210,15 +208,11 @@ class NormalCalculatorFragment : Fragment() {
             calculate(binding)
         }
         binding.custom.setOnClickListener {
-
-
                 calculate(binding)
                 binding.customMin.setText((viewModel.customMin.value!!.toDouble() / 100.00).toString())
                 binding.cusomMax.setText((viewModel.customMax.value!!.toDouble() / 100.00).toString())
                 binding.customLayStake.setProgress((viewModel.layStake.value!! * 100).toInt())
                 viewModel.setCustomMaxMin.value = false
-            //viewModel.isCustomMaxMin.value = true
-
         }
         binding.backBetStake.doAfterTextChanged {
             viewModel.radioResultChecked.value = R.id.normal
@@ -444,25 +438,22 @@ class NormalCalculatorFragment : Fragment() {
 
 
     private fun saveBet() {
-        val builder: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Set Bet Name")
-
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
+        builder.setTitle(activity?.getString(R.string.set_bet_title))
         val input = EditText(requireContext())
-        input.hint = "Enter Bet Name"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 
-        builder.setPositiveButton("OK", DialogInterface.OnClickListener { dialog, which ->
+        builder.setPositiveButton("OK") { _, _ ->
             // Here you get get input text from the Edittext
             val name = input.text.toString()
-            if (name.isEmpty()) viewModel.betName.value = betName else viewModel.betName.value =
+            if (name.isEmpty()) viewModel.betName.value = "" else viewModel.betName.value =
                 name
             viewModel.setBetDetails()
             viewModel.saveBet()
-            Toast.makeText(context,  activity?.getString(R.string.bet_saved), Toast.LENGTH_SHORT)
+            Toast.makeText(context, activity?.getString(R.string.bet_saved), Toast.LENGTH_SHORT)
                 .show()
-        })
+        }
         builder.show()
     }
 

@@ -199,10 +199,10 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
     }
 
     private fun isPartial():Boolean{
-        return (_parLayStake1.value != null && _parLayOdds1.value != null && _parLayStake1.value != 0.0 && _parLayOdds1.value != 0.0)
+        return (_parLayStake1.value != null && _parLayOdds1.value != null && _parLayStake1.value != 0.0 && _parLayOdds1.value!! > 1.0)
     }
     private fun isPartial2():Boolean{
-        return (_parLayStake2.value != null && _parLayOdds2.value != null && _parLayStake2.value != 0.0 && _parLayOdds2.value != 0.0)
+        return (_parLayStake2.value != null && _parLayOdds2.value != null && _parLayStake2.value != 0.0 && _parLayOdds2.value!! > 1.0)
     }
 
     private fun layStakePar():Double{
@@ -229,7 +229,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
     fun canCalculate():Boolean{
 
-        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null && _backBetOdds.value != 0.0 && _backBetStake.value != 0.0 && _layBetOdds.value != 0.0
+        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null && _backBetOdds.value!! > 1.0 && _backBetStake.value != 0.0 && _layBetOdds.value!! > 1.0
     }
 
     //function provides matched bet calculations
@@ -340,14 +340,17 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                         "Custom" -> {
                             _layStake.value = _layStakeCustom.value!!
 
-                            if (!_setCustomMaxMin.value!!) {
+                            if (_setCustomMaxMin.value!!) {
+                                _layStake.value = layStakeSNRNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm )
 
-                                _layStake.value = layStakeSNRNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
                                 _customMax.value = (_layStake.value!! * 110).toInt()
                                 Log.d("Custom Max ", _customMax.value!!.toString() )
 
                                 _customMin.value = (_layStake.value!! * 90).toInt()
                                 Log.d("Custom Min ", _customMin.value!!.toString() )
+
+                                if (!isPartial())
+                                    _setCustomMaxMin.value = false
                             }
                         }
                     }
@@ -391,20 +394,16 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                             "Custom" -> {
                                 _layStake.value = _layStakeCustom.value!!
 
-                                if (!_setCustomMaxMin.value!!) {
+                                if (_setCustomMaxMin.value!!) {
+                                    _layStake.value = layStakeSNRNor(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
 
-                                    _layStake.value = layStakeSNRNor(
-                                        newBackStake,
-                                        _backBetOdds.value!!,
-                                        backCommDecimal,
-                                        _layBetOdds.value!!,
-                                        layCommDecimal
-                                    )
                                     _customMax.value = (_layStake.value!! * 110).toInt()
                                     Log.d("Custom Max ", _customMax.value!!.toString() )
 
                                     _customMin.value = (_layStake.value!! * 90).toInt()
                                     Log.d("Custom Min ", _customMin.value!!.toString() )
+
+                                    _setCustomMaxMin.value = false
                                 }
                             }
 
@@ -448,15 +447,17 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                         "Custom" -> {
                             _layStake.value = _layStakeCustom.value!!
 
-                            if (!_setCustomMaxMin.value!!) {
-
-                                _layStake.value = layStakeQualNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm)
+                            if (_setCustomMaxMin.value!!) {
+                                _layStake.value = layStakeQualNor(_backBetStake.value!!, _backBetOdds.value!!, backCommDecimal, layOdds, layComm )
 
                                 _customMax.value = (_layStake.value!! * 110).toInt()
                                 Log.d("Custom Max ", _customMax.value!!.toString() )
 
                                 _customMin.value = (_layStake.value!! * 90).toInt()
                                 Log.d("Custom Min ", _customMin.value!!.toString() )
+
+                                if (!isPartial())
+                                    _setCustomMaxMin.value = false
                             }
                         }
                     }
@@ -480,8 +481,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
                             "Custom" -> {
                                 _layStake.value = _layStakeCustom.value!!
 
-                                if (!_setCustomMaxMin.value!!) {
-
+                                if (_setCustomMaxMin.value!!) {
                                     _layStake.value = layStakeQualNor(newBackStake, _backBetOdds.value!!, backCommDecimal, _layBetOdds.value!!, layCommDecimal )
 
                                     _customMax.value = (_layStake.value!! * 110).toInt()
@@ -489,6 +489,8 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
                                     _customMin.value = (_layStake.value!! * 90).toInt()
                                     Log.d("Custom Min ", _customMin.value!!.toString() )
+
+                                    _setCustomMaxMin.value = false
                                 }
                             }
                         }
@@ -529,14 +531,13 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
         }
     }
 
-
-
-
     fun setBetDetails(){
 
         val builder = StringBuilder()
         val df = DecimalFormat("#.######")
         val cf = NumberFormat.getCurrencyInstance(Locale.UK)
+
+        builder.append("Matched bet type: " + _betType.value + "\n")
 
         builder.append("Back stake: " + cf.format(_backBetStake.value))
         builder.append(", Back odds: " + df.format(_backBetOdds.value))
@@ -560,21 +561,8 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
         builder.append("Lay stake: " + cf.format(_layStake.value))
         builder.append(", Lay liab: " + cf.format(_layLiability.value) + "\n")
 
+        builder.append("Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
 
-        when (_radioResultChecked.value) {
-            R.id.normal -> {
-                builder.append("Profit: " + cf.format(_profitBackWins.value))
-            }
-            R.id.underlay -> {
-                builder.append("Underlay: Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
-            }
-            R.id.overlay -> {
-                builder.append("Overlay: Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
-            }
-            R.id.custom -> {
-                builder.append("Custom: Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
-            }
-        }
 
         _betDetails.value = builder.toString()
     }

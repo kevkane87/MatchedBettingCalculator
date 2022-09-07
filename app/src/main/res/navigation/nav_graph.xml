@@ -27,10 +27,16 @@
         <action
             android:id="@+id/action_normalCalculatorFragment_to_refundCalculatorFragment"
             app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_normalCalculatorFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_normalCalculatorFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
     </fragment>
     <fragment
         android:id="@+id/savedBetsFragment"
-        android:name="com.example.android.kevkane87.matchedbetapp.savedbets.SavedBetsFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.savedbets.SavedBetsFragment"
         android:label="SavedBetsFragment" >
         <action
             android:id="@+id/action_savedBetsFragment_to_normalCalculatorFragment"
@@ -50,6 +56,12 @@
         <action
             android:id="@+id/action_savedBetsFragment_to_eachWayCalculatorFragment"
             app:destination="@id/eachWayCalculatorFragment" />
+        <action
+            android:id="@+id/action_savedBetsFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_savedBetsFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
     </fragment>
     <fragment
         android:id="@+id/eachWayCalculatorFragment"
@@ -73,6 +85,12 @@
         <action
             android:id="@+id/action_eachWayCalculatorFragment_to_refundCalculatorFragment"
             app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_eachWayCalculatorFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_eachWayCalculatorFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
     </fragment>
     <fragment
         android:id="@+id/remindersFragment"
@@ -96,6 +114,12 @@
         <action
             android:id="@+id/action_remindersFragment_to_refundCalculatorFragment"
             app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_remindersFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
     </fragment>
     <fragment
         android:id="@+id/oddsConverterCalculatorFragment"
@@ -119,6 +143,12 @@
         <action
             android:id="@+id/action_oddsConverterCalculatorFragment_to_refundCalculatorFragment"
             app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_oddsConverterCalculatorFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_oddsConverterCalculatorFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
     </fragment>
     <fragment
         android:id="@+id/refundIfCalculatorFragment"
@@ -142,6 +172,12 @@
         <action
             android:id="@+id/action_refundIfCalculatorFragment_to_refundCalculatorFragment"
             app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundIfCalculatorFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundIfCalculatorFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
     </fragment>
     <fragment
         android:id="@+id/refundCalculatorFragment"
@@ -164,6 +200,70 @@
             app:destination="@id/oddsConverterCalculatorFragment" />
         <action
             android:id="@+id/action_refundCalculatorFragment_to_normalCalculatorFragment"
+            app:destination="@id/normalCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_refundCalculatorFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/earlyPayoutCalculatorFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.earlypayoutcalculator.EarlyPayoutCalculatorFragment"
+        android:label="EarlyPayoutCalculatorFragment" >
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_refundIfCalculatorFragment"
+            app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_eachWayCalculatorFragment"
+            app:destination="@id/eachWayCalculatorFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_savedBetsFragment"
+            app:destination="@id/savedBetsFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_oddsConverterCalculatorFragment"
+            app:destination="@id/oddsConverterCalculatorFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_normalCalculatorFragment"
+            app:destination="@id/normalCalculatorFragment" />
+        <action
+            android:id="@+id/action_earlyPayoutCalculatorFragment_to_userGuideFragment"
+            app:destination="@id/userGuideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userGuideFragment"
+        android:name="com.example.android.kevkane87.matchedbettingcalculator.userguide.UserGuideFragment"
+        android:label="UserGuideFragment" >
+        <action
+            android:id="@+id/action_userGuideFragment_to_earlyPayoutCalculatorFragment"
+            app:destination="@id/earlyPayoutCalculatorFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_refundCalculatorFragment"
+            app:destination="@id/refundCalculatorFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_refundIfCalculatorFragment"
+            app:destination="@id/refundIfCalculatorFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_eachWayCalculatorFragment"
+            app:destination="@id/eachWayCalculatorFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_remindersFragment"
+            app:destination="@id/remindersFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_savedBetsFragment"
+            app:destination="@id/savedBetsFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_oddsConverterCalculatorFragment"
+            app:destination="@id/oddsConverterCalculatorFragment" />
+        <action
+            android:id="@+id/action_userGuideFragment_to_normalCalculatorFragment"
             app:destination="@id/normalCalculatorFragment" />
     </fragment>
 </navigation>

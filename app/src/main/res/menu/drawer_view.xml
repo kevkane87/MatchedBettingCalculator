@@ -23,6 +23,10 @@
             android:icon="@drawable/icon_heading"
             android:title="@string/refund_if_calculator" />
         <item
+            android:id="@+id/earlyPayoutCalculatorFragment"
+            android:icon="@drawable/icon_heading"
+            android:title="@string/early_payout_calculator" />
+        <item
             android:id="@+id/oddsConverterCalculatorFragment"
             android:icon="@drawable/icon_heading"
             android:title="@string/odds_converter_calculator" />
@@ -40,6 +44,10 @@
             android:id="@+id/remindersFragment"
             android:icon="@drawable/ic_baseline_notifications_24"
             android:title="@string/bet_reminder" />
+        <item
+            android:id="@+id/userGuideFragment"
+            android:icon="@drawable/ic_baseline_notifications_24"
+            android:title="@string/user_guide" />
         <item
             android:id="@+id/settings_drawer_select"
             android:icon="@drawable/ic_baseline_settings_24"

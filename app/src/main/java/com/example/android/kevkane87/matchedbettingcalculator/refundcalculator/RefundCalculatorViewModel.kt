@@ -123,7 +123,7 @@ class RefundCalculatorViewModel(application: Application) : ViewModel() {
 
     fun canCalculate(): Boolean {
 
-        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null  && _refund.value != null && _refundRetention.value != null && _backBetOdds.value != 0.0 && _backBetStake.value != 0.0 && _layBetOdds.value != 0.0  && _refund.value != 0.0 && _refundRetention.value != 0.0
+        return _backBetOdds.value != null && _backBetStake.value != null && _layBetOdds.value != null  && _refund.value != null && _refundRetention.value != null && _backBetOdds.value!! > 1.0 && _backBetStake.value != 0.0 && _layBetOdds.value!! > 1.0  && _refund.value != 0.0 && _refundRetention.value != 0.0
     }
 
     //function provides matched bet calculations
@@ -200,16 +200,15 @@ class RefundCalculatorViewModel(application: Application) : ViewModel() {
         builder.append("Refund amount: " + cf.format(_refund.value))
         builder.append(", Refund retention: " + df.format(_refundRetention.value) + "%\n")
 
-        builder.append("Lay odds init: " + df.format(_layBetOdds.value))
-        builder.append(", Lay comm init: " + df.format(_exchangeCommission.value) + "%\n")
+        builder.append("Lay odds: " + df.format(_layBetOdds.value))
+        builder.append(", Lay comm: " + df.format(_exchangeCommission.value) + "%\n")
 
 
-        builder.append("Lay stake init: " + cf.format(_layStake.value))
-        builder.append(", Lay liab init: " + cf.format(_layLiability.value) + "\n")
+        builder.append("Lay stake: " + cf.format(_layStake.value))
+        builder.append(", Lay liab: " + cf.format(_layLiability.value) + "\n")
 
 
-
-        builder.append("Profit: " + cf.format(_profitBackWins.value))
+        builder.append("Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
 
         _betDetails.value = builder.toString()
     }
@@ -225,7 +224,7 @@ class RefundCalculatorViewModel(application: Application) : ViewModel() {
         val dateToday = getDate()
         viewModelScope.launch {
             repository.saveBet(
-                MatchedBetDTO(dateToday, _betName.value!!, "Refund If", _betDetails.value!!)
+                MatchedBetDTO(dateToday, _betName.value!!, "Refund", _betDetails.value!!)
             )
         }
     }

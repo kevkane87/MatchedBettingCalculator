@@ -5,17 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
@@ -40,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
-            //val navController = findNavController(R.id.myNavHostFragment)
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
 
 
@@ -48,9 +40,7 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         drawerLayout.addDrawerListener(toggle)
 
-
-        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false)
 
         NavigationUI.setupWithNavController(binding.nvView, navController)
 

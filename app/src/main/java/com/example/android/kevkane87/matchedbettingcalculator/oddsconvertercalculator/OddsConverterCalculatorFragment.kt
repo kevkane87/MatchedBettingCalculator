@@ -1,6 +1,5 @@
 package com.example.android.kevkane87.matchedbettingcalculator.oddsconvertercalculator
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -19,8 +18,6 @@ import java.text.DecimalFormat
 
 
 class OddsConverterCalculatorFragment : Fragment() {
-
-  //  private var betName = getString(R.string.odds_converter_calculator)
 
     private val viewModel: OddsConverterCalculatorViewModel by lazy {
         val activity = requireNotNull(this.activity)
@@ -45,9 +42,6 @@ class OddsConverterCalculatorFragment : Fragment() {
 
         val toolbarTitle = activity?.findViewById(R.id.toolbar_title) as TextView
         toolbarTitle.text = getString(R.string.odds_converter_calculator)
-
-
-        val df = DecimalFormat("#.##")
 
         binding.fractionalOddsNumerator.doAfterTextChanged {
             if (binding.fractionalOddsNumerator.isFocused)
@@ -226,12 +220,9 @@ class OddsConverterCalculatorFragment : Fragment() {
 
     private fun saveBet() {
 
-        val builder: android.app.AlertDialog.Builder =
-            android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Set Bet Name")
-
+        val builder: android.app.AlertDialog.Builder = android.app.AlertDialog.Builder(requireContext())
+        builder.setTitle(activity?.getString(R.string.set_bet_title))
         val input = EditText(requireContext())
-        input.hint = "Enter Bet Name"
         input.inputType = InputType.TYPE_CLASS_TEXT
         builder.setView(input)
 

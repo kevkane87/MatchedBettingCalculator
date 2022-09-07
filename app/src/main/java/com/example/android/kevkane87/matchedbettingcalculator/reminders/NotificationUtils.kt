@@ -24,11 +24,6 @@ import com.example.android.kevkane87.matchedbettingcalculator.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Builds and delivers the notification.
- *
- * @param context, activity context.
- */
 @SuppressLint("UnspecifiedImmutableFlag")
 fun NotificationManager.sendNotification(applicationContext: Context, message: String) {
 
@@ -44,7 +39,6 @@ fun NotificationManager.sendNotification(applicationContext: Context, message: S
         .setPriority(NotificationCompat.PRIORITY_HIGH)
     notify(createID(), builder.build())
 }
-
 
 fun createID(): Int {
     val now = Date()

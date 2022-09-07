@@ -1,13 +1,7 @@
 package com.example.android.kevkane87.matchedbettingcalculator.savedbets
 
-import android.app.AlarmManager
 import android.app.Application
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.os.SystemClock
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +10,6 @@ import com.example.android.kevkane87.matchedbettingcalculator.database.BetDataba
 import com.example.android.kevkane87.matchedbettingcalculator.Result
 import com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO
 import kotlinx.coroutines.launch
-import java.util.*
 import kotlin.collections.ArrayList
 
 class SavedBetsViewModel (application: Application) : ViewModel(){
