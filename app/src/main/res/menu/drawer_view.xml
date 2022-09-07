@@ -46,7 +46,7 @@
             android:title="@string/bet_reminder" />
         <item
             android:id="@+id/userGuideFragment"
-            android:icon="@drawable/ic_baseline_notifications_24"
+            android:icon="@drawable/ic_baseline_help_24"
             android:title="@string/user_guide" />
         <item
             android:id="@+id/settings_drawer_select"

@@ -147,7 +147,7 @@ class OddsConverterCalculatorViewModel(application: Application) : ViewModel() {
         val df = DecimalFormat("#.##")
 
 
-        builder.append("Factional: " + _fractionalOddsNumerator.value + " / " + _fractionalOddsDenominator.value + "\n")
+        builder.append("Fractional: " + _fractionalOddsNumerator.value + " / " + _fractionalOddsDenominator.value + "\n")
         builder.append("Decimal: " + df.format(_decimalOdds.value) + "\n")
         builder.append("American: " + _americanOddsSign.value + df.format(_americanOdds.value) + "\n")
         builder.append("Probability: " + df.format(_probability.value) + "%")
