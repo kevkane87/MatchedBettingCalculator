@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/normalCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculatorFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculatorFragment"
         tools:layout="@layout/fragment_normal_calculator" >
         <action
             android:id="@+id/action_normalCalculatorFragment_to_savedBetsFragment"
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/savedBetsFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.savedbets.SavedBetsFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.savedbets.SavedBetsFragment"
         android:label="SavedBetsFragment" >
         <action
             android:id="@+id/action_savedBetsFragment_to_normalCalculatorFragment"
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/eachWayCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.eachwaycalculator.EachWayCalculatorFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.eachwaycalculator.EachWayCalculatorFragment"
         android:label="EachWayCalculatorFragment" >
         <action
             android:id="@+id/action_eachWayCalculatorFragment_to_savedBetsFragment"
@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/remindersFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.reminders.RemindersFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.reminders.RemindersFragment"
         android:label="RemindersFragment" >
         <action
             android:id="@+id/action_remindersFragment_to_savedBetsFragment"
@@ -123,7 +123,7 @@
     </fragment>
     <fragment
         android:id="@+id/oddsConverterCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.oddsconvertercalculator.OddsConverterCalculatorFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.oddsconvertercalculator.OddsConverterCalculatorFragment"
         android:label="OddsConverterCalculatorFragment" >
         <action
             android:id="@+id/action_oddsConverterCalculatorFragment_to_savedBetsFragment"
@@ -152,7 +152,7 @@
     </fragment>
     <fragment
         android:id="@+id/refundIfCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.refundifcalculator.RefundIfCalculatorFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.refundifcalculator.RefundIfCalculatorFragment"
         android:label="RefundIfCalculatorFragment">
         <action
             android:id="@+id/action_refundIfCalculatorFragment_to_normalCalculatorFragment"
@@ -181,7 +181,7 @@
     </fragment>
     <fragment
         android:id="@+id/refundCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.refundcalculator.RefundCalculatorFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.refundcalculator.RefundCalculatorFragment"
         android:label="RefundCalculatorFragment" >
         <action
             android:id="@+id/action_refundCalculatorFragment_to_refundIfCalculatorFragment"
@@ -210,7 +210,7 @@
     </fragment>
     <fragment
         android:id="@+id/earlyPayoutCalculatorFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.earlypayoutcalculator.EarlyPayoutCalculatorFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.earlypayoutcalculator.EarlyPayoutCalculatorFragment"
         android:label="EarlyPayoutCalculatorFragment" >
         <action
             android:id="@+id/action_earlyPayoutCalculatorFragment_to_refundCalculatorFragment"
@@ -239,7 +239,7 @@
     </fragment>
     <fragment
         android:id="@+id/userGuideFragment"
-        android:name="com.example.android.kevkane87.matchedbettingcalculator.userguide.UserGuideFragment"
+        android:name="com.kevkane87.matchedbettingcalculator.userguide.UserGuideFragment"
         android:label="UserGuideFragment" >
         <action
             android:id="@+id/action_userGuideFragment_to_earlyPayoutCalculatorFragment"

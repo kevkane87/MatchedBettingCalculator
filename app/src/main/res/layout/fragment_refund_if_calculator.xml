@@ -6,7 +6,7 @@
     <data>
         <variable
             name="refundIfCalculatorViewModel"
-            type="com.example.android.kevkane87.matchedbettingcalculator.refundifcalculator.RefundIfCalculatorViewModel" />
+            type="com.kevkane87.matchedbettingcalculator.refundifcalculator.RefundIfCalculatorViewModel" />
     </data>
 
     <ScrollView

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="normalCalculatorViewModel"
-            type="com.example.android.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculatorViewModel" />
+            type="com.kevkane87.matchedbettingcalculator.normalcalculator.NormalCalculatorViewModel" />
     </data>
 
     <ScrollView

@@ -8,7 +8,7 @@
 
         <variable
             name="savedBetsViewModel"
-            type="com.example.android.kevkane87.matchedbettingcalculator.savedbets.SavedBetsViewModel" />
+            type="com.kevkane87.matchedbettingcalculator.savedbets.SavedBetsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

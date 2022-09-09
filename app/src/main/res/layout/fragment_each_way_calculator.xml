@@ -6,7 +6,7 @@
     <data>
         <variable
             name="eachWayCalculatorViewModel"
-            type="com.example.android.kevkane87.matchedbettingcalculator.eachwaycalculator.EachWayCalculatorViewModel" />
+            type="com.kevkane87.matchedbettingcalculator.eachwaycalculator.EachWayCalculatorViewModel" />
     </data>
 
     <ScrollView

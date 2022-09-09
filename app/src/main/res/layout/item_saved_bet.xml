@@ -8,7 +8,7 @@
     <data>
         <variable
             name="bet"
-            type="com.example.android.kevkane87.matchedbettingcalculator.MatchedBetDTO" />
+            type="com.kevkane87.matchedbettingcalculator.MatchedBetDTO" />
     </data>
 
     <androidx.cardview.widget.CardView
