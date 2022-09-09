@@ -50,13 +50,13 @@ class SavedBetsFragment : Fragment() {
     private fun deleteBetDialog(bet : MatchedBetDTO, position: Int) {
         val builder: android.app.AlertDialog.Builder =
             android.app.AlertDialog.Builder(requireContext())
-        builder.setTitle("Delete Bet?")
+        builder.setTitle(getString(R.string.delete_bet))
 
-        builder.setPositiveButton("Delete") { _, _ ->
+        builder.setPositiveButton(getString(R.string.delete)) { _, _ ->
             viewModel.deleteBet(bet.id)
             viewModel.betList.value?.removeAt(position)
             _binding?.savedBetsRecycler?.adapter?.notifyDataSetChanged()
-            Toast.makeText(context, "Bet Deleted", Toast.LENGTH_SHORT)
+            Toast.makeText(context, getString(R.string.bet_deleted), Toast.LENGTH_SHORT)
                 .show()
         }
 

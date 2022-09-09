@@ -36,7 +36,7 @@ fun doubleToCurrencyString(textView: TextView, number: Double) {
 
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(textView.context)
     val currency = sharedPreferences?.getString("key_currency", "£").toString()
-    val format = NumberFormat.getCurrencyInstance()
+    val format = NumberFormat.getCurrencyInstance(Locale.UK)
 
     when(currency){
         "£" -> format.currency = Currency.getInstance("GBP")

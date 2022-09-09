@@ -65,6 +65,10 @@
         <item name="android:itemTextAppearance">@color/white</item>
     </style>
 
+    <style name="CardTheme" parent = "Widget.MaterialComponents.CardView">
+
+    </style>
+
     <style name="DialogTheme" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="colorAccent">@color/green_primary</item>
         <item name="buttonBarButtonStyle">@style/DatePickerTheme.ButtonBarStyle</item>

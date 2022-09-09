@@ -20,20 +20,20 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/about_odds_converter_calc"
                 style="@style/text_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/odds_converter_calc_guide"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/heading_about_each_way_calc5" />
+                app:layout_constraintEnd_toEndOf="@+id/about_matched_betting_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_matched_betting_calc"
+                app:layout_constraintTop_toBottomOf="@+id/heading_about_odds_converter_calc" />
 
             <TextView
-                android:id="@+id/heading_about_each_way_calc5"
+                android:id="@+id/heading_about_odds_converter_calc"
                 style="@style/text_normal"
-                android:layout_width="363dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/subheading"
@@ -42,14 +42,14 @@
                 android:textColor="@color/green_primary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView8"
-                app:layout_constraintStart_toStartOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+                app:layout_constraintEnd_toEndOf="@+id/about_early_payout_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_early_payout_calc"
+                app:layout_constraintTop_toBottomOf="@+id/about_early_payout_calc" />
 
             <TextView
-                android:id="@+id/heading_about_each_way_calc4"
+                android:id="@+id/heading_about_early_payout_calc"
                 style="@style/text_normal"
-                android:layout_width="363dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/subheading"
@@ -58,14 +58,14 @@
                 android:textColor="@color/green_primary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView6"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintEnd_toEndOf="@+id/about_refund_if_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_refund_if_calc"
+                app:layout_constraintTop_toBottomOf="@+id/about_refund_if_calc" />
 
             <TextView
-                android:id="@+id/heading_about_each_way_calc3"
+                android:id="@+id/heading_about_refund_if_calc"
                 style="@style/text_normal"
-                android:layout_width="363dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/subheading"
@@ -74,25 +74,25 @@
                 android:textColor="@color/green_primary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+                app:layout_constraintEnd_toEndOf="@+id/about_refund_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_refund_calc"
+                app:layout_constraintTop_toBottomOf="@+id/about_refund_calc" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/about_refund_calc"
                 style="@style/text_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/refund_calc_guide"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/heading_about_each_way_calc2" />
+                app:layout_constraintEnd_toEndOf="@+id/about_matched_betting_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_matched_betting_calc"
+                app:layout_constraintTop_toBottomOf="@+id/heading_about_refund_calc" />
 
             <TextView
-                android:id="@+id/heading_about_each_way_calc2"
+                android:id="@+id/heading_about_refund_calc"
                 style="@style/text_normal"
-                android:layout_width="363dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/subheading"
@@ -101,14 +101,14 @@
                 android:textColor="@color/green_primary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView3"
-                app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                app:layout_constraintEnd_toEndOf="@+id/about_each_way_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_each_way_calc"
+                app:layout_constraintTop_toBottomOf="@+id/about_each_way_calc" />
 
             <TextView
                 android:id="@+id/heading_about_each_way_calc"
                 style="@style/text_normal"
-                android:layout_width="363dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_large"
                 android:background="@drawable/subheading"
@@ -117,9 +117,9 @@
                 android:textColor="@color/green_primary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintEnd_toEndOf="@+id/about_matched_betting_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_matched_betting_calc"
+                app:layout_constraintTop_toBottomOf="@+id/about_matched_betting_calc" />
 
             <TextView
                 android:id="@+id/heading_about_matched_betting_calc"
@@ -154,7 +154,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/about_matched_betting_calc"
                 style="@style/text_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -165,37 +165,37 @@
                 app:layout_constraintTop_toBottomOf="@+id/heading_about_matched_betting_calc" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/about_each_way_calc"
                 style="@style/text_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/each_way_calc_guide"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="@+id/about_matched_betting_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_matched_betting_calc"
                 app:layout_constraintTop_toBottomOf="@+id/heading_about_each_way_calc" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/about_refund_if_calc"
                 style="@style/text_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/refund_if_calc_guide"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/heading_about_each_way_calc3" />
+                app:layout_constraintEnd_toEndOf="@+id/about_matched_betting_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_matched_betting_calc"
+                app:layout_constraintTop_toBottomOf="@+id/heading_about_refund_if_calc" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/about_early_payout_calc"
                 style="@style/text_normal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/early_payout_calc_guide"
-                app:layout_constraintEnd_toEndOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/heading_about_each_way_calc4" />
+                app:layout_constraintEnd_toEndOf="@+id/about_matched_betting_calc"
+                app:layout_constraintStart_toStartOf="@+id/about_matched_betting_calc"
+                app:layout_constraintTop_toBottomOf="@+id/heading_about_early_payout_calc" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Matched Betting Calculator</string>
-    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="back_bet_stake">Back Bet Stake</string>
@@ -56,7 +56,7 @@
     <string name="intro">This application provides a variety of calculators for matched betting.  It is expected that the user has prior knowledge of matched betting strategies. The appropriate lay stakes and profits are calculated and displayed automatically on input of data.\n\nThe application also includes a ‘Bet Reminder’ function to set notification reminders at a time in the future.</string>
 
     <string name="user_guide">User Guide</string>
-    <string name="matched_betting_calc_guide">This calculator is used for normal matched betting calculations. Firstly, make sure you select the correct type of bet: \n\n\u25CF Qualifier: Standard back and lay bet. Also used for arbitrage bets \n\u25CF SNR (Stake not returned free bet) : Bookmaker fee bet which returns only the winnings from the free bet and not the stake \n\u25CF SR (Stake returned free bet): Bookmaker free bet which returns the stake with the winnings\n\nEnter the relevant input details to show results. Results can be displayed as normal, underlay, overlay or custom. Selecting custom will allow you to vary the lay stake using the slider bar.\n\nCalculator also used for partially matched bets where the original lay bet did not get fully matched. Select ‘Partially Matched’ and enter the details of the partially matched bet. Make sure to set the current market lay odds in the main input data and the appropriate lay stakes will be calculated to match the bet.</string>
+    <string name="matched_betting_calc_guide">This calculator is used for normal matched betting calculations. Firstly, make sure you select the correct type of bet: \n\n\u25CF Qualifier: Standard back and lay bet. Also used for arbitrage bets \n\u25CF SNR (Stake not returned free bet) : Bookmaker free bet which returns only the winnings from the free bet and not the stake \n\u25CF SR (Stake returned free bet): Bookmaker free bet which returns the stake with the winnings\n\nEnter the relevant input details to show results. Results can be displayed as normal, underlay, overlay or custom. Selecting custom will allow you to vary the lay stake using the slider bar.\n\nCalculator also used for partially matched bets where the original lay bet did not get fully matched. Select ‘Partially Matched’ and enter the details of the partially matched bet. Make sure to set the current market lay odds in the main input data and the appropriate lay stakes will be calculated to match the bet.</string>
     <string name="each_way_calc_guide">Used for each way matched bets and each way extra place offers. Select correct type of bet: Qualifier, SNR or SR and enter relevant input data to show results. Check the ‘Extra Place Offer’ checkbox to also show potential profit of an extra place if the bookmaker is paying out more places than the exchange.</string>
     <string name="refund_calc_guide">Used for offers where the bookmaker refunds stake on losing bets as either cash or free bet. If the refund is cash set the ‘Refund Retention’ to 100%. If the refund is a free bet set this to the percentage of the free bet you expect to turn into cash (typically 70%-80%). The results will show the required lay stake to lock in a profit.</string>
     <string name="refund_if_calc_guide">Used for offers where the bookmaker refunds stakes as either cash or free bet due a specific outcome or trigger happening. For example, a refund on bets on a football game if a specific player scores, or a refund on a horse racing bet if the favourite wins. As well as laying the initial bet, the refund trigger can be layed as well to lock in a profit. Can also be used for 4/1 offers, in which case the refund trigger is the same as the initial bet and overall lay stake would be the sum of the initial and refund trigger lay stakes shown in the results.</string>
@@ -115,7 +115,12 @@
     <string name="early_payout_calculator">Early Payout Calculator</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="reminders_description">This function allows you to set a reminder notification to be received on your device at a time in the future. The notification will display any text entered below (can also be left blank). Press button to set date and time for the reminder. Please note that in some cases the reminder notification can be delayed by up to an hour. This is due to the device operating system optimisation for battery usage. It is therefore not recommended that this function be used as an important alarm at precise times. The device should not be in battery saving mode while using this function.</string>
 
+
+    <string name="delete_bet">Delete Bet?</string>
+    <string name="bet_deleted">Bet deleted</string>
+    <string name="delete">Delete</string>
 
     <string-array name="pref_lay_commission_labels">
         <item>0%</item>

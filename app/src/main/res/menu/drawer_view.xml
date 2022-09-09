@@ -51,7 +51,7 @@
         <item
             android:id="@+id/settings_drawer_select"
             android:icon="@drawable/ic_baseline_settings_24"
-            android:title="@string/action_settings" />
+            android:title="@string/settings" />
     </group>
 
 </menu>
