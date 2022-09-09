@@ -63,8 +63,6 @@ class RemindersFragment : Fragment() {
         bundle.putSerializable(Constants.REMINDER_ID, message)
         intent.putExtra(Constants.REMINDER_ID, bundle)
 
-        Log.d("message sent ", message)
-
         alarmIntent = intent.let { intent ->
             PendingIntent.getBroadcast(context, createID(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
         }
@@ -74,7 +72,7 @@ class RemindersFragment : Fragment() {
             dateTimeReminder.timeInMillis,
             alarmIntent
         )
-        Toast.makeText(context, "Reminder is set", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.reminder_is_set), Toast.LENGTH_SHORT).show()
 
     }
 

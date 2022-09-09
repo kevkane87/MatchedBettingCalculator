@@ -116,7 +116,7 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
     <string name="reminders_description">This function allows you to set a reminder notification to be received on your device at a time in the future. The notification will display any text entered below (can also be left blank). Press button to set date and time for the reminder. Please note that in some cases the reminder notification can be delayed by up to an hour. This is due to the device operating system optimisation for battery usage. It is therefore not recommended that this function be used as an important alarm at precise times. The device should not be in battery saving mode while using this function.</string>
-
+    <string name="reminder_is_set">Reminder is set</string>
 
     <string name="delete_bet">Delete Bet?</string>
     <string name="bet_deleted">Bet deleted</string>
