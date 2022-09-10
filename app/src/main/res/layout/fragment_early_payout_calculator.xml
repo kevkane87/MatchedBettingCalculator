@@ -55,7 +55,6 @@
                         android:inputType="number|numberDecimal"
                         android:maxLength="10"
                         android:minHeight="48dp"
-                        android:nextFocusDown="@id/back_bet_odds"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="@+id/ex_commission"
                         app:layout_constraintTop_toTopOf="@+id/in_play_back_odds" />
