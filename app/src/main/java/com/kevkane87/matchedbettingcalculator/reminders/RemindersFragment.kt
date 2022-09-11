@@ -63,7 +63,7 @@ class RemindersFragment : Fragment() {
         intent.putExtra(Constants.REMINDER_ID, bundle)
 
         alarmIntent = intent.let { intent ->
-            PendingIntent.getBroadcast(context, createID(), intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getBroadcast(context, createID(), intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         }
 
         alarmMgr?.set(
