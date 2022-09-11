@@ -205,7 +205,7 @@ class RefundCalculatorFragment : Fragment() {
             val name = input.text.toString()
             if (name.isEmpty()) viewModel.betName.value = "" else viewModel.betName.value =
                 name
-            viewModel.setBetDetails()
+            viewModel.setBetDetails(currency)
             viewModel.saveBet()
             Toast.makeText(context, activity?.getString(R.string.bet_saved), Toast.LENGTH_SHORT)
                 .show()

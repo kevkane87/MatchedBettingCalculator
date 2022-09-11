@@ -340,11 +340,19 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
         }
     }
 
-    fun setBetDetails() {
+    fun setBetDetails(currency: String){
+
+        val cf = NumberFormat.getCurrencyInstance(Locale.UK)
+
+        when(currency){
+            "£" -> cf.currency = Currency.getInstance("GBP")
+            "€" -> cf.currency = Currency.getInstance("EUR")
+            "$" -> cf.currency = Currency.getInstance("USD")
+        }
 
         val builder = StringBuilder()
         val df = DecimalFormat("#.######")
-        val cf = NumberFormat.getCurrencyInstance(Locale.UK)
+
 
         builder.append("E/W stake: " + cf.format(_backBetStakeEw.value))
         builder.append(", Back odds: " + df.format(_backBetOdds.value))
@@ -376,7 +384,7 @@ class EachWayCalculatorViewModel(application: Application) : ViewModel() {
             builder.append("Profit: " + cf.format(_profitBackWins.value))
         }
 
-        _betDetails.value = builder.toString()
+        _betDetails.value = builder.toString().replace("US","")
     }
 
 

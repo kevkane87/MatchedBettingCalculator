@@ -63,7 +63,6 @@
     <string name="early_payout_calc_guide">Used for offers where the bookmaker pays out early during an event. For example, they pay out a football team as the winner if they go 2 goals up during the game. At this point, an in-play back bet can be placed to lock in a profit. The in-play back bet should only ever be placed after the early payout has been triggered. Use the slider to vary the in-play back bet stake if you do not wish to lock in a profit.</string>
     <string name="odds_converter_calc_guide">Converts between decimal, fractional and American odds. Also shows implied probability.</string>
 
-    <string name="find_bets_description">Searches real time odds for various UK bookmakers for upcoming English Premier League football games. The bets are shown based on the best rating for matched bet (100% rating = 100% of bookmaker stake retained after playing qualifying matched bet). Click on the bet to open in calculator.</string>
 
     <string name="save_bets_description">Shows a list of the saved bets on the device. Click on the bet to open in calculator.</string>
     <string name="bet_reminder">Bet Reminder</string>
@@ -115,7 +114,7 @@
     <string name="early_payout_calculator">Early Payout Calculator</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
-    <string name="reminders_description">This function allows you to set a reminder notification to be received on your device at a time in the future. The notification will display any text entered below (can also be left blank). Press button to set date and time for the reminder. Please note that in some cases the reminder notification can be delayed by up to an hour. This is due to the device operating system optimisation for battery usage. It is therefore not recommended that this function be used as an important alarm at precise times. The device should not be in battery saving mode while using this function.</string>
+    <string name="reminders_description">This function allows you to set a reminder notification to be received on your device at a time in the future. The notification will display any text entered below (can also be left blank). Press button to set date and time for the reminder. Please note that in some cases the reminder notification can be delayed, particularly if the device is in sleep mode. This is due to the device operating system optimisation for battery usage. It is therefore not recommended that this function be used as an important alarm at precise times. The device should not be in battery saving mode while using this function.</string>
     <string name="reminder_is_set">Reminder is set</string>
 
     <string name="delete_bet">Delete Bet?</string>

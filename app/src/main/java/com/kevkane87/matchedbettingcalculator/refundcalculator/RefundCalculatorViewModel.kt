@@ -183,11 +183,19 @@ class RefundCalculatorViewModel(application: Application) : ViewModel() {
     }
 
 
-    fun setBetDetails() {
+    fun setBetDetails(currency: String){
+
+        val cf = NumberFormat.getCurrencyInstance(Locale.UK)
+
+        when(currency){
+            "£" -> cf.currency = Currency.getInstance("GBP")
+            "€" -> cf.currency = Currency.getInstance("EUR")
+            "$" -> cf.currency = Currency.getInstance("USD")
+        }
 
         val builder = StringBuilder()
         val df = DecimalFormat("#.######")
-        val cf = NumberFormat.getCurrencyInstance(Locale.UK)
+
 
         builder.append("Back stake: " + cf.format(_backBetStake.value))
         builder.append(", Back odds: " + df.format(_backBetOdds.value))
@@ -210,7 +218,7 @@ class RefundCalculatorViewModel(application: Application) : ViewModel() {
 
         builder.append("Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
 
-        _betDetails.value = builder.toString()
+        _betDetails.value = builder.toString().replace("US","")
     }
 
     private fun getDate(): String {

@@ -2,9 +2,11 @@ package com.kevkane87.matchedbettingcalculator.normalcalculator
 
 import android.app.Application
 import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.preference.PreferenceManager
 import com.kevkane87.matchedbettingcalculator.*
 import com.kevkane87.matchedbettingcalculator.database.BetDatabase.Companion.getDatabase
 import com.kevkane87.matchedbettingcalculator.MatchedBetDTO
@@ -529,11 +531,18 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
         }
     }
 
-    fun setBetDetails(){
+    fun setBetDetails(currency: String){
+
+        val cf = NumberFormat.getCurrencyInstance(Locale.UK)
+
+        when(currency){
+            "£" -> cf.currency = Currency.getInstance("GBP")
+            "€" -> cf.currency = Currency.getInstance("EUR")
+            "$" -> cf.currency = Currency.getInstance("USD")
+        }
 
         val builder = StringBuilder()
         val df = DecimalFormat("#.######")
-        val cf = NumberFormat.getCurrencyInstance(Locale.UK)
 
         builder.append("Matched bet type: " + _betType.value + "\n")
 
@@ -561,8 +570,7 @@ class NormalCalculatorViewModel(application: Application) : ViewModel() {
 
         builder.append("Profit: " + cf.format(_profitBackWins.value) + " (Back wins) " + cf.format(_profitLayWins.value) + " (Lay wins)")
 
-
-        _betDetails.value = builder.toString()
+        _betDetails.value = builder.toString().replace("US","")
     }
 
     private fun getDate(): String{
