@@ -1,6 +1,6 @@
 # MatchedBettingCalculator
 
-# Project Description
+## Project Description
 
 Matched Betting Calculator is an Android application which provides various calculators for different matched betting strategies, allowing the user to quickly place bets with the correct stake. Additional features include the ability to save bets, set reminder notifications and set default settings.
 
